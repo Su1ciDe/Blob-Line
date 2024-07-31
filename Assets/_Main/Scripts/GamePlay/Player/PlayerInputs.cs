@@ -1,4 +1,5 @@
 using Fiber.Managers;
+using Fiber.Utilities;
 using Interfaces;
 using Lean.Touch;
 using UnityEngine;
@@ -12,14 +13,17 @@ namespace GamePlay.Player
 
 		[SerializeField] private LayerMask touchLayers;
 
-		public event UnityAction<Vector3> OnDown;
-		public event UnityAction<Vector3> OnMove;
-		public event UnityAction<Vector3> OnUp;
+		[Space]
+		[SerializeField] private LineController lineController;
+
+		public static event UnityAction<Vector3> OnDown;
+		public static event UnityAction<Vector3> OnMove;
+		public static event UnityAction<Vector3> OnUp;
 
 		private void Awake()
 		{
 			Input.multiTouchEnabled = false;
-			
+
 			LeanTouch.OnFingerDown += OnFingerDown;
 			LeanTouch.OnFingerUpdate += OnFingerUpdate;
 			LeanTouch.OnFingerUp += OnFingerUp;
@@ -36,32 +40,59 @@ namespace GamePlay.Player
 			LeanTouch.OnFingerUp -= OnFingerUp;
 
 			LevelManager.OnLevelStart -= OnLevelStarted;
-			LevelManager.OnLevelStart -= OnLevelWon;
-			LevelManager.OnLevelStart -= OnLevelLost;
+			LevelManager.OnLevelWin -= OnLevelWon;
+			LevelManager.OnLevelLose -= OnLevelLost;
 		}
 
 		private void OnFingerDown(LeanFinger finger)
 		{
+			if (!CanInput) return;
+			if (finger.IsOverGui) return;
+
+			var ray = finger.GetRay(Helper.MainCamera);
+			if (Physics.Raycast(ray, out var hit, 200, touchLayers))
+			{
+				OnDown?.Invoke(hit.point);
+			}
 		}
 
 		private void OnFingerUpdate(LeanFinger finger)
 		{
+			if (!CanInput) return;
+			if (finger.IsOverGui) return;
+
+			var ray = finger.GetRay(Helper.MainCamera);
+			if (Physics.Raycast(ray, out var hit, 200, touchLayers))
+			{
+				OnMove?.Invoke(hit.point);
+			}
 		}
 
 		private void OnFingerUp(LeanFinger finger)
 		{
+			if (!CanInput) return;
+			if (finger.IsOverGui) return;
+
+			var ray = finger.GetRay(Helper.MainCamera);
+			if (Physics.Raycast(ray, out var hit, 200, touchLayers))
+			{
+				OnUp?.Invoke(hit.point);
+			}
 		}
 
 		private void OnLevelStarted()
 		{
+			CanInput = true;
 		}
 
 		private void OnLevelWon()
 		{
+			CanInput = false;
 		}
 
 		private void OnLevelLost()
 		{
+			CanInput = false;
 		}
 	}
 }

@@ -102,16 +102,17 @@ namespace Fiber.Utilities.Extensions
 		#endregion
 
 		#region List
-		
+
 		/// <summary>
 		/// Adds an item to the current collection if it is not already in the collection
 		/// </summary>
-		/// <param name="item">The item to add to current collection</param>
-		/// <typeparam name="T"></typeparam>
-		public static void AddIfNotContains<T>(this IList<T> list, T item)
+		/// <param name="item">The item to add to the current collection</param>
+		/// <returns>Whether it is added or not</returns>
+		public static bool AddIfNotContains<T>(this IList<T> list, T item)
 		{
-			if (!list.Contains(item))
-				list.Add(item);
+			if (list.Contains(item)) return false;
+			list.Add(item);
+			return true;
 		}
 
 		/// <summary>

@@ -29,5 +29,14 @@ namespace GamePlay.Blobs
 			transform.SetParent(placedCell.transform);
 			transform.localPosition = Vector3.zero;
 		}
+
+		public void OnAddedToLine()
+		{
+			
+		}
+		public void OnRemovedFromLine()
+		{
+			
+		}
 	}
 }
