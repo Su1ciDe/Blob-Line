@@ -1,13 +1,21 @@
 using Fiber.Managers;
-using UnityEngine;
+using Fiber.Utilities;
+using Interfaces;
 
 namespace GamePlay.Player
 {
 	/// <summary>
 	/// /// Handle Player Specific Information Assigning,  ...
 	/// </summary>
-	public class Player : MonoBehaviour
+	public class Player : Singleton<Player>
 	{
+		public IInputs Inputs { get; private set; }
+
+		private void Awake()
+		{
+			Inputs = GetComponent<IInputs>();
+		}
+
 		private void OnEnable()
 		{
 			LevelManager.OnLevelLoad += OnLevelLoaded;

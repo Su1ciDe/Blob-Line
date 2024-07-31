@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a61f4db92c801674697719da35a45184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blobMaterialsSO: {fileID: 11400000, guid: c37890494bdee436997a5c1294e39a33, type: 2}
 --- !u!114 &1554739255217567303
 MonoBehaviour:
   m_ObjectHideFlags: 0

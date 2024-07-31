@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157ae077f4ce4085bf16976e898410d9, type: 3}
+  m_Name: Level_000
+  m_EditorClassIdentifier: 
+  Grid:
+    gridSize: {x: 6, y: 8}
+    cellSize: {x: 64, y: 16}
+    cells:
+    - row: 030000000300000003000000030000000300000002000000
+    - row: 030000000300000003000000020000000200000002000000
+    - row: 020000000300000002000000020000000300000002000000
+    - row: 030000000300000002000000020000000300000002000000
+    - row: 020000000200000002000000030000000200000003000000
+    - row: 020000000300000002000000030000000200000002000000
+    - row: 020000000200000002000000020000000200000002000000
+    - row: 020000000300000003000000020000000300000003000000
+  randomCells:
+  - CellType: 2
+    Weight: 50
+  - CellType: 3
+    Weight: 50
+  GridSpawner: []
+  totalWeight: 0

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomizeAfterRotation: 1
+  levelPrefab: {fileID: 3210734524189124999, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
   Levels:
-  - {fileID: 3210734524189124999, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
+  - {fileID: 11400000, guid: 2734d14f11b7b42bbabe30f38a95ed4d, type: 2}
   TutorialLevels: []
