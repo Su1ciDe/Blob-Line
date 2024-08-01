@@ -1,5 +1,5 @@
 using Fiber.Utilities;
-using Managers;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Fiber.Managers

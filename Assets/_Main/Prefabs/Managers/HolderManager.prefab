@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3341088512288250571
+--- !u!1 &5957054131955204115
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4149087140007464385}
-  - component: {fileID: 2533239925253678311}
+  - component: {fileID: 2953569502269729727}
+  - component: {fileID: 5024624376233589635}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: HolderManager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4149087140007464385
+--- !u!4 &2953569502269729727
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3341088512288250571}
+  m_GameObject: {fileID: 5957054131955204115}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2533239925253678311
+--- !u!114 &5024624376233589635
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3341088512288250571}
+  m_GameObject: {fileID: 5957054131955204115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c24f028d578f4a8dbdfc7a3bd401e897, type: 3}
+  m_Script: {fileID: 11500000, guid: 0641ac570b0f4c8f8480bcc1c10ce939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeSize: {x: 1, y: 1}
-  xSpacing: 0.2
-  ySpacing: 0.2
-  cellPrefab: {fileID: 8037148922627792176, guid: 4132ee6688dc845b98d04dd76b75592e, type: 3}
-  blobPrefab: {fileID: 2458423890142415943, guid: cca808f1792334bce8388c2856ccd675, type: 3}
-  obstaclesSO: {fileID: 11400000, guid: 3ebc1aa27affc414fb764ca60cd57949, type: 2}
+  holderCount: 5
+  holderPrefab: {fileID: 3920393180453458346, guid: 29ec648ab93004cd0abd89e21aa442cf, type: 3}

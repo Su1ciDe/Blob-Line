@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3dd7925552947b48f541696711f4d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 4674697083547092882}
   meshRenderer: {fileID: 5736253533371216608}
 --- !u!1 &7106192168725733368
 GameObject:
@@ -189,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4674697083547092882}
   m_Layer: 8
-  m_Name: GameObject
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

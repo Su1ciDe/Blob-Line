@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Fiber.Managers;
 using GridSystem;
 using Interfaces;
@@ -11,6 +12,7 @@ namespace GamePlay.Blobs
 		public GridCell CurrentGridCell { get; set; }
 		public CellType CellType { get; private set; }
 
+		[SerializeField] private Transform model;
 		[SerializeField] private MeshRenderer meshRenderer;
 
 		public void Setup(CellType cellType, GridCell cell)
@@ -27,16 +29,20 @@ namespace GamePlay.Blobs
 			CurrentGridCell.CurrentNode = this;
 
 			transform.SetParent(placedCell.transform);
-			transform.localPosition = Vector3.zero;
+			transform.localPosition = new Vector3(0, 0.5f, 0);
 		}
 
 		public void OnAddedToLine()
 		{
-			
+			model.DOKill();
+			model.transform.localScale = Vector3.zero;
+			model.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
 		}
+
 		public void OnRemovedFromLine()
 		{
-			
+			model.DOKill();
+			model.DOScale(Vector3.one, 0.25f).SetEase(Ease.InBack);
 		}
 	}
 }

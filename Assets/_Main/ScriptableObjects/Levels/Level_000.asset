@@ -31,3 +31,9 @@ MonoBehaviour:
     Weight: 50
   GridSpawner: []
   totalWeight: 0
+  GoalStages:
+  - Goals:
+    - GaolColor: 0
+      Count: 0
+    - GaolColor: 0
+      Count: 0

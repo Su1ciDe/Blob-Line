@@ -3,6 +3,7 @@ using Fiber.Managers;
 using Fiber.Utilities.Extensions;
 using GamePlay.Blobs;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GamePlay.Player
 {
@@ -14,6 +15,11 @@ namespace GamePlay.Player
 		[SerializeField] private LineRenderer lineRenderer;
 		[SerializeField] private LineRenderer fakeLineRenderer;
 		[SerializeField] private Collider col;
+
+		[Space]
+		[SerializeField] private float distanceThreshold = 2;
+
+		public static event UnityAction<List<Blob>> OnLineComplete;
 
 		private void OnEnable()
 		{
@@ -47,7 +53,8 @@ namespace GamePlay.Player
 					{
 						OnBlobAdded(blob);
 					}
-					else if (CurrentSelectedBlob.CellType == blob.CellType)
+					else if (CurrentSelectedBlob.CellType == blob.CellType &&
+					         Mathf.Abs((CurrentSelectedBlob.transform.position - blob.transform.position).sqrMagnitude) < distanceThreshold * distanceThreshold)
 					{
 						OnBlobAdded(blob);
 					}
@@ -59,28 +66,15 @@ namespace GamePlay.Player
 			}
 		}
 
-		private void OnTriggerExit(Collider other)
-		{
-			// if (other.attachedRigidbody && other.attachedRigidbody.TryGetComponent(out Blob blob))
-			// {
-			// 	if (BlobsInLine.Contains(blob) && BlobsInLine.IndexOf(blob).Equals(BlobsInLine.Count - 2))
-			// 	{
-			// 		BlobsInLine[^1].OnRemovedFromLine();
-			// 		BlobsInLine.RemoveAt(BlobsInLine.Count - 1);
-			// 	}
-			// 	
-			// 	 CurrentSelectedBlob = BlobsInLine.Count > 0 ? BlobsInLine[^1] : null;
-			// }
-		}
-
 		private void OnBlobAdded(Blob blob)
 		{
 			BlobsInLine.Add(blob);
 			blob.OnAddedToLine();
 			CurrentSelectedBlob = blob;
 
-			lineRenderer.Queue(blob.transform.position);
-			// lineRenderer.SetPosition(BlobsInLine.Count - 1, blob.transform.position);
+			var blobPos = blob.transform.position;
+			lineRenderer.Queue(blobPos);
+			fakeLineRenderer.SetPosition(0, blobPos);
 		}
 
 		private void OnBlobRemoved(Blob blob)
@@ -93,12 +87,14 @@ namespace GamePlay.Player
 				BlobsInLine.RemoveAt(BlobsInLine.Count - 1);
 				lineRenderer.Pop();
 			}
+
+			CurrentSelectedBlob = BlobsInLine[^1];
+			fakeLineRenderer.SetPosition(0, CurrentSelectedBlob.transform.position);
 		}
 
 		private void OnInputDown(Vector3 pos)
 		{
 			transform.position = pos;
-			// lineRenderer.Queue();
 		}
 
 		private void OnInputMove(Vector3 pos)
@@ -107,18 +103,20 @@ namespace GamePlay.Player
 
 			if (BlobsInLine.Count > 0)
 			{
-				// lineRenderer.positionCount = BlobsInLine.Count + 1;
-				// lineRenderer.SetPosition(BlobsInLine.Count, transform.position);
-
-				// lineRenderer.GetPosition(lineRenderer.positionCount - 1);
+				fakeLineRenderer.SetPosition(1, transform.position);
 			}
 		}
 
 		private void OnInputUp(Vector3 pos)
 		{
-			// TODO: goal
+			if (BlobsInLine.Count > 2)
+			{
+				OnLineComplete?.Invoke(BlobsInLine);
+			}
 
 			lineRenderer.Clear();
+			fakeLineRenderer.SetPosition(0, Vector3.zero);
+			fakeLineRenderer.SetPosition(1, Vector3.zero);
 			BlobsInLine.Clear();
 		}
 

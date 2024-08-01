@@ -8,6 +8,7 @@ namespace LevelEditor
 {
 	[CreateAssetMenu(fileName = "Level_000", menuName = "Blob Line/Level Data", order = 0)]
 	[DeclareFoldoutGroup("Randomizer")]
+	[DeclareBoxGroup("Goal")]
 	public class LevelDataSO : ScriptableObject
 	{
 		[Title("Grid")]
@@ -36,6 +37,9 @@ namespace LevelEditor
 		public GridSpawnerOptions[] GridSpawner;
 		[SerializeField, DisplayAsString] private int totalWeight;
 
+		[Title("Goals"),InlineProperty]
+		public GoalStage[] GoalStages;
+
 		[Serializable]
 		public class GridSpawnerOptions
 		{
@@ -50,6 +54,20 @@ namespace LevelEditor
 			public CellType CellType;
 			[Range(1, 100)]
 			public int Weight;
+		}
+
+		[Serializable]
+		public class GoalStage
+		{
+			[TableList(Draggable = true, AlwaysExpanded = true)]
+			public GoalOptions[] Goals;
+
+			[Serializable]
+			public class GoalOptions
+			{
+				public CellType GaolColor = CellType.Blue;
+				public int Count;
+			}
 		}
 
 		private void OnValidate()
