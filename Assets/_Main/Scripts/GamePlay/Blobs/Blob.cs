@@ -35,8 +35,8 @@ namespace GamePlay.Blobs
 		public void OnAddedToLine()
 		{
 			model.DOKill();
-			model.transform.localScale = Vector3.zero;
-			model.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
+			model.transform.localScale = 0.5f * Vector3.one;
+			model.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack, 3f);
 		}
 
 		public void OnRemovedFromLine()

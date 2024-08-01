@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using Fiber.AudioSystem;
 using Fiber.Managers;
 using Fiber.Utilities.Extensions;
 using GamePlay.Blobs;
+using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -75,6 +77,9 @@ namespace GamePlay.Player
 			var blobPos = blob.transform.position;
 			lineRenderer.Queue(blobPos);
 			fakeLineRenderer.SetPosition(0, blobPos);
+
+			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
+			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(1 + BlobsInLine.Count * .1f);
 		}
 
 		private void OnBlobRemoved(Blob blob)
@@ -90,6 +95,9 @@ namespace GamePlay.Player
 
 			CurrentSelectedBlob = BlobsInLine[^1];
 			fakeLineRenderer.SetPosition(0, CurrentSelectedBlob.transform.position);
+
+			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
+			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(1 + BlobsInLine.Count * .1f);
 		}
 
 		private void OnInputDown(Vector3 pos)
@@ -103,7 +111,9 @@ namespace GamePlay.Player
 
 			if (BlobsInLine.Count > 0)
 			{
-				fakeLineRenderer.SetPosition(1, transform.position);
+				var startPos = fakeLineRenderer.GetPosition(0);
+				var dir = (transform.position - startPos).normalized;
+				fakeLineRenderer.SetPosition(1, startPos + distanceThreshold * dir);
 			}
 		}
 
@@ -118,6 +128,7 @@ namespace GamePlay.Player
 			fakeLineRenderer.SetPosition(0, Vector3.zero);
 			fakeLineRenderer.SetPosition(1, Vector3.zero);
 			BlobsInLine.Clear();
+			CurrentSelectedBlob = null;
 		}
 
 		private void OnLevelStarted()

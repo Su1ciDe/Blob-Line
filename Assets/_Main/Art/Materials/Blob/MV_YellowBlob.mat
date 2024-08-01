@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_GreenBlob
+  m_Name: MV_YellowBlob
   m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf, type: 3}
   m_Parent: {fileID: 2100000, guid: 27c1d9fa41c874ece9167ef5eed01b98, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -28,9 +28,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats:
-    - _UseOcclusion: 0
-    - _UseOutline: 0
+    m_Floats: []
     m_Colors:
-    - _BaseColor: {r: 0.1549929, g: 0.764151, b: 0.16693713, a: 1}
+    - _BaseColor: {r: 0.9056604, g: 0.9056604, b: 0.18369527, a: 1}
   m_BuildTextureStacks: []
