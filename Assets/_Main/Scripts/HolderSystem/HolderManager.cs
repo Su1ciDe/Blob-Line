@@ -1,6 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Fiber.Managers;
 using Fiber.Utilities;
+using GamePlay.Blobs;
+using GamePlay.Player;
+using LevelEditor;
 using TriInspector;
 using UnityEngine;
 
@@ -15,14 +20,25 @@ namespace HolderSystem
 
 		private List<Holder> holders = new List<Holder>();
 
+		public const int MAX_STACK_COUNT = 5;
+
 		private void OnEnable()
 		{
 			LevelManager.OnLevelLoad += Setup;
+
+			LineController.OnLineToHolder += OnBlobsToHolder;
 		}
 
 		private void OnDisable()
 		{
 			LevelManager.OnLevelLoad -= Setup;
+
+			LineController.OnLineToHolder -= OnBlobsToHolder;
+		}
+
+		private void OnDestroy()
+		{
+			StopAllCoroutines();
 		}
 
 		private void Setup()
@@ -35,5 +51,85 @@ namespace HolderSystem
 				holders.Add(holder);
 			}
 		}
+
+		private const float HOLDER_DELAY = .1F;
+		private readonly WaitForSeconds holderDelay = new WaitForSeconds(HOLDER_DELAY);
+
+		public void OnBlobsToHolder(List<Blob> blobs)
+		{
+			StartCoroutine(OnBlobsToHolderCoroutine(blobs));
+		}
+
+		private IEnumerator OnBlobsToHolderCoroutine(List<Blob> blobs)
+		{
+			var holder = GetFirstHolder(blobs[0].CellType);
+			if (!holder)
+			{
+				LevelManager.Instance.Lose();
+				yield break;
+			}
+
+			var tempBlobs = new List<Blob>(blobs);
+
+			for (int i = 0; i < blobs.Count; i++)
+			{
+				if (holder.Blobs.Count < MAX_STACK_COUNT)
+				{
+					holder.SetBlob(blobs[i]);
+					tempBlobs.RemoveAt(i);
+					blobs[i].JumpTo(new Vector3(holder.transform.position.x, holder.transform.position.y + Holder.OFFSET * holder.Blobs.Count, holder.transform.position.z)).OnComplete(() =>
+					{
+						//
+					});
+
+					yield return holderDelay;
+				}
+				else
+				{
+					StartCoroutine(OnBlobsToHolderCoroutine(tempBlobs));
+					yield break;
+				}
+			}
+		}
+
+		public Holder GetFirstHolder(CellType cellType)
+		{
+			for (var i = 0; i < holders.Count; i++)
+			{
+				var holder = holders[i];
+				if (holder.Blobs.Count.Equals(MAX_STACK_COUNT)) continue;
+				if (holder.Blobs.Count.Equals(0))
+				{
+					return holders[i];
+				}
+				else if (holder.Blobs.Peek().CellType == cellType)
+				{
+					return holders[i];
+				}
+			}
+
+			return null;
+		}
+
+		// public IEnumerable<Blob> GetBlobsByType(CellType cellType)
+		// {
+		// 	for (var i = 0; i < holders.Count; i++)
+		// 	{
+		// 		if (holders[i].Blob && holders[i].Blob.CellType == cellType)
+		// 			yield return holders[i].Blob;
+		// 	}
+		// }
+		//
+		// public int GetEmptyHolderCount()
+		// {
+		// 	int count = 0;
+		// 	for (var i = 0; i < holders.Count; i++)
+		// 	{
+		// 		if (!holders[i].Blob)
+		// 			count++;
+		// 	}
+		//
+		// 	return count;
+		// }
 	}
 }

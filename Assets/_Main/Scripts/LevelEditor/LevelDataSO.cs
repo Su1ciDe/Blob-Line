@@ -37,8 +37,9 @@ namespace LevelEditor
 		public GridSpawnerOptions[] GridSpawner;
 		[SerializeField, DisplayAsString] private int totalWeight;
 
-		[Title("Goals"),InlineProperty]
-		public GoalStage[] GoalStages;
+		[Title("Goals")]
+		[Range(1, 4)] public int ActiveGoalCount = 1;
+		[InlineProperty, TableList] public GoalOptions[] Goals;
 
 		[Serializable]
 		public class GridSpawnerOptions
@@ -56,17 +57,42 @@ namespace LevelEditor
 			public int Weight;
 		}
 
-		[Serializable]
-		public class GoalStage
-		{
-			[TableList(Draggable = true, AlwaysExpanded = true)]
-			public GoalOptions[] Goals;
+		// [Serializable]
+		// public class GoalStage
+		// {
+		// 	[TableList(Draggable = true, AlwaysExpanded = true)]
+		// 	public GoalOptions[] Goals;
+		// }
 
-			[Serializable]
-			public class GoalOptions
+		[Serializable]
+		public class GoalOptions
+		{
+			[GUIColor("$GetColor")]
+			public CellType GaolColor = CellType.Blue;
+			public int Count;
+
+			private Color GetColor
 			{
-				public CellType GaolColor = CellType.Blue;
-				public int Count;
+				get
+				{
+					var color = GaolColor switch
+					{
+						CellType.Blue => Color.blue,
+						CellType.Green => Color.green,
+						CellType.Orange => new Color(1f, 0.5f, 0),
+						CellType.Pink => Color.magenta,
+						CellType.Purple => new Color(.7f, .25f, 1f),
+						CellType.Red => Color.red,
+						CellType.Yellow => Color.yellow,
+						CellType.Grid => Color.white,
+						CellType.Empty => Color.white,
+						CellType.BasicObstacle => Color.white,
+						CellType.BreakableObstacle => Color.white,
+						_ => throw new ArgumentOutOfRangeException()
+					};
+
+					return color;
+				}
 			}
 		}
 

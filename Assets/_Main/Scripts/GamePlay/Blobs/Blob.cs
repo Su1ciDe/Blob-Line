@@ -12,8 +12,13 @@ namespace GamePlay.Blobs
 		public GridCell CurrentGridCell { get; set; }
 		public CellType CellType { get; private set; }
 
+		public bool IsMoving { get; set; }
+
 		[SerializeField] private Transform model;
 		[SerializeField] private MeshRenderer meshRenderer;
+
+		public static float JUMP_POWER = 2;
+		public static float JUMP_DURATION = .25F;
 
 		public void Setup(CellType cellType, GridCell cell)
 		{
@@ -43,6 +48,21 @@ namespace GamePlay.Blobs
 		{
 			model.DOKill();
 			model.DOScale(Vector3.one, 0.25f).SetEase(Ease.InBack);
+		}
+
+		public void OnJumpToGoal()
+		{
+			IsMoving = true;
+		}
+
+		public void OnEnterToGoal()
+		{
+			IsMoving = false;
+		}
+
+		public Tween JumpTo(Vector3 position)
+		{
+			return transform.DOJump(position, JUMP_POWER, 1, JUMP_DURATION);
 		}
 	}
 }

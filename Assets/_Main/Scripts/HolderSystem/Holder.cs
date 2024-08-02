@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GamePlay.Blobs;
 using Interfaces;
 using UnityEngine;
@@ -6,14 +7,17 @@ namespace HolderSystem
 {
 	public class Holder : MonoBehaviour, ISlot
 	{
-		public Blob Blob { get; set; }
+		public Stack<Blob> Blobs { get; set; } = new Stack<Blob>();
 		public int Index { get; set; }
 
 		[SerializeField] private float size;
 		public float Size => size;
 
-		public void SetBlob(Blob blob, bool setPosition = true)
+		public static float OFFSET = .5f;
+
+		public void SetBlob(Blob blob)
 		{
+			Blobs.Push(blob);
 		}
 
 		public Transform GetTransform() => transform;

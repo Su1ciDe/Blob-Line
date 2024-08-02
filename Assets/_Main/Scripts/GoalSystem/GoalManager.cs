@@ -1,9 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Fiber.Managers;
 using Fiber.Utilities;
-using Fiber.Utilities.Extensions;
-using TriInspector;
+using GamePlay.Blobs;
+using GamePlay.Player;
+using HolderSystem;
+using LevelEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,14 +17,12 @@ namespace GoalSystem
 		public List<Goal> CurrentGoals { get; private set; } = new List<Goal>();
 
 		[SerializeField] private Goal goalPrefab;
-		[SerializeField] private float goalLength = 2;
+		[SerializeField] private float goalWidth = 2;
 
-		[Title("Lines")]
-		[SerializeField] private Transform[] lines = new Transform[LINE_COUNT];
+		private readonly Queue<Goal> goalQueue = new Queue<Goal>();
 
-		private List<Queue<Goal>> lineQueues = new List<Queue<Goal>>();
-
-		private const int LINE_COUNT = 3;
+		private int goalCount;
+		private float offset;
 
 		public static event UnityAction OnGoal;
 		public static event UnityAction<Goal> OnNewGoal;
@@ -30,37 +31,37 @@ namespace GoalSystem
 		{
 			LevelManager.OnLevelLoad += OnLevelLoaded;
 			LevelManager.OnLevelStart += OnLevelStarted;
+
+			LineController.OnLineToGoal += OnBlobsToGoal;
 		}
 
 		private void OnDisable()
 		{
 			LevelManager.OnLevelLoad -= OnLevelLoaded;
 			LevelManager.OnLevelStart -= OnLevelStarted;
+
+			LineController.OnLineToGoal -= OnBlobsToGoal;
+		}
+
+		private void OnDestroy()
+		{
+			StopAllCoroutines();
 		}
 
 		private void OnLevelLoaded()
 		{
-			for (int i = 0; i < LINE_COUNT; i++)
-				lineQueues.Add(new Queue<Goal>());
+			goalCount = LevelManager.Instance.CurrentLevelData.ActiveGoalCount;
+			var goals = LevelManager.Instance.CurrentLevelData.Goals;
+			offset = goalCount * goalWidth / 2f - goalWidth / 2f;
 
-			var goalStages = LevelManager.Instance.CurrentLevelData.GoalStages;
-			for (var i = 0; i < goalStages.Length; i++)
+			for (int i = 0; i < goals.Length; i++)
 			{
-				var goalStage = goalStages[i];
-				for (int j = 0; j < LINE_COUNT; j++)
-				{
-					if (goalStage.Goals.Length <= j) continue;
+				var goal = Instantiate(goalPrefab, transform);
+				goal.Setup(goals[i].GaolColor, goals[i].Count);
+				goal.gameObject.SetActive(false);
+				goalQueue.Enqueue(goal);
 
-					var line = lines[j];
-					var goalOptions = goalStage.Goals[j];
-
-					var goal = Instantiate(goalPrefab, line.transform);
-					goal.transform.SetLocalPositionZ(-goalLength * i);
-					goal.Setup(goalOptions.GaolColor, goalOptions.Count, j);
-					goal.OnComplete += OnGoalCompleted;
-
-					lineQueues[j].Enqueue(goal);
-				}
+				goal.OnComplete += OnGoalCompleted;
 			}
 		}
 
@@ -68,38 +69,84 @@ namespace GoalSystem
 		{
 			CurrentGoals.Clear();
 
-			for (int i = 0; i < LINE_COUNT; i++)
+			for (int i = 0; i < goalCount; i++)
 			{
-				if (!lineQueues[i].TryDequeue(out var goalHolder)) continue;
+				if (!goalQueue.TryDequeue(out var goal)) continue;
 
-				CurrentGoals.Add(goalHolder);
-				goalHolder.OnCurrentGoal();
+				goal.transform.localPosition = new Vector3(i * goalWidth - offset, 0, 0);
+
+				goal.OnCurrentGoal(i);
+				CurrentGoals.Add(goal);
 			}
 		}
 
 		private void OnGoalCompleted(Goal goal)
 		{
 			goal.OnComplete -= OnGoalCompleted;
+			var index = goal.Index;
 
-			var index = goal.LineIndex;
+			if (!goalQueue.TryDequeue(out var nextGoal))
+			{
+				CurrentGoals[index] = null;
+				return;
+			}
 
 			//TODO: destroy
-
-			if (!lineQueues[index].TryDequeue(out var nextGoal)) return;
+			goal.gameObject.SetActive(false);
 
 			CurrentGoals[index] = nextGoal;
-			nextGoal.MoveTo(lines[index].position).OnComplete(() =>
-			{
-				nextGoal.OnCurrentGoal();
-				OnNewGoal?.Invoke(nextGoal);
-			});
+			nextGoal.transform.position = goal.transform.position;
+			nextGoal.OnCurrentGoal(index);
+			nextGoal.Spawn().OnComplete(() => { OnNewGoal?.Invoke(nextGoal); });
+		}
 
-			var i = 1;
-			foreach (var goalInLine in lineQueues[index])
+		private void OnBlobsToGoal(List<Blob> blobsInLine, Goal goal)
+		{
+			StartCoroutine(OnBlobsToGoalCoroutine(blobsInLine, goal));
+		}
+
+		private const float GOAL_DELAY = .1F;
+		private readonly WaitForSeconds goalDelay = new WaitForSeconds(GOAL_DELAY);
+
+		private IEnumerator OnBlobsToGoalCoroutine(List<Blob> blobsInLine, Goal goal)
+		{
+			var tempList = new List<Blob>(blobsInLine);
+			for (var i = 0; i < blobsInLine.Count; i++)
 			{
-				goalInLine.MoveTo(lines[index].position + i * goalLength * Vector3.forward);
-				i++;
+				var blob = blobsInLine[i];
+				tempList.RemoveAt(i);
+				blob.OnJumpToGoal();
+				goal.OnBlobJumping(blob);
+				if (!goal.IsCompleted)
+				{
+					blob.JumpTo(goal.transform.position).OnComplete(() =>
+					{
+						blob.OnEnterToGoal();
+						goal.OnBlobEntered(blob);
+						blob.transform.DOMoveY(-5, 0.25f).SetRelative(true).SetEase(Ease.InQuad);
+					});
+				}
+				else
+				{
+					HolderManager.Instance.OnBlobsToHolder(tempList);
+				}
+
+				yield return goalDelay;
 			}
+		}
+
+		public Goal GetCurrentGoalByType(CellType cellType)
+		{
+			for (var i = 0; i < CurrentGoals.Count; i++)
+			{
+				var currentGoalHolder = CurrentGoals[i];
+				if (!currentGoalHolder) continue;
+				if (currentGoalHolder.IsCompleted) continue;
+				if (currentGoalHolder.CellType == cellType)
+					return currentGoalHolder;
+			}
+
+			return null;
 		}
 	}
 }

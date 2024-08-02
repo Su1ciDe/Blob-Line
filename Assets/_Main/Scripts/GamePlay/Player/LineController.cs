@@ -1,8 +1,10 @@
 using System.Collections.Generic;
-using Fiber.AudioSystem;
 using Fiber.Managers;
+using Fiber.AudioSystem;
 using Fiber.Utilities.Extensions;
 using GamePlay.Blobs;
+using GoalSystem;
+using HolderSystem;
 using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.Events;
@@ -21,6 +23,8 @@ namespace GamePlay.Player
 		[Space]
 		[SerializeField] private float distanceThreshold = 2;
 
+		public static event UnityAction<List<Blob>, Goal> OnLineToGoal;
+		public static event UnityAction<List<Blob>> OnLineToHolder;
 		public static event UnityAction<List<Blob>> OnLineComplete;
 
 		private void OnEnable()
@@ -121,6 +125,14 @@ namespace GamePlay.Player
 		{
 			if (BlobsInLine.Count > 2)
 			{
+				var goal = GoalManager.Instance.GetCurrentGoalByType(CurrentSelectedBlob.CellType);
+				if (goal)
+					OnLineToGoal?.Invoke(BlobsInLine, goal);
+				else
+					OnLineToHolder?.Invoke(BlobsInLine);
+
+				Player.Instance.Inputs.CanInput = false;
+
 				OnLineComplete?.Invoke(BlobsInLine);
 			}
 
@@ -133,17 +145,20 @@ namespace GamePlay.Player
 
 		private void OnLevelStarted()
 		{
+			CurrentSelectedBlob = null;
 			lineRenderer.Clear();
 			BlobsInLine.Clear();
 		}
 
 		private void OnLevelWon()
 		{
+			CurrentSelectedBlob = null;
 			BlobsInLine.Clear();
 		}
 
 		private void OnLevelLost()
 		{
+			CurrentSelectedBlob = null;
 			BlobsInLine.Clear();
 		}
 	}
