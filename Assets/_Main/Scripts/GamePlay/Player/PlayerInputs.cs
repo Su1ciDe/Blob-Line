@@ -1,5 +1,7 @@
 using Fiber.Managers;
 using Fiber.Utilities;
+using GoalSystem;
+using HolderSystem;
 using Interfaces;
 using Lean.Touch;
 using UnityEngine;
@@ -31,6 +33,9 @@ namespace GamePlay.Player
 			LevelManager.OnLevelStart += OnLevelStarted;
 			LevelManager.OnLevelWin += OnLevelWon;
 			LevelManager.OnLevelLose += OnLevelLost;
+
+			GoalManager.OnGoalSequenceComplete += OnGoalSequenceCompleted;
+			HolderManager.OnHolderSequenceComplete += OnHolderSequenceCompleted;
 		}
 
 		private void OnDestroy()
@@ -42,6 +47,9 @@ namespace GamePlay.Player
 			LevelManager.OnLevelStart -= OnLevelStarted;
 			LevelManager.OnLevelWin -= OnLevelWon;
 			LevelManager.OnLevelLose -= OnLevelLost;
+
+			GoalManager.OnGoalSequenceComplete -= OnGoalSequenceCompleted;
+			HolderManager.OnHolderSequenceComplete -= OnHolderSequenceCompleted;
 		}
 
 		private void OnFingerDown(LeanFinger finger)
@@ -78,6 +86,16 @@ namespace GamePlay.Player
 			{
 				OnUp?.Invoke(hit.point);
 			}
+		}
+
+		private void OnGoalSequenceCompleted()
+		{
+			Player.Instance.Inputs.CanInput = true;
+		}
+
+		private void OnHolderSequenceCompleted()
+		{
+			Player.Instance.Inputs.CanInput = true;
 		}
 
 		private void OnLevelStarted()

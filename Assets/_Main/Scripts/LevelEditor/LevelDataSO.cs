@@ -57,13 +57,6 @@ namespace LevelEditor
 			public int Weight;
 		}
 
-		// [Serializable]
-		// public class GoalStage
-		// {
-		// 	[TableList(Draggable = true, AlwaysExpanded = true)]
-		// 	public GoalOptions[] Goals;
-		// }
-
 		[Serializable]
 		public class GoalOptions
 		{

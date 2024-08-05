@@ -14,6 +14,8 @@ namespace GoalSystem
 {
 	public class GoalManager : Singleton<GoalManager>
 	{
+		public bool IsGoalSequence { get; private set; }
+		
 		public List<Goal> CurrentGoals { get; private set; } = new List<Goal>();
 
 		[SerializeField] private Goal goalPrefab;
@@ -26,6 +28,7 @@ namespace GoalSystem
 
 		public static event UnityAction OnGoal;
 		public static event UnityAction<Goal> OnNewGoal;
+		public static event UnityAction OnGoalSequenceComplete;
 
 		private void OnEnable()
 		{
@@ -51,13 +54,13 @@ namespace GoalSystem
 		private void OnLevelLoaded()
 		{
 			goalCount = LevelManager.Instance.CurrentLevelData.ActiveGoalCount;
-			var goals = LevelManager.Instance.CurrentLevelData.Goals;
+			var goalOptions = LevelManager.Instance.CurrentLevelData.Goals;
 			offset = goalCount * goalWidth / 2f - goalWidth / 2f;
 
-			for (int i = 0; i < goals.Length; i++)
+			for (int i = 0; i < goalOptions.Length; i++)
 			{
 				var goal = Instantiate(goalPrefab, transform);
-				goal.Setup(goals[i].GaolColor, goals[i].Count);
+				goal.Setup(goalOptions[i].GaolColor, goalOptions[i].Count);
 				goal.gameObject.SetActive(false);
 				goalQueue.Enqueue(goal);
 
@@ -105,20 +108,20 @@ namespace GoalSystem
 			StartCoroutine(OnBlobsToGoalCoroutine(blobsInLine, goal));
 		}
 
-		private const float GOAL_DELAY = .1F;
-		private readonly WaitForSeconds goalDelay = new WaitForSeconds(GOAL_DELAY);
+		private readonly WaitForSeconds goalDelay = new WaitForSeconds(.1f);
 
 		private IEnumerator OnBlobsToGoalCoroutine(List<Blob> blobsInLine, Goal goal)
 		{
+			var count = blobsInLine.Count;
 			var tempList = new List<Blob>(blobsInLine);
-			for (var i = 0; i < blobsInLine.Count; i++)
+			for (var i = 0; i < count; i++)
 			{
-				var blob = blobsInLine[i];
-				tempList.RemoveAt(i);
-				blob.OnJumpToGoal();
-				goal.OnBlobJumping(blob);
+				var blob = tempList[0];
 				if (!goal.IsCompleted)
 				{
+					tempList.RemoveAt(0);
+					blob.OnJumpToGoal();
+					goal.OnBlobJumping(blob);
 					blob.JumpTo(goal.transform.position).OnComplete(() =>
 					{
 						blob.OnEnterToGoal();
@@ -129,9 +132,15 @@ namespace GoalSystem
 				else
 				{
 					HolderManager.Instance.OnBlobsToHolder(tempList);
+					yield break;
 				}
 
 				yield return goalDelay;
+			}
+
+			if (tempList.Count.Equals(0))
+			{
+				OnGoalSequenceComplete?.Invoke();
 			}
 		}
 
@@ -141,6 +150,21 @@ namespace GoalSystem
 			{
 				var currentGoalHolder = CurrentGoals[i];
 				if (!currentGoalHolder) continue;
+				if (currentGoalHolder.IsCompleted) continue;
+				if (currentGoalHolder.CellType == cellType)
+					return currentGoalHolder;
+			}
+
+			return null;
+		}
+
+		public Goal GetCurrentGoalByTypeException(CellType cellType, Goal goal)
+		{
+			for (var i = 0; i < CurrentGoals.Count; i++)
+			{
+				var currentGoalHolder = CurrentGoals[i];
+				if (!currentGoalHolder) continue;
+				if (currentGoalHolder.Equals(goal)) continue;
 				if (currentGoalHolder.IsCompleted) continue;
 				if (currentGoalHolder.CellType == cellType)
 					return currentGoalHolder;

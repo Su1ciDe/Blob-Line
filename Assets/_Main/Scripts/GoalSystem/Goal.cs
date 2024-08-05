@@ -14,7 +14,6 @@ namespace GoalSystem
 		public int CurrentAmount { get; set; }
 		public int Index { get; private set; }
 
-
 		private const float MOVE_DURATION = .35F;
 
 		public event UnityAction<Goal> OnComplete;
@@ -39,16 +38,23 @@ namespace GoalSystem
 		public void OnCurrentGoal(int index)
 		{
 			gameObject.SetActive(true);
-			
+
 			Index = index;
 		}
 
 		public void OnBlobJumping(Blob blob)
 		{
+			CurrentAmount++;
+
+			IsCompleted = CheckIfCompleted();
 		}
 
 		public void OnBlobEntered(Blob blob)
 		{
+			if (IsCompleted)
+			{
+				Debug.Log("goal completed");
+			}
 		}
 
 		public Tween Spawn()
