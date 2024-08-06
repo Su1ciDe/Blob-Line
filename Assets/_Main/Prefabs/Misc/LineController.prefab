@@ -371,4 +371,4 @@ MonoBehaviour:
   lineRenderer: {fileID: 4306849884694615225}
   fakeLineRenderer: {fileID: 6540615794912234015}
   col: {fileID: 3956929760530082701}
-  distanceThreshold: 1.8
+  distanceThreshold: 2.245

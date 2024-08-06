@@ -22,15 +22,17 @@ namespace GamePlay.Blobs
 
 		[Space]
 		[SerializeField] private Vector3 positionOffset = new Vector3(0, 0.5f, 0);
+		public Vector3 PositionOffset => positionOffset;
 
 		public static float JUMP_POWER = 3;
 		public static float JUMP_DURATION = .25F;
 		private const float ANIM_DURATION = .35F;
 
-		public void Setup(CellType cellType, GridCell cell)
+		public void Setup(CellType cellType, GridCell cell = null)
 		{
 			CellType = cellType;
-			Place(cell);
+			if (cell)
+				Place(cell);
 
 			var mat = GameManager.Instance.BlobMaterialsSO.BlobMaterials[cellType];
 			foreach (var r in renderers)
@@ -80,7 +82,8 @@ namespace GamePlay.Blobs
 
 		public void SwapCell(GridCell cell)
 		{
-			CurrentGridCell.CurrentNode = null;
+			if (CurrentGridCell)
+				CurrentGridCell.CurrentNode = null;
 
 			CurrentGridCell = cell;
 			CurrentGridCell.CurrentNode = this;

@@ -78,6 +78,12 @@ namespace HolderSystem
 				if (holder.Blobs.Count < MAX_STACK_COUNT)
 				{
 					var blob = tempBlobs[0];
+					if (blob.CurrentGridCell)
+					{
+						blob.CurrentGridCell.CurrentNode = null;
+						blob.CurrentGridCell = null;
+					}
+
 					holder.SetBlob(blob);
 					tempBlobs.RemoveAt(0);
 					blob.JumpTo(new Vector3(holder.transform.position.x, holder.transform.position.y + Holder.OFFSET * holder.Blobs.Count, holder.transform.position.z)).OnComplete(() =>
@@ -102,7 +108,6 @@ namespace HolderSystem
 
 		public void CheckForCompletedStacks()
 		{
-			
 		}
 
 		public Holder GetFirstHolder(CellType cellType)

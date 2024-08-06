@@ -1,5 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Fiber.Managers;
 using Fiber.Utilities;
+using Fiber.Utilities.Extensions;
 using GamePlay.Blobs;
 using GamePlay.Obstacles;
 using GoalSystem;
@@ -96,6 +100,11 @@ namespace GridSystem
 			}
 
 			// Under the obstacles
+			FallUnderObstacles();
+		}
+
+		private void FallUnderObstacles()
+		{
 			for (int x = 0; x < size.x; x++)
 			{
 				for (int y = size.y - 1; y >= 0; y--)
@@ -132,10 +141,48 @@ namespace GridSystem
 
 		public void Fill()
 		{
+			var types = LevelManager.Instance.CurrentLevelData.GridSpawner.Select(x => x.CellType).ToList();
+			var weights = LevelManager.Instance.CurrentLevelData.GridSpawner.Select(x => x.Weight).ToList();
+
 			for (int x = 0; x < size.x; x++)
 			{
 				var emptyRowCount = GetEmptyRows(x);
+				for (int i = 0; i < emptyRowCount; i++)
+				{
+					var emptyCellY = GetFirstEmptyRow(x, 0);
+
+					var blob = SpawnRandomBlob(types, weights);
+					blob.transform.position = gridCells[x, 0].transform.position + new Vector3(0, blob.PositionOffset.y, 1.5f);
+
+					blob.SwapCell(gridCells[x, emptyCellY]);
+					blob.Fall(gridCells[x, emptyCellY].transform.position);
+				}
 			}
+
+			FallUnderObstacles();
+			
+			for (int x = 0; x < size.x; x++)
+			{
+				var emptyRowCount = GetEmptyRows(x);
+				for (int i = 0; i < emptyRowCount; i++)
+				{
+					var emptyCellY = GetFirstEmptyRow(x, 0);
+
+					var blob = SpawnRandomBlob(types, weights);
+					blob.transform.position = gridCells[x, 0].transform.position + new Vector3(0, blob.PositionOffset.y, 1.5f);
+
+					blob.SwapCell(gridCells[x, emptyCellY]);
+					blob.Fall(gridCells[x, emptyCellY].transform.position);
+				}
+			}
+		}
+
+		private Blob SpawnRandomBlob(List<CellType> cellTypes, List<int> weights)
+		{
+			var randomType = cellTypes.WeightedRandom(weights);
+			var blob = Instantiate(blobPrefab);
+			blob.Setup(randomType);
+			return blob;
 		}
 
 		private void OnGoalSequenceCompleted()
