@@ -18,7 +18,10 @@ namespace GamePlay.Blobs
 		public bool IsFalling { get; private set; }
 
 		[SerializeField] private Transform model;
-		[SerializeField] private MeshRenderer meshRenderer;
+		[SerializeField] private Renderer[] renderers;
+
+		[Space]
+		[SerializeField] private Vector3 positionOffset = new Vector3(0, 0.5f, 0);
 
 		public static float JUMP_POWER = 3;
 		public static float JUMP_DURATION = .25F;
@@ -29,7 +32,9 @@ namespace GamePlay.Blobs
 			CellType = cellType;
 			Place(cell);
 
-			meshRenderer.material = GameManager.Instance.BlobMaterialsSO.BlobMaterials[cellType];
+			var mat = GameManager.Instance.BlobMaterialsSO.BlobMaterials[cellType];
+			foreach (var r in renderers)
+				r.material = mat;
 		}
 
 		public void Place(GridCell placedCell)
@@ -38,7 +43,7 @@ namespace GamePlay.Blobs
 			CurrentGridCell.CurrentNode = this;
 
 			transform.SetParent(placedCell.transform);
-			transform.localPosition = new Vector3(0, 0.5f, 0);
+			transform.localPosition = positionOffset;
 		}
 
 		public Transform GetTransform() => transform;
@@ -52,8 +57,8 @@ namespace GamePlay.Blobs
 
 		public void OnRemovedFromLine()
 		{
-			model.DOKill();
-			model.DOScale(Vector3.one, ANIM_DURATION).SetEase(Ease.InBack);
+			model.DOComplete();
+			model.DOScale(1.25f * Vector3.one, ANIM_DURATION / 2f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
 		}
 
 		public void OnJumpToGoal()
@@ -89,14 +94,13 @@ namespace GamePlay.Blobs
 
 		public void Fall(Vector3 position, Vector3? secondPosition = null)
 		{
-			// transform.DOLocalMove(position, FALL_SPEED).SetSpeedBased(true).SetEase(Ease.InQuint);
 			StartCoroutine(FallCoroutine(position, secondPosition));
 		}
 
 		private IEnumerator FallCoroutine(Vector3 position, Vector3? secondPosition)
 		{
 			yield return new WaitUntil(() => !IsFalling);
-			
+
 			IsFalling = true;
 
 			var currentPos = transform.position;
@@ -124,7 +128,7 @@ namespace GamePlay.Blobs
 
 		public IEnumerator FallToTheSecondPosition(Vector3 secondPosition)
 		{
-			yield return transform.DOMove(secondPosition, FALL_SPEED / 2f).SetSpeedBased(true).SetEase(Ease.OutSine).WaitForCompletion();
+			yield return transform.DOMove(secondPosition + positionOffset, FALL_SPEED / 2f).SetSpeedBased(true).SetEase(Ease.OutSine).WaitForCompletion();
 		}
 	}
 }

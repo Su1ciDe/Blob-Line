@@ -6,6 +6,7 @@ using Interfaces;
 using Lean.Touch;
 using UnityEngine;
 using UnityEngine.Events;
+using Grid = GridSystem.Grid;
 
 namespace GamePlay.Player
 {
@@ -34,8 +35,7 @@ namespace GamePlay.Player
 			LevelManager.OnLevelWin += OnLevelWon;
 			LevelManager.OnLevelLose += OnLevelLost;
 
-			GoalManager.OnGoalSequenceComplete += OnGoalSequenceCompleted;
-			HolderManager.OnHolderSequenceComplete += OnHolderSequenceCompleted;
+			Grid.OnFallFillFinish += OnFallFillFinished;
 		}
 
 		private void OnDestroy()
@@ -48,8 +48,7 @@ namespace GamePlay.Player
 			LevelManager.OnLevelWin -= OnLevelWon;
 			LevelManager.OnLevelLose -= OnLevelLost;
 
-			GoalManager.OnGoalSequenceComplete -= OnGoalSequenceCompleted;
-			HolderManager.OnHolderSequenceComplete -= OnHolderSequenceCompleted;
+			Grid.OnFallFillFinish -= OnFallFillFinished;
 		}
 
 		private void OnFingerDown(LeanFinger finger)
@@ -88,14 +87,9 @@ namespace GamePlay.Player
 			}
 		}
 
-		private void OnGoalSequenceCompleted()
+		private void OnFallFillFinished()
 		{
-			Player.Instance.Inputs.CanInput = true;
-		}
-
-		private void OnHolderSequenceCompleted()
-		{
-			Player.Instance.Inputs.CanInput = true;
+			CanInput = true;
 		}
 
 		private void OnLevelStarted()

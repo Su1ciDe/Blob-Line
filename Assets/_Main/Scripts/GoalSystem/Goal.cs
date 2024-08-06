@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Fiber.Managers;
 using GamePlay.Blobs;
 using LevelEditor;
 using TMPro;
@@ -17,6 +18,7 @@ namespace GoalSystem
 		public int CurrentAmount { get; set; }
 		public int Index { get; private set; }
 
+		[SerializeField] private Renderer mr;
 		[Title("UI")]
 		[SerializeField] private Canvas ui;
 		[SerializeField] private TMP_Text txtCount;
@@ -40,17 +42,14 @@ namespace GoalSystem
 			NeededAmount = neededAmount;
 			CurrentAmount = 0;
 
+			var mat = GameManager.Instance.BlobMaterialsSO.BlobMaterials[cellType];
+			mr.material.color = mat.color;
 			txtCount.SetText(NeededAmount.ToString());
 		}
 
 		private bool CheckIfCompleted()
 		{
 			return CurrentAmount >= NeededAmount;
-		}
-
-		public Tween MoveTo(Vector3 position)
-		{
-			return transform.DOMove(position, MOVE_DURATION).SetEase(Ease.InOutQuart);
 		}
 
 		public void OnCurrentGoal(int index)

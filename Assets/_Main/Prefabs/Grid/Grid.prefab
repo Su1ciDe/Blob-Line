@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeSize: {x: 1, y: 1}
-  xSpacing: 0.2
-  ySpacing: 0.2
+  xSpacing: 0.5
+  ySpacing: 0.39
   cellPrefab: {fileID: 8037148922627792176, guid: 4132ee6688dc845b98d04dd76b75592e, type: 3}
   blobPrefab: {fileID: 2458423890142415943, guid: cca808f1792334bce8388c2856ccd675, type: 3}
   obstaclesSO: {fileID: 11400000, guid: 3ebc1aa27affc414fb764ca60cd57949, type: 2}

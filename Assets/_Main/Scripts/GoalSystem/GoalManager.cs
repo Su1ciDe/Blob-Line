@@ -123,7 +123,7 @@ namespace GoalSystem
 					{
 						goal.OnBlobEntered(blob);
 						blob.OnEnterToGoal();
-						blob.transform.DOMoveY(-5, 0.25f).SetRelative(true).SetEase(Ease.InQuad).OnComplete(() => Destroy(blob.gameObject));
+						blob.transform.DOMoveY(-5, 0.35f).SetRelative(true).SetEase(Ease.InQuad).OnComplete(() => Destroy(blob.gameObject));
 					});
 				}
 				else if (GetCurrentGoalByType(blob.CellType) is { } nextGoal)

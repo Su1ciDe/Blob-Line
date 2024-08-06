@@ -42,11 +42,37 @@ namespace LevelEditor
 		[InlineProperty, TableList] public GoalOptions[] Goals;
 
 		[Serializable]
+		[DeclareHorizontalGroup("spawner")]
 		public class GridSpawnerOptions
 		{
-			public CellType CellType = CellType.Grid;
+			[GUIColor("$GetColor")]
+			[Group("spawner")] public CellType CellType = CellType.Blue;
 			[Range(1, 100)]
-			public int Weight = 1;
+			[Group("spawner")] public int Weight = 1;
+
+			private Color GetColor
+			{
+				get
+				{
+					var color = CellType switch
+					{
+						CellType.Blue => Color.blue,
+						CellType.Green => Color.green,
+						CellType.Orange => new Color(1f, 0.5f, 0),
+						CellType.Pink => Color.magenta,
+						CellType.X_Purple => new Color(.7f, .25f, 1f),
+						CellType.Red => Color.red,
+						CellType.Yellow => Color.yellow,
+						CellType.Grid => Color.white,
+						CellType.Empty => Color.white,
+						CellType.BasicObstacle => Color.white,
+						CellType.BreakableObstacle => Color.white,
+						_ => throw new ArgumentOutOfRangeException()
+					};
+
+					return color;
+				}
+			}
 		}
 
 		[Serializable]

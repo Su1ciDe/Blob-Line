@@ -1,3 +1,4 @@
+using System.Collections;
 using Fiber.Utilities;
 using GamePlay.Blobs;
 using GamePlay.Obstacles;
@@ -6,6 +7,7 @@ using HolderSystem;
 using LevelEditor;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GridSystem
 {
@@ -26,6 +28,8 @@ namespace GridSystem
 		[SerializeField] private ObstaclesSO obstaclesSO;
 
 		private float xOffset, yOffset;
+
+		public static event UnityAction OnFallFillFinish;
 
 		private void OnEnable()
 		{
@@ -87,7 +91,7 @@ namespace GridSystem
 					int emptyY = GetFirstEmptyRow(x, y);
 					if (emptyY.Equals(blob.CurrentGridCell.Coordinates.y)) continue;
 					blob.SwapCell(gridCells[x, emptyY]);
-					blob.Fall(gridCells[x, emptyY].transform.position + 0.5f * Vector3.up);
+					blob.Fall(gridCells[x, emptyY].transform.position);
 				}
 			}
 
@@ -102,6 +106,7 @@ namespace GridSystem
 					// Check if there is any empty cell under
 					int emptyY = GetFirstEmptyRow(x, y);
 					blob.SwapCell(gridCells[x, emptyY]);
+					var pos = gridCells[x, emptyY].transform.position;
 
 					var obstacle = GetObstacleInColumn(x);
 					if (obstacle)
@@ -109,18 +114,17 @@ namespace GridSystem
 						int emptyObstacleY = GetFirstEmptyRow(obstacle.CurrentGridCell.Coordinates);
 						if (emptyY < emptyObstacleY)
 						{
-							blob.Fall(gridCells[x, emptyY].transform.position + 0.5f * Vector3.up,
-								gridCells[obstacle.CurrentGridCell.Coordinates.x, emptyObstacleY].transform.position + 0.5f * Vector3.up);
+							blob.Fall(pos, gridCells[obstacle.CurrentGridCell.Coordinates.x, emptyObstacleY].transform.position);
 							blob.SwapCell(gridCells[obstacle.CurrentGridCell.Coordinates.x, emptyObstacleY]);
 						}
 						else
 						{
-							blob.Fall(gridCells[x, emptyY].transform.position + 0.5f * Vector3.up);
+							blob.Fall(pos);
 						}
 					}
 					else
 					{
-						blob.Fall(gridCells[x, emptyY].transform.position + 0.5f * Vector3.up);
+						blob.Fall(pos);
 					}
 				}
 			}
@@ -128,18 +132,67 @@ namespace GridSystem
 
 		public void Fill()
 		{
+			for (int x = 0; x < size.x; x++)
+			{
+				var emptyRowCount = GetEmptyRows(x);
+			}
 		}
 
 		private void OnGoalSequenceCompleted()
 		{
 			Fall();
 			Fill();
+
+			StartCoroutine(WaitFallFill());
 		}
 
 		private void OnHolderSequenceCompleted()
 		{
 			Fall();
 			Fill();
+
+			StartCoroutine(WaitFallFill());
+		}
+
+		private IEnumerator WaitFallFill()
+		{
+			yield return new WaitUntil(() => !IsAnyBlobFalling());
+			yield return null;
+			yield return new WaitUntil(() => !IsAnyBlobFalling());
+
+			OnFallFillFinish?.Invoke();
+		}
+
+		private bool IsAnyBlobFalling()
+		{
+			for (int x = 0; x < size.x; x++)
+			{
+				for (int y = 0; y < size.y; y++)
+				{
+					if (gridCells[x, y].CurrentNode is Blob { IsFalling: true })
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		public int GetEmptyRows(int x)
+		{
+			int count = 0;
+			for (int y = 0; y < size.y; y++)
+			{
+				if (gridCells[x, y].CurrentNode is not null)
+				{
+					break;
+				}
+
+				count++;
+			}
+
+			return count;
 		}
 
 		private int GetFirstEmptyRow(int x, int y)

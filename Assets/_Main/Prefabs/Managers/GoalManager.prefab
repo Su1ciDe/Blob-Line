@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalPrefab: {fileID: 6978742511905043327, guid: 1ba9b815b051b47b3a0ada8fe4c5ad84, type: 3}
-  goalWidth: 2
+  goalWidth: 1.5
