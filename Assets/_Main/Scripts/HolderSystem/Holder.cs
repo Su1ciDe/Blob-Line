@@ -7,7 +7,7 @@ namespace HolderSystem
 {
 	public class Holder : MonoBehaviour, ISlot
 	{
-		public Stack<Blob> Blobs { get;  set; } = new Stack<Blob>();
+		public List<Blob> Blobs { get;  set; } = new List<Blob>();
 		public int Index { get;  set; }
 
 		[SerializeField] private float size;
@@ -17,7 +17,7 @@ namespace HolderSystem
 
 		public void SetBlob(Blob blob)
 		{
-			Blobs.Push(blob);
+			Blobs.Add(blob);
 		}
 
 		public Transform GetTransform() => transform;

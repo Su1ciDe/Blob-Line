@@ -99,7 +99,6 @@ namespace GridSystem
 				}
 			}
 
-			// Under the obstacles
 			FallUnderObstacles();
 		}
 
@@ -144,23 +143,13 @@ namespace GridSystem
 			var types = LevelManager.Instance.CurrentLevelData.GridSpawner.Select(x => x.CellType).ToList();
 			var weights = LevelManager.Instance.CurrentLevelData.GridSpawner.Select(x => x.Weight).ToList();
 
-			for (int x = 0; x < size.x; x++)
-			{
-				var emptyRowCount = GetEmptyRows(x);
-				for (int i = 0; i < emptyRowCount; i++)
-				{
-					var emptyCellY = GetFirstEmptyRow(x, 0);
-
-					var blob = SpawnRandomBlob(types, weights);
-					blob.transform.position = gridCells[x, 0].transform.position + new Vector3(0, blob.PositionOffset.y, 1.5f);
-
-					blob.SwapCell(gridCells[x, emptyCellY]);
-					blob.Fall(gridCells[x, emptyCellY].transform.position);
-				}
-			}
-
+			FillEmptyCells(types, weights);
 			FallUnderObstacles();
-			
+			FillEmptyCells(types, weights);
+		}
+
+		private void FillEmptyCells(List<CellType> cellTypes, List<int> weights)
+		{
 			for (int x = 0; x < size.x; x++)
 			{
 				var emptyRowCount = GetEmptyRows(x);
@@ -168,7 +157,7 @@ namespace GridSystem
 				{
 					var emptyCellY = GetFirstEmptyRow(x, 0);
 
-					var blob = SpawnRandomBlob(types, weights);
+					var blob = SpawnRandomBlob(cellTypes, weights);
 					blob.transform.position = gridCells[x, 0].transform.position + new Vector3(0, blob.PositionOffset.y, 1.5f);
 
 					blob.SwapCell(gridCells[x, emptyCellY]);

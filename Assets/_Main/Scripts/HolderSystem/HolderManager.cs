@@ -5,6 +5,7 @@ using Fiber.Managers;
 using Fiber.Utilities;
 using GamePlay.Blobs;
 using GamePlay.Player;
+using GoalSystem;
 using LevelEditor;
 using TriInspector;
 using UnityEngine;
@@ -30,6 +31,8 @@ namespace HolderSystem
 			LevelManager.OnLevelLoad += Setup;
 
 			LineController.OnLineToHolder += OnBlobsToHolder;
+
+			GoalManager.OnNewGoal += OnNewGoal;
 		}
 
 		private void OnDisable()
@@ -106,8 +109,26 @@ namespace HolderSystem
 			}
 		}
 
-		public void CheckForCompletedStacks()
+		private void OnNewGoal(Goal newGoal)
 		{
+			StartCoroutine(CheckForCompletedStacks(newGoal));
+		}
+
+		private IEnumerator CheckForCompletedStacks(Goal newGoal)
+		{
+			for (int i = holderCount - 1; i >= 0; i--)
+			{
+				if (holders[i].Blobs.Count.Equals(0)) continue;
+				if (holders[i].Blobs[0].CellType != newGoal.CellType) continue;
+
+				var blobsReversed = new List<Blob>(holders[i].Blobs);
+				blobsReversed.Reverse();
+				GoalManager.Instance.OnBlobsToGoal(blobsReversed, newGoal);
+
+				yield return new WaitForSeconds(Blob.JUMP_DURATION * (blobsReversed.Count - 1));
+
+				holders[i].Blobs.Clear();
+			}
 		}
 
 		public Holder GetFirstHolder(CellType cellType)
@@ -120,7 +141,7 @@ namespace HolderSystem
 				{
 					return holders[i];
 				}
-				else if (holder.Blobs.Peek().CellType == cellType)
+				else if (holder.Blobs[0].CellType == cellType)
 				{
 					return holders[i];
 				}

@@ -6,7 +6,7 @@ namespace Interfaces
 {
 	public interface ISlot
 	{
-		public Stack<Blob> Blobs { get; set; }
+		public List<Blob> Blobs { get; set; }
 		public int Index { get; set; }
 		public Transform GetTransform();
 	}

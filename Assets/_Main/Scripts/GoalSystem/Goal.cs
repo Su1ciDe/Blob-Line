@@ -23,8 +23,6 @@ namespace GoalSystem
 		[SerializeField] private Canvas ui;
 		[SerializeField] private TMP_Text txtCount;
 
-		private const float MOVE_DURATION = .35F;
-
 		public event UnityAction<Goal> OnComplete;
 
 		private void OnDestroy()
@@ -70,13 +68,12 @@ namespace GoalSystem
 		{
 			txtCount.SetText((NeededAmount - CurrentAmount).ToString());
 
-			if (IsCompleted)
-			{
-				if (waitForCompleteCoroutine is not null)
-					StopCoroutine(waitForCompleteCoroutine);
+			if (!IsCompleted) return;
 
-				waitForCompleteCoroutine = StartCoroutine(WaitForComplete(blob));
-			}
+			if (waitForCompleteCoroutine is not null)
+				StopCoroutine(waitForCompleteCoroutine);
+
+			waitForCompleteCoroutine = StartCoroutine(WaitForComplete(blob));
 		}
 
 		private Coroutine waitForCompleteCoroutine;
@@ -85,7 +82,6 @@ namespace GoalSystem
 		{
 			yield return new WaitUntil(() => !blob.IsMoving);
 			yield return Despawn().WaitForCompletion();
-			Debug.Log("goal completed");
 
 			OnComplete?.Invoke(this);
 

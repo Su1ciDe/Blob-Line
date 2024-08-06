@@ -193,6 +193,30 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7247678594833826158, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247678594833826158, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247678594833826158, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+      propertyPath: EmissionModule.m_BurstCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247678594833826158, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247678594833826158, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247678594833826158, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247678594833826158, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
       propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}

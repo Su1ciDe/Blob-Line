@@ -100,7 +100,7 @@ namespace GoalSystem
 			nextGoal.Spawn().SetDelay(0.35f).OnComplete(() => { OnNewGoal?.Invoke(nextGoal); });
 		}
 
-		private void OnBlobsToGoal(List<Blob> blobsInLine, Goal goal)
+		public void OnBlobsToGoal(List<Blob> blobsInLine, Goal goal)
 		{
 			StartCoroutine(OnBlobsToGoalCoroutine(blobsInLine, goal));
 		}

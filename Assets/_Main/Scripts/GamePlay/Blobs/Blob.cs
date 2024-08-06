@@ -67,7 +67,8 @@ namespace GamePlay.Blobs
 		{
 			IsMoving = true;
 
-			CurrentGridCell.CurrentNode = null;
+			if (CurrentGridCell)
+				CurrentGridCell.CurrentNode = null;
 		}
 
 		public void OnEnterToGoal()
