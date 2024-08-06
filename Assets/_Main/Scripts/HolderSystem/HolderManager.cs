@@ -22,6 +22,8 @@ namespace HolderSystem
 
 		private List<Holder> holders = new List<Holder>();
 
+		private bool isBusy;
+
 		public const int MAX_STACK_COUNT = 5;
 
 		public static event UnityAction OnHolderSequenceComplete;
@@ -116,6 +118,9 @@ namespace HolderSystem
 
 		private IEnumerator CheckForCompletedStacks(Goal newGoal)
 		{
+			yield return new WaitUntil(() => !isBusy);
+			isBusy = true;
+
 			for (int i = holderCount - 1; i >= 0; i--)
 			{
 				if (holders[i].Blobs.Count.Equals(0)) continue;
@@ -129,6 +134,8 @@ namespace HolderSystem
 
 				holders[i].Blobs.Clear();
 			}
+
+			isBusy = false;
 		}
 
 		public Holder GetFirstHolder(CellType cellType)
