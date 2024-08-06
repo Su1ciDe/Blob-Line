@@ -4,7 +4,6 @@ using Fiber.AudioSystem;
 using Fiber.Utilities.Extensions;
 using GamePlay.Blobs;
 using GoalSystem;
-using HolderSystem;
 using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.Events;

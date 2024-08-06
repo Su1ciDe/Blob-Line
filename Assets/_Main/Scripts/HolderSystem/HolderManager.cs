@@ -8,6 +8,7 @@ using GamePlay.Player;
 using LevelEditor;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace HolderSystem
 {
@@ -21,6 +22,8 @@ namespace HolderSystem
 		private List<Holder> holders = new List<Holder>();
 
 		public const int MAX_STACK_COUNT = 5;
+
+		public static event UnityAction OnHolderSequenceComplete;
 
 		private void OnEnable()
 		{
@@ -52,8 +55,7 @@ namespace HolderSystem
 			}
 		}
 
-		private const float HOLDER_DELAY = .1F;
-		private readonly WaitForSeconds holderDelay = new WaitForSeconds(HOLDER_DELAY);
+		private readonly WaitForSeconds holderDelay = new WaitForSeconds(.1f);
 
 		public void OnBlobsToHolder(List<Blob> blobs)
 		{
@@ -62,22 +64,23 @@ namespace HolderSystem
 
 		private IEnumerator OnBlobsToHolderCoroutine(List<Blob> blobs)
 		{
-			var holder = GetFirstHolder(blobs[0].CellType);
+			var tempBlobs = new List<Blob>(blobs);
+			var count = tempBlobs.Count;
+			var holder = GetFirstHolder(tempBlobs[0].CellType);
 			if (!holder)
 			{
 				LevelManager.Instance.Lose();
 				yield break;
 			}
 
-			var tempBlobs = new List<Blob>(blobs);
-
-			for (int i = 0; i < blobs.Count; i++)
+			for (int i = 0; i < count; i++)
 			{
 				if (holder.Blobs.Count < MAX_STACK_COUNT)
 				{
-					holder.SetBlob(blobs[i]);
-					tempBlobs.RemoveAt(i);
-					blobs[i].JumpTo(new Vector3(holder.transform.position.x, holder.transform.position.y + Holder.OFFSET * holder.Blobs.Count, holder.transform.position.z)).OnComplete(() =>
+					var blob = tempBlobs[0];
+					holder.SetBlob(blob);
+					tempBlobs.RemoveAt(0);
+					blob.JumpTo(new Vector3(holder.transform.position.x, holder.transform.position.y + Holder.OFFSET * holder.Blobs.Count, holder.transform.position.z)).OnComplete(() =>
 					{
 						//
 					});
@@ -89,6 +92,11 @@ namespace HolderSystem
 					StartCoroutine(OnBlobsToHolderCoroutine(tempBlobs));
 					yield break;
 				}
+			}
+
+			if (tempBlobs.Count.Equals(0))
+			{
+				OnHolderSequenceComplete?.Invoke();
 			}
 		}
 
