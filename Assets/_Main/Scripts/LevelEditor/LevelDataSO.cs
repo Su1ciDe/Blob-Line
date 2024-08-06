@@ -74,7 +74,7 @@ namespace LevelEditor
 						CellType.Green => Color.green,
 						CellType.Orange => new Color(1f, 0.5f, 0),
 						CellType.Pink => Color.magenta,
-						CellType.Purple => new Color(.7f, .25f, 1f),
+						CellType.X_Purple => new Color(.7f, .25f, 1f),
 						CellType.Red => Color.red,
 						CellType.Yellow => Color.yellow,
 						CellType.Grid => Color.white,

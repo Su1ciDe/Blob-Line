@@ -18,6 +18,8 @@ namespace GamePlay.Obstacles
 			transform.localPosition = Vector3.zero;
 		}
 
+		public Transform GetTransform() => transform;
+
 		public virtual void OnBlastNear(Blob blob)
 		{
 		}

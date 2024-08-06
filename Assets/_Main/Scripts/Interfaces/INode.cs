@@ -1,4 +1,5 @@
 using GridSystem;
+using UnityEngine;
 
 namespace Interfaces
 {
@@ -6,5 +7,6 @@ namespace Interfaces
 	{
 		public GridCell CurrentGridCell { get; set; }
 		public void Place(GridCell placedCell);
+		public Transform GetTransform();
 	}
 }

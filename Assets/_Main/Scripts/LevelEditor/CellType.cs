@@ -8,7 +8,7 @@ namespace LevelEditor
 		Green,
 		Orange,
 		Pink,
-		Purple,
+		X_Purple,
 		Red,
 		Yellow,
 		BasicObstacle,

@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using Fiber.Managers;
 using GridSystem;
@@ -7,18 +8,21 @@ using UnityEngine;
 
 namespace GamePlay.Blobs
 {
+	[SelectionBase]
 	public class Blob : MonoBehaviour, INode
 	{
 		public GridCell CurrentGridCell { get; set; }
 		public CellType CellType { get; private set; }
 
-		public bool IsMoving { get; set; }
+		public bool IsMoving { get; private set; }
+		public bool IsFalling { get; private set; }
 
 		[SerializeField] private Transform model;
 		[SerializeField] private MeshRenderer meshRenderer;
 
-		public static float JUMP_POWER = 2;
+		public static float JUMP_POWER = 3;
 		public static float JUMP_DURATION = .25F;
+		private const float ANIM_DURATION = .35F;
 
 		public void Setup(CellType cellType, GridCell cell)
 		{
@@ -37,22 +41,26 @@ namespace GamePlay.Blobs
 			transform.localPosition = new Vector3(0, 0.5f, 0);
 		}
 
+		public Transform GetTransform() => transform;
+
 		public void OnAddedToLine()
 		{
 			model.DOKill();
 			model.transform.localScale = 0.5f * Vector3.one;
-			model.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack, 3f);
+			model.DOScale(Vector3.one, ANIM_DURATION).SetEase(Ease.OutElastic, 3f);
 		}
 
 		public void OnRemovedFromLine()
 		{
 			model.DOKill();
-			model.DOScale(Vector3.one, 0.25f).SetEase(Ease.InBack);
+			model.DOScale(Vector3.one, ANIM_DURATION).SetEase(Ease.InBack);
 		}
 
 		public void OnJumpToGoal()
 		{
 			IsMoving = true;
+
+			CurrentGridCell.CurrentNode = null;
 		}
 
 		public void OnEnterToGoal()
@@ -63,6 +71,60 @@ namespace GamePlay.Blobs
 		public Tween JumpTo(Vector3 position)
 		{
 			return transform.DOJump(position, JUMP_POWER, 1, JUMP_DURATION);
+		}
+
+		public void SwapCell(GridCell cell)
+		{
+			CurrentGridCell.CurrentNode = null;
+
+			CurrentGridCell = cell;
+			CurrentGridCell.CurrentNode = this;
+
+			transform.SetParent(cell.transform);
+		}
+
+		private const float FALL_SPEED = 20f;
+		private const float ACCELERATION = .5f;
+		private float velocity;
+
+		public void Fall(Vector3 position, Vector3? secondPosition = null)
+		{
+			// transform.DOLocalMove(position, FALL_SPEED).SetSpeedBased(true).SetEase(Ease.InQuint);
+			StartCoroutine(FallCoroutine(position, secondPosition));
+		}
+
+		private IEnumerator FallCoroutine(Vector3 position, Vector3? secondPosition)
+		{
+			yield return new WaitUntil(() => !IsFalling);
+			
+			IsFalling = true;
+
+			var currentPos = transform.position;
+			while (currentPos.z > position.z)
+			{
+				velocity += ACCELERATION;
+				velocity = velocity >= FALL_SPEED ? FALL_SPEED : velocity;
+
+				currentPos = transform.position;
+
+				currentPos.z -= velocity * Time.deltaTime;
+				transform.position = currentPos;
+				yield return null;
+			}
+
+			currentPos.z = position.z;
+			transform.position = currentPos;
+			velocity = 0;
+
+			if (secondPosition is not null)
+				yield return StartCoroutine(FallToTheSecondPosition((Vector3)secondPosition));
+
+			IsFalling = false;
+		}
+
+		public IEnumerator FallToTheSecondPosition(Vector3 secondPosition)
+		{
+			yield return transform.DOMove(secondPosition, FALL_SPEED / 2f).SetSpeedBased(true).SetEase(Ease.OutSine).WaitForCompletion();
 		}
 	}
 }

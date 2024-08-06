@@ -100,6 +100,11 @@ namespace HolderSystem
 			}
 		}
 
+		public void CheckForCompletedStacks()
+		{
+			
+		}
+
 		public Holder GetFirstHolder(CellType cellType)
 		{
 			for (var i = 0; i < holders.Count; i++)

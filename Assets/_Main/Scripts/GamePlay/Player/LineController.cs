@@ -82,7 +82,7 @@ namespace GamePlay.Player
 			fakeLineRenderer.SetPosition(0, blobPos);
 
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
-			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(1 + BlobsInLine.Count * .1f);
+			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(.75f + BlobsInLine.Count * .1f);
 		}
 
 		private void OnBlobRemoved(Blob blob)
@@ -100,11 +100,12 @@ namespace GamePlay.Player
 			fakeLineRenderer.SetPosition(0, CurrentSelectedBlob.transform.position);
 
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
-			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(1 + BlobsInLine.Count * .1f);
+			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(.75f + BlobsInLine.Count * .1f);
 		}
 
 		private void OnInputDown(Vector3 pos)
 		{
+			col.enabled = true;
 			transform.position = pos;
 		}
 
@@ -140,6 +141,8 @@ namespace GamePlay.Player
 			fakeLineRenderer.SetPosition(1, Vector3.zero);
 			BlobsInLine.Clear();
 			CurrentSelectedBlob = null;
+
+			col.enabled = false;
 		}
 
 		private void OnLevelStarted()

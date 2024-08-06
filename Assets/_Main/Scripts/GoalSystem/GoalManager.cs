@@ -15,7 +15,7 @@ namespace GoalSystem
 	public class GoalManager : Singleton<GoalManager>
 	{
 		public bool IsGoalSequence { get; private set; }
-		
+
 		public List<Goal> CurrentGoals { get; private set; } = new List<Goal>();
 
 		[SerializeField] private Goal goalPrefab;
@@ -94,13 +94,10 @@ namespace GoalSystem
 				return;
 			}
 
-			//TODO: destroy
-			goal.gameObject.SetActive(false);
-
 			CurrentGoals[index] = nextGoal;
 			nextGoal.transform.position = goal.transform.position;
 			nextGoal.OnCurrentGoal(index);
-			nextGoal.Spawn().OnComplete(() => { OnNewGoal?.Invoke(nextGoal); });
+			nextGoal.Spawn().SetDelay(0.35f).OnComplete(() => { OnNewGoal?.Invoke(nextGoal); });
 		}
 
 		private void OnBlobsToGoal(List<Blob> blobsInLine, Goal goal)
@@ -120,14 +117,19 @@ namespace GoalSystem
 				if (!goal.IsCompleted)
 				{
 					tempList.RemoveAt(0);
-					blob.OnJumpToGoal();
 					goal.OnBlobJumping(blob);
+					blob.OnJumpToGoal();
 					blob.JumpTo(goal.transform.position).OnComplete(() =>
 					{
-						blob.OnEnterToGoal();
 						goal.OnBlobEntered(blob);
-						blob.transform.DOMoveY(-5, 0.25f).SetRelative(true).SetEase(Ease.InQuad);
+						blob.OnEnterToGoal();
+						blob.transform.DOMoveY(-5, 0.25f).SetRelative(true).SetEase(Ease.InQuad).OnComplete(() => Destroy(blob.gameObject));
 					});
+				}
+				else if (GetCurrentGoalByType(blob.CellType) is { } nextGoal)
+				{
+					StartCoroutine(OnBlobsToGoalCoroutine(tempList, nextGoal));
+					yield break;
 				}
 				else
 				{
