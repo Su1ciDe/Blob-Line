@@ -56,13 +56,13 @@ namespace GamePlay.Blobs
 		{
 			model.DOKill();
 			model.transform.localScale = 0.5f * Vector3.one;
-			model.DOScale(Vector3.one, ANIM_DURATION).SetEase(Ease.OutElastic, 3f);
+			model.DOScale(Vector3.one, ANIM_DURATION).SetEase(Ease.OutElastic);
 		}
 
 		public void OnRemovedFromLine()
 		{
 			model.DOComplete();
-			model.DOScale(1.25f * Vector3.one, ANIM_DURATION / 2f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
+			model.DOScale(0.8f * Vector3.one, ANIM_DURATION / 4f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
 		}
 
 		public void OnJumpToGoal()

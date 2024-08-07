@@ -73,6 +73,9 @@ namespace GamePlay.Player
 
 		private void OnBlobAdded(Blob blob)
 		{
+			var color = GameManager.Instance.BlobMaterialsSO.BlobMaterials[blob.CellType].color;
+			lineRenderer.startColor = lineRenderer.endColor = fakeLineRenderer.startColor = fakeLineRenderer.endColor = color;
+			
 			BlobsInLine.Add(blob);
 			blob.OnAddedToLine();
 			CurrentSelectedBlob = blob;
