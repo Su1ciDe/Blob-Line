@@ -7,6 +7,7 @@ using TMPro;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace GoalSystem
 {
@@ -22,6 +23,7 @@ namespace GoalSystem
 		[Title("UI")]
 		[SerializeField] private Canvas ui;
 		[SerializeField] private TMP_Text txtCount;
+		[SerializeField] private Image imgFill;
 
 		public event UnityAction<Goal> OnComplete;
 
@@ -43,6 +45,8 @@ namespace GoalSystem
 			var mat = GameManager.Instance.BlobMaterialsSO.BlobMaterials[cellType];
 			mr.material.color = mat.color;
 			txtCount.SetText(NeededAmount.ToString());
+			imgFill.color = mat.color;
+			imgFill.fillAmount = 0;
 		}
 
 		private bool CheckIfCompleted()
@@ -67,6 +71,7 @@ namespace GoalSystem
 		public void OnBlobEntered(Blob blob)
 		{
 			txtCount.SetText((NeededAmount - CurrentAmount).ToString());
+			imgFill.fillAmount = (float)CurrentAmount / NeededAmount;
 
 			if (!IsCompleted) return;
 
