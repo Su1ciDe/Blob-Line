@@ -1,6 +1,7 @@
 using Fiber.Managers;
 using Fiber.Utilities;
 using Interfaces;
+using UnityEngine;
 
 namespace GamePlay.Player
 {
@@ -10,6 +11,9 @@ namespace GamePlay.Player
 	public class Player : Singleton<Player>
 	{
 		public IInputs Inputs { get; private set; }
+		
+		[SerializeField] private Transform inputEyeTarget;
+		public Transform InputEyeTarget => inputEyeTarget;
 
 		private void Awake()
 		{

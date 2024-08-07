@@ -248,7 +248,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 1132320697026360435, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5217042206670949672, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4266816788258786177}
   m_SourcePrefab: {fileID: 100100000, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
 --- !u!137 &2882212583508112431 stripped
 SkinnedMeshRenderer:
@@ -260,8 +263,45 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4156253549892642410, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
   m_PrefabInstance: {fileID: 691106046739997325}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4751831382204379045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5217042206670949672, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+  m_PrefabInstance: {fileID: 691106046739997325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4266816788258786177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751831382204379045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c848064e2742a583815af25e294e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eyesAnimator: {fileID: 7493807523552799281}
+  animatorControllers: []
+  lookAtConstraints:
+  - {fileID: 5061879302423945065}
+  - {fileID: 5341518501006385252}
+--- !u!1183024399 &5061879302423945065 stripped
+LookAtConstraint:
+  m_CorrespondingSourceObject: {fileID: 5739878551548493284, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+  m_PrefabInstance: {fileID: 691106046739997325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1183024399 &5341518501006385252 stripped
+LookAtConstraint:
+  m_CorrespondingSourceObject: {fileID: 4879561750525395689, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+  m_PrefabInstance: {fileID: 691106046739997325}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &6741738694529608479 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6059657990061853074, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+  m_PrefabInstance: {fileID: 691106046739997325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7493807523552799281 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7955634531192293564, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
   m_PrefabInstance: {fileID: 691106046739997325}
   m_PrefabAsset: {fileID: 0}

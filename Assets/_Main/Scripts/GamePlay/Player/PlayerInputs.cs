@@ -1,7 +1,5 @@
 using Fiber.Managers;
 using Fiber.Utilities;
-using GoalSystem;
-using HolderSystem;
 using Interfaces;
 using Lean.Touch;
 using UnityEngine;
