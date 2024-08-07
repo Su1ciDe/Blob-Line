@@ -34,13 +34,17 @@ MonoBehaviour:
   - CellType: 2
     Weight: 50
   totalWeight: 100
-  ActiveGoalCount: 1
+  ActiveGoalCount: 2
   Goals:
   - GaolColor: 2
-    Count: 15
+    Count: 10
   - GaolColor: 3
-    Count: 15
+    Count: 10
   - GaolColor: 3
-    Count: 15
+    Count: 10
+  - GaolColor: 2
+    Count: 10
   - GaolColor: 3
-    Count: 15
+    Count: 10
+  - GaolColor: 2
+    Count: 10
