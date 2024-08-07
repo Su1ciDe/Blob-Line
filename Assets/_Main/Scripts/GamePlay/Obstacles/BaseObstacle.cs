@@ -9,7 +9,7 @@ namespace GamePlay.Obstacles
 	{
 		public GridCell CurrentGridCell { get; set; }
 
-		public void Place(GridCell placedCell)
+		public void Init(GridCell placedCell)
 		{
 			CurrentGridCell = placedCell;
 			CurrentGridCell.CurrentNode = this;

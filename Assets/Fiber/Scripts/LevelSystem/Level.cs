@@ -13,7 +13,7 @@ namespace Fiber.LevelSystem
 			LevelDataSO = levelDataSO;
 			gameObject.SetActive(true);
 
-			Grid.Instance.Setup(LevelDataSO.Grid);
+			// Grid.Instance.Setup(LevelDataSO.Grid);
 		}
 
 		public virtual void Play()

@@ -2,7 +2,7 @@ namespace LevelEditor
 {
 	public enum CellType
 	{
-		Grid,
+		FilledGrid,
 		Empty,
 		Blue,
 		Green,
@@ -11,7 +11,7 @@ namespace LevelEditor
 		X_Purple,
 		Red,
 		Yellow,
-		BasicObstacle,
+		StaticObstacle,
 		BreakableObstacle,
 	}
 }

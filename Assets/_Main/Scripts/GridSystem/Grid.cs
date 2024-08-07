@@ -37,16 +37,26 @@ namespace GridSystem
 
 		private void OnEnable()
 		{
+			LevelManager.OnLevelLoad += OnLevelLoaded;
+
 			GoalManager.OnGoalSequenceComplete += OnGoalSequenceCompleted;
 			HolderManager.OnHolderSequenceComplete += OnHolderSequenceCompleted;
 		}
 
 		private void OnDisable()
 		{
+			LevelManager.OnLevelLoad -= OnLevelLoaded;
+
 			GoalManager.OnGoalSequenceComplete -= OnGoalSequenceCompleted;
 			HolderManager.OnHolderSequenceComplete -= OnHolderSequenceCompleted;
 		}
 
+		private void OnLevelLoaded()
+		{
+			Setup(LevelManager.Instance.CurrentLevelData.Grid);
+		}
+
+		
 		public void Setup(Array2DGrid grid)
 		{
 			size = grid.GridSize;
@@ -59,24 +69,23 @@ namespace GridSystem
 				for (int x = 0; x < size.x; x++)
 				{
 					var gridCell = grid.GetCell(x, y);
-					if (gridCell != CellType.Empty)
-					{
-						var cell = Instantiate(cellPrefab, transform);
-						cell.Setup(x, y, nodeSize);
-						cell.gameObject.name = x + " - " + y;
-						cell.transform.localPosition = new Vector3(x * (nodeSize.x + xSpacing) - xOffset, 0, -y * (nodeSize.y + ySpacing) + yOffset);
-						gridCells[x, y] = cell;
+					// if (gridCell == CellType.Empty) continue;
 
-						if (gridCell is CellType.BasicObstacle or CellType.BreakableObstacle)
-						{
-							var obstacle = Instantiate(obstaclesSO.Obstacles[gridCell], cell.transform);
-							obstacle.Place(cell);
-						}
-						else
-						{
-							var blob = Instantiate(blobPrefab, cell.transform);
-							blob.Setup(gridCell, cell);
-						}
+					var cell = Instantiate(cellPrefab, transform);
+					cell.Setup(x, y, nodeSize, gridCell);
+					cell.gameObject.name = x + " - " + y;
+					cell.transform.localPosition = new Vector3(x * (nodeSize.x + xSpacing) - xOffset, 0, -y * (nodeSize.y + ySpacing) + yOffset);
+					gridCells[x, y] = cell;
+
+					if (gridCell is CellType.StaticObstacle or CellType.BreakableObstacle)
+					{
+						var obstacle = Instantiate(obstaclesSO.Obstacles[gridCell], cell.transform);
+						obstacle.Init(cell);
+					}
+					else if (gridCell != CellType.Empty)
+					{
+						var blob = Instantiate(blobPrefab, cell.transform);
+						blob.Setup(gridCell, cell);
 					}
 				}
 			}
@@ -89,6 +98,8 @@ namespace GridSystem
 				for (int y = size.y - 1; y >= 0; y--)
 				{
 					var cell = gridCells[x, y];
+					if (!cell) continue;
+					if (cell.CellType == CellType.Empty) continue;
 					if (cell.CurrentNode is not Blob blob) continue;
 
 					// Check if there is any empty cell under
@@ -109,6 +120,8 @@ namespace GridSystem
 				for (int y = size.y - 1; y >= 0; y--)
 				{
 					var cell = gridCells[x, y];
+					if (!cell) continue;
+					if (cell.CellType == CellType.Empty) continue;
 					if (cell.CurrentNode is not Blob blob) continue;
 
 					// Check if there is any empty cell under
@@ -160,7 +173,7 @@ namespace GridSystem
 					var blob = SpawnRandomBlob(cellTypes, weights);
 					blob.transform.position = gridCells[x, 0].transform.position + new Vector3(0, blob.PositionOffset.y, 1.5f);
 
-					blob.SwapCell(gridCells[x, emptyCellY]);
+					blob.PlaceToCell(gridCells[x, emptyCellY]);
 					blob.Fall(gridCells[x, emptyCellY].transform.position);
 				}
 			}
@@ -205,7 +218,7 @@ namespace GridSystem
 			{
 				for (int y = 0; y < size.y; y++)
 				{
-					if (gridCells[x, y].CurrentNode is Blob { IsFalling: true })
+					if (gridCells[x, y]?.CurrentNode is Blob { IsFalling: true })
 					{
 						return true;
 					}
@@ -220,12 +233,14 @@ namespace GridSystem
 			int count = 0;
 			for (int y = 0; y < size.y; y++)
 			{
-				if (gridCells[x, y].CurrentNode is not null)
+				if (gridCells[x, y].CellType != CellType.Empty && gridCells[x, y].CurrentNode is null)
+				{
+					count++;
+				}
+				else if (gridCells[x, y].CurrentNode is BaseObstacle)
 				{
 					break;
 				}
-
-				count++;
 			}
 
 			return count;
@@ -233,11 +248,21 @@ namespace GridSystem
 
 		private int GetFirstEmptyRow(int x, int y)
 		{
-			int yy = y + 1;
-			while (yy < size.y && gridCells[x, yy].CurrentNode is null)
-				yy++;
+			var yy = y;
+			for (var i = y + 1; i < size.y; i++)
+			{
+				if (gridCells[x, i].CellType == CellType.Empty)
+				{
+					if (gridCells[x, i + 1].CurrentNode is not null) break;
+					yy++;
+					continue;
+				}
 
-			return yy - 1;
+				if (gridCells[x, i].CurrentNode is not null) break;
+				yy++;
+			}
+
+			return yy;
 		}
 
 		private int GetFirstEmptyRow(Vector2Int coordinates)
@@ -253,7 +278,8 @@ namespace GridSystem
 				xx = x - 1;
 				for (int y = size.y - 1; y >= 0; y--)
 				{
-					if (gridCells[xx, y].CurrentNode is not null && gridCells[xx, y].CurrentNode is BaseObstacle obstacle && y + 1 <= size.y && gridCells[xx, y + 1].CurrentNode is null)
+					if (gridCells[xx, y] && gridCells[xx, y].CurrentNode is not null && gridCells[xx, y].CurrentNode is BaseObstacle obstacle && y + 1 <= size.y &&
+					    gridCells[xx, y + 1].CurrentNode is null)
 					{
 						return obstacle;
 					}
@@ -266,7 +292,8 @@ namespace GridSystem
 
 				for (int y = size.y - 1; y >= 0; y--)
 				{
-					if (gridCells[xx, y].CurrentNode is not null && gridCells[xx, y].CurrentNode is BaseObstacle obstacle && y + 1 <= size.y && gridCells[xx, y + 1].CurrentNode is null)
+					if (gridCells[xx, y] && gridCells[xx, y].CurrentNode is not null && gridCells[xx, y].CurrentNode is BaseObstacle obstacle && y + 1 <= size.y &&
+					    gridCells[xx, y + 1].CurrentNode is null)
 					{
 						return obstacle;
 					}

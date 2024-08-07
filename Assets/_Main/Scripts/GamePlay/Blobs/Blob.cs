@@ -32,14 +32,14 @@ namespace GamePlay.Blobs
 		{
 			CellType = cellType;
 			if (cell)
-				Place(cell);
+				Init(cell);
 
 			var mat = GameManager.Instance.BlobMaterialsSO.BlobMaterials[cellType];
 			foreach (var r in renderers)
 				r.material = mat;
 		}
 
-		public void Place(GridCell placedCell)
+		public void Init(GridCell placedCell)
 		{
 			CurrentGridCell = placedCell;
 			CurrentGridCell.CurrentNode = this;
@@ -86,6 +86,11 @@ namespace GamePlay.Blobs
 			if (CurrentGridCell)
 				CurrentGridCell.CurrentNode = null;
 
+			PlaceToCell(cell);
+		}
+
+		public void PlaceToCell(GridCell cell)
+		{
 			CurrentGridCell = cell;
 			CurrentGridCell.CurrentNode = this;
 

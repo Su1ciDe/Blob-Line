@@ -17,7 +17,7 @@ namespace LevelEditor
 		[Space]
 		[Group("Randomizer"), TableList] [SerializeField] private RandomCell[] randomCells;
 
-		[Group("Randomizer"), Button(ButtonSizes.Medium)]
+		[Group("Randomizer"), Button]
 		private void Randomize()
 		{
 			var randomCellTypes = randomCells.Select(x => x.CellType).ToList();
@@ -45,7 +45,7 @@ namespace LevelEditor
 		[DeclareHorizontalGroup("spawner")]
 		public class GridSpawnerOptions
 		{
-			[GUIColor("$GetColor")]
+			[GUIColor("$GetColor"), ValidateInput(nameof(ValidateCellType))]
 			[Group("spawner")] public CellType CellType = CellType.Blue;
 			[Range(1, 100)]
 			[Group("spawner")] public int Weight = 1;
@@ -63,15 +63,23 @@ namespace LevelEditor
 						CellType.X_Purple => new Color(.7f, .25f, 1f),
 						CellType.Red => Color.red,
 						CellType.Yellow => Color.yellow,
-						CellType.Grid => Color.white,
+						CellType.FilledGrid => Color.white,
 						CellType.Empty => Color.white,
-						CellType.BasicObstacle => Color.white,
+						CellType.StaticObstacle => Color.white,
 						CellType.BreakableObstacle => Color.white,
 						_ => throw new ArgumentOutOfRangeException()
 					};
 
 					return color;
 				}
+			}
+
+			private TriValidationResult ValidateCellType()
+			{
+				if (CellType is CellType.BreakableObstacle or CellType.StaticObstacle or CellType.Empty or CellType.FilledGrid)
+					return TriValidationResult.Error("This value must be color!");
+
+				return TriValidationResult.Valid;
 			}
 		}
 
@@ -86,7 +94,7 @@ namespace LevelEditor
 		[Serializable]
 		public class GoalOptions
 		{
-			[GUIColor("$GetColor")]
+			[GUIColor("$GetColor"), ValidateInput(nameof(ValidateCellType))]
 			public CellType GaolColor = CellType.Blue;
 			public int Count;
 
@@ -103,15 +111,23 @@ namespace LevelEditor
 						CellType.X_Purple => new Color(.7f, .25f, 1f),
 						CellType.Red => Color.red,
 						CellType.Yellow => Color.yellow,
-						CellType.Grid => Color.white,
+						CellType.FilledGrid => Color.white,
 						CellType.Empty => Color.white,
-						CellType.BasicObstacle => Color.white,
+						CellType.StaticObstacle => Color.white,
 						CellType.BreakableObstacle => Color.white,
 						_ => throw new ArgumentOutOfRangeException()
 					};
 
 					return color;
 				}
+			}
+
+			private TriValidationResult ValidateCellType()
+			{
+				if (GaolColor is CellType.BreakableObstacle or CellType.StaticObstacle or CellType.Empty or CellType.FilledGrid)
+					return TriValidationResult.Error("This value must be color!");
+
+				return TriValidationResult.Valid;
 			}
 		}
 
