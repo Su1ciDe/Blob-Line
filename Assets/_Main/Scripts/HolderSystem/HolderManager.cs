@@ -89,12 +89,10 @@ namespace HolderSystem
 						blob.CurrentGridCell = null;
 					}
 
+					blob.OnJumpToHolder();
 					holder.SetBlob(blob);
 					tempBlobs.RemoveAt(0);
-					blob.JumpTo(new Vector3(holder.transform.position.x, holder.transform.position.y + Holder.OFFSET * holder.Blobs.Count, holder.transform.position.z)).OnComplete(() =>
-					{
-						//
-					});
+					blob.JumpTo(new Vector3(holder.transform.position.x, holder.transform.position.y + Holder.OFFSET * holder.Blobs.Count, holder.transform.position.z));
 
 					yield return holderDelay;
 				}

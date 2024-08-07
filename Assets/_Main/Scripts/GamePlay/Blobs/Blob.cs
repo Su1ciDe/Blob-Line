@@ -1,10 +1,12 @@
 using System.Collections;
 using DG.Tweening;
 using Fiber.Managers;
+using GamePlay.Obstacles;
 using GridSystem;
 using Interfaces;
 using LevelEditor;
 using UnityEngine;
+using Grid = GridSystem.Grid;
 
 namespace GamePlay.Blobs
 {
@@ -68,7 +70,18 @@ namespace GamePlay.Blobs
 			IsMoving = true;
 
 			if (CurrentGridCell)
+			{
+				CheckBreakableObstacle();
 				CurrentGridCell.CurrentNode = null;
+			}
+		}
+
+		public void OnJumpToHolder()
+		{
+			if (CurrentGridCell)
+			{
+				CheckBreakableObstacle();
+			}
 		}
 
 		public void OnEnterToGoal()
@@ -138,6 +151,31 @@ namespace GamePlay.Blobs
 		public IEnumerator FallToTheSecondPosition(Vector3 secondPosition)
 		{
 			yield return transform.DOMove(secondPosition + positionOffset, FALL_SPEED / 2f).SetSpeedBased(true).SetEase(Ease.OutSine).WaitForCompletion();
+		}
+
+		private void CheckBreakableObstacle()
+		{
+			var gridCells = Grid.Instance.GridCells;
+			if (CurrentGridCell.Coordinates.x - 1 >= 0 && gridCells[CurrentGridCell.Coordinates.x - 1, CurrentGridCell.Coordinates.y].CurrentNode is BreakableObstacle leftObstacle)
+			{
+				leftObstacle.OnBlastNear(this);
+			}
+
+			if (CurrentGridCell.Coordinates.x + 1 < gridCells.GetLength(0) &&
+			    gridCells[CurrentGridCell.Coordinates.x + 1, CurrentGridCell.Coordinates.y].CurrentNode is BreakableObstacle rightObstacle)
+			{
+				rightObstacle.OnBlastNear(this);
+			}
+
+			if (CurrentGridCell.Coordinates.y - 1 >= 0 && gridCells[CurrentGridCell.Coordinates.x, CurrentGridCell.Coordinates.y - 1].CurrentNode is BreakableObstacle upObstacle)
+			{
+				upObstacle.OnBlastNear(this);
+			}
+
+			if (CurrentGridCell.Coordinates.y + 1 < gridCells.GetLength(1) && gridCells[CurrentGridCell.Coordinates.x, CurrentGridCell.Coordinates.y + 1].CurrentNode is BreakableObstacle downObstacle)
+			{
+				downObstacle.OnBlastNear(this);
+			}
 		}
 	}
 }
