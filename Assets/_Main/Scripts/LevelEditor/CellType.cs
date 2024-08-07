@@ -12,6 +12,6 @@ namespace LevelEditor
 		Red,
 		Yellow,
 		StaticObstacle,
-		BreakableObstacle,
+		C_BreakableObstacle,
 	}
 }

@@ -66,7 +66,7 @@ namespace LevelEditor
 						CellType.FilledGrid => Color.white,
 						CellType.Empty => Color.white,
 						CellType.StaticObstacle => Color.white,
-						CellType.BreakableObstacle => Color.white,
+						CellType.C_BreakableObstacle => Color.white,
 						_ => throw new ArgumentOutOfRangeException()
 					};
 
@@ -76,7 +76,7 @@ namespace LevelEditor
 
 			private TriValidationResult ValidateCellType()
 			{
-				if (CellType is CellType.BreakableObstacle or CellType.StaticObstacle or CellType.Empty or CellType.FilledGrid)
+				if (CellType is CellType.C_BreakableObstacle or CellType.StaticObstacle or CellType.Empty or CellType.FilledGrid)
 					return TriValidationResult.Error("This value must be color!");
 
 				return TriValidationResult.Valid;
@@ -114,7 +114,7 @@ namespace LevelEditor
 						CellType.FilledGrid => Color.white,
 						CellType.Empty => Color.white,
 						CellType.StaticObstacle => Color.white,
-						CellType.BreakableObstacle => Color.white,
+						CellType.C_BreakableObstacle => Color.white,
 						_ => throw new ArgumentOutOfRangeException()
 					};
 
@@ -124,7 +124,7 @@ namespace LevelEditor
 
 			private TriValidationResult ValidateCellType()
 			{
-				if (GaolColor is CellType.BreakableObstacle or CellType.StaticObstacle or CellType.Empty or CellType.FilledGrid)
+				if (GaolColor is CellType.C_BreakableObstacle or CellType.StaticObstacle or CellType.Empty or CellType.FilledGrid)
 					return TriValidationResult.Error("This value must be color!");
 
 				return TriValidationResult.Valid;

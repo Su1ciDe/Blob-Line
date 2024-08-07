@@ -77,7 +77,7 @@ namespace GridSystem
 					cell.transform.localPosition = new Vector3(x * (nodeSize.x + xSpacing) - xOffset, 0, -y * (nodeSize.y + ySpacing) + yOffset);
 					gridCells[x, y] = cell;
 
-					if (gridCell is CellType.StaticObstacle or CellType.BreakableObstacle)
+					if (gridCell is CellType.StaticObstacle or CellType.C_BreakableObstacle)
 					{
 						var obstacle = Instantiate(obstaclesSO.Obstacles[gridCell], cell.transform);
 						obstacle.Init(cell);
