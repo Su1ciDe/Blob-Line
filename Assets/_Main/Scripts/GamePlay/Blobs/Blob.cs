@@ -1,10 +1,13 @@
 using System.Collections;
 using DG.Tweening;
+using Fiber.AudioSystem;
 using Fiber.Managers;
+using Fiber.Utilities;
 using GamePlay.Obstacles;
 using GridSystem;
 using Interfaces;
 using LevelEditor;
+using Lofelt.NiceVibrations;
 using UnityEngine;
 using Grid = GridSystem.Grid;
 
@@ -20,6 +23,7 @@ namespace GamePlay.Blobs
 		public bool IsFalling { get; private set; }
 
 		[SerializeField] private Transform model;
+		[SerializeField] private GameObject bubble;
 		[SerializeField] private Renderer[] renderers;
 
 		[Space]
@@ -63,6 +67,15 @@ namespace GamePlay.Blobs
 		{
 			model.DOComplete();
 			model.DOScale(0.8f * Vector3.one, ANIM_DURATION / 4f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
+		}
+
+		public void PopBubble(int index)
+		{
+			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(0.75f + index * 0.05f);
+			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
+			ParticlePooler.Instance.Spawn("Bubble", transform.position);
+
+			bubble.SetActive(false);
 		}
 
 		public void OnJumpToGoal()

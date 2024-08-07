@@ -7,6 +7,7 @@ using GoalSystem;
 using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.Events;
+using Grid = GridSystem.Grid;
 
 namespace GamePlay.Player
 {
@@ -84,8 +85,8 @@ namespace GamePlay.Player
 			lineRenderer.Queue(blobPos);
 			fakeLineRenderer.SetPosition(0, blobPos);
 
-			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
-			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(.75f + BlobsInLine.Count * .1f);
+			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.SoftImpact);
+			AudioManager.Instance.PlayAudio(AudioName.Pop2).SetPitch(.75f + BlobsInLine.Count * .1f);
 		}
 
 		private void OnBlobRemoved(Blob blob)
@@ -102,8 +103,8 @@ namespace GamePlay.Player
 			CurrentSelectedBlob = BlobsInLine[^1];
 			fakeLineRenderer.SetPosition(0, CurrentSelectedBlob.transform.position);
 
-			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
-			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(.75f + BlobsInLine.Count * .1f);
+			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.SoftImpact);
+			AudioManager.Instance.PlayAudio(AudioName.Pop2).SetPitch(.75f + BlobsInLine.Count * .1f);
 		}
 
 		private void OnInputDown(Vector3 pos)
@@ -133,6 +134,8 @@ namespace GamePlay.Player
 					OnLineToGoal?.Invoke(BlobsInLine, goal);
 				else
 					OnLineToHolder?.Invoke(BlobsInLine);
+				
+				Grid.Instance.BubbleFeedback(BlobsInLine);
 
 				Player.Instance.Inputs.CanInput = false;
 

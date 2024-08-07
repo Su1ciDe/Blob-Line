@@ -56,7 +56,6 @@ namespace GridSystem
 			Setup(LevelManager.Instance.CurrentLevelData.Grid);
 		}
 
-		
 		public void Setup(Array2DGrid grid)
 		{
 			size = grid.GridSize;
@@ -210,6 +209,23 @@ namespace GridSystem
 			yield return new WaitUntil(() => !IsAnyBlobFalling());
 
 			OnFallFillFinish?.Invoke();
+		}
+
+		public void BubbleFeedback(List<Blob> blobs)
+		{
+			var tempBlobs = new List<Blob>(blobs);
+			StartCoroutine(BubbleFeedbackCoroutine(tempBlobs));
+		}
+
+		private readonly WaitForSeconds waitFeedback = new WaitForSeconds(0.05f);
+
+		private IEnumerator BubbleFeedbackCoroutine(List<Blob> blobs)
+		{
+			for (int i = 0; i < blobs.Count; i++)
+			{
+				blobs[i].PopBubble(i);
+				yield return waitFeedback;
+			}
 		}
 
 		private bool IsAnyBlobFalling()
