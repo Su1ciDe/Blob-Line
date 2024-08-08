@@ -10,55 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 157ae077f4ce4085bf16976e898410d9, type: 3}
-  m_Name: Level_004
+  m_Name: Level_005
   m_EditorClassIdentifier: 
   Grid:
     gridSize: {x: 4, y: 7}
     cellSize: {x: 64, y: 16}
     cells:
-    - row: 01000000010000000100000001000000
-    - row: 07000000070000000700000003000000
-    - row: 07000000080000000700000003000000
-    - row: 07000000080000000700000003000000
-    - row: 07000000030000000800000003000000
-    - row: 07000000030000000800000003000000
-    - row: 07000000030000000300000003000000
+    - row: 09000000090000000900000009000000
+    - row: 09000000020000000200000009000000
+    - row: 02000000020000000700000002000000
+    - row: 07000000070000000700000002000000
+    - row: 07000000070000000200000002000000
+    - row: 09000000070000000200000009000000
+    - row: 09000000090000000900000009000000
   randomCells:
   - CellType: 2
     Weight: 50
   - CellType: 3
     Weight: 50
   GridSpawner:
-  - CellType: 3
-    Weight: 40
-    Chance: 28.57%
   - CellType: 7
-    Weight: 40
-    Chance: 28.57%
-  - CellType: 8
-    Weight: 60
-    Chance: 42.86%
-  totalWeight: 140
+    Weight: 50
+    Chance: 50.00%
+  - CellType: 2
+    Weight: 50
+    Chance: 50.00%
+  totalWeight: 100
   ActiveGoalCount: 2
   Goals:
   - GaolColor: 7
     Count: 10
-  - GaolColor: 3
-    Count: 10
-  - GaolColor: 8
-    Count: 10
-  - GaolColor: 8
+  - GaolColor: 2
     Count: 10
   - GaolColor: 7
     Count: 10
-  - GaolColor: 3
+  - GaolColor: 2
     Count: 10
-  - GaolColor: 8
+  - GaolColor: 7
+    Count: 10
+  - GaolColor: 2
     Count: 10
   goalCounts:
   - GaolColor: 7
-    TotalCount: 20
-  - GaolColor: 3
-    TotalCount: 20
-  - GaolColor: 8
+    TotalCount: 30
+  - GaolColor: 2
     TotalCount: 30
