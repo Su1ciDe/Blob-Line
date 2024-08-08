@@ -26,6 +26,8 @@ namespace GamePlay.Player
 		public static event UnityAction<List<Blob>, Goal> OnLineToGoal;
 		public static event UnityAction<List<Blob>> OnLineToHolder;
 		public static event UnityAction<List<Blob>> OnLineComplete;
+		public static event UnityAction<List<Blob>> OnBlobAddedToLine;
+		public static event UnityAction<List<Blob>> OnBlobRemovedFromLine;
 
 		private void OnEnable()
 		{
@@ -51,7 +53,7 @@ namespace GamePlay.Player
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.attachedRigidbody && other.attachedRigidbody.TryGetComponent(out Blob blob))
+			if (other.attachedRigidbody && other.attachedRigidbody.TryGetComponent(out Blob blob) && blob.IsInGrid)
 			{
 				if (!BlobsInLine.Contains(blob))
 				{
@@ -76,7 +78,7 @@ namespace GamePlay.Player
 		{
 			var color = GameManager.Instance.BlobMaterialsSO.BlobMaterials[blob.CellType].color;
 			lineRenderer.startColor = lineRenderer.endColor = fakeLineRenderer.startColor = fakeLineRenderer.endColor = color;
-			
+
 			BlobsInLine.Add(blob);
 			blob.OnAddedToLine();
 			CurrentSelectedBlob = blob;
@@ -87,6 +89,8 @@ namespace GamePlay.Player
 
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.SoftImpact);
 			AudioManager.Instance.PlayAudio(AudioName.Pop2).SetPitch(.75f + BlobsInLine.Count * .1f);
+
+			OnBlobAddedToLine?.Invoke(BlobsInLine);
 		}
 
 		private void OnBlobRemoved(Blob blob)
@@ -105,6 +109,8 @@ namespace GamePlay.Player
 
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.SoftImpact);
 			AudioManager.Instance.PlayAudio(AudioName.Pop2).SetPitch(.75f + BlobsInLine.Count * .1f);
+
+			OnBlobRemovedFromLine?.Invoke(BlobsInLine);
 		}
 
 		private void OnInputDown(Vector3 pos)
@@ -134,7 +140,7 @@ namespace GamePlay.Player
 					OnLineToGoal?.Invoke(BlobsInLine, goal);
 				else
 					OnLineToHolder?.Invoke(BlobsInLine);
-				
+
 				Grid.Instance.BubbleFeedback(BlobsInLine);
 
 				Player.Instance.Inputs.CanInput = false;
@@ -149,6 +155,8 @@ namespace GamePlay.Player
 			CurrentSelectedBlob = null;
 
 			col.enabled = false;
+
+			OnBlobRemovedFromLine?.Invoke(BlobsInLine);
 		}
 
 		private void OnLevelStarted()

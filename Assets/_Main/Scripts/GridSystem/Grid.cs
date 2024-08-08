@@ -103,6 +103,7 @@ namespace GridSystem
 
 					// Check if there is any empty cell under
 					int emptyY = GetFirstEmptyRow(x, y);
+					if (emptyY < 0) continue;
 					if (emptyY.Equals(blob.CurrentGridCell.Coordinates.y)) continue;
 					blob.SwapCell(gridCells[x, emptyY]);
 					blob.Fall(gridCells[x, emptyY].transform.position);
@@ -124,14 +125,20 @@ namespace GridSystem
 					if (cell.CurrentNode is not Blob blob) continue;
 
 					// Check if there is any empty cell under
+					var pos = cell.transform.position;
 					int emptyY = GetFirstEmptyRow(x, y);
-					blob.SwapCell(gridCells[x, emptyY]);
-					var pos = gridCells[x, emptyY].transform.position;
+					if (emptyY >= 0)
+					{
+						blob.SwapCell(gridCells[x, emptyY]);
+						pos = gridCells[x, emptyY].transform.position;
+					}
+					else
+						emptyY = y;
 
 					var obstacle = GetObstacleInColumn(x);
 					if (obstacle)
 					{
-						int emptyObstacleY = GetFirstEmptyRow(obstacle.CurrentGridCell.Coordinates);
+						int emptyObstacleY = GetFirstEmptyRow(obstacle.CurrentGridCell.Coordinates, true);
 						if (emptyY < emptyObstacleY)
 						{
 							blob.Fall(pos, gridCells[obstacle.CurrentGridCell.Coordinates.x, emptyObstacleY].transform.position);
@@ -168,6 +175,7 @@ namespace GridSystem
 				for (int i = 0; i < emptyRowCount; i++)
 				{
 					var emptyCellY = GetFirstEmptyRow(x, 0);
+					if (emptyCellY < 0) continue;
 
 					var blob = SpawnRandomBlob(cellTypes, weights);
 					blob.transform.position = gridCells[x, 0].transform.position + new Vector3(0, blob.PositionOffset.y, 1.5f);
@@ -262,28 +270,33 @@ namespace GridSystem
 			return count;
 		}
 
-		private int GetFirstEmptyRow(int x, int y)
+		private int GetFirstEmptyRow(int x, int y, bool findUnderObstacle = false)
 		{
-			var yy = y;
-			for (var i = y + 1; i < size.y; i++)
+			int yy = -1;
+			bool foundFirst = false;
+			if (findUnderObstacle)
+				y++;
+			for (int i = size.y - 1; i >= y; i--)
 			{
-				if (gridCells[x, i].CellType == CellType.Empty)
+				if (!foundFirst && gridCells[x, i].CellType != CellType.Empty && gridCells[x, i].CurrentNode is null)
 				{
-					if (gridCells[x, i + 1].CurrentNode is not null) break;
-					yy++;
-					continue;
+					foundFirst = true;
+					yy = i;
 				}
 
-				if (gridCells[x, i].CurrentNode is not null) break;
-				yy++;
+				if (gridCells[x, i].CurrentNode is not null & gridCells[x, i].CurrentNode is BaseObstacle)
+				{
+					foundFirst = false;
+					yy = -1;
+				}
 			}
 
 			return yy;
 		}
 
-		private int GetFirstEmptyRow(Vector2Int coordinates)
+		private int GetFirstEmptyRow(Vector2Int coordinates, bool findUnderObstacle = false)
 		{
-			return GetFirstEmptyRow(coordinates.x, coordinates.y);
+			return GetFirstEmptyRow(coordinates.x, coordinates.y, findUnderObstacle);
 		}
 
 		private BaseObstacle GetObstacleInColumn(int x)

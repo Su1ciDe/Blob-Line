@@ -403,6 +403,6 @@ MonoBehaviour:
   - {fileID: 5061879302423945065}
   - {fileID: 5341518501006385252}
   minTransitionDuration: 0.5
-  maxTransitionDuration: 2
+  maxTransitionDuration: 3
   minWaitDuration: 2
   maxWaitDuration: 5
