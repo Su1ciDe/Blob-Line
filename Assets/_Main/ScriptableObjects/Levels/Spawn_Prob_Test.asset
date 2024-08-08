@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 157ae077f4ce4085bf16976e898410d9, type: 3}
-  m_Name: Level_000
+  m_Name: Spawn_Prob_Test
   m_EditorClassIdentifier: 
   Grid:
     gridSize: {x: 4, y: 7}
     cellSize: {x: 64, y: 16}
     cells:
-    - row: 03000000030000000300000003000000
-    - row: 03000000030000000300000002000000
-    - row: 02000000030000000200000002000000
-    - row: 01000000030000000200000009000000
-    - row: 02000000020000000200000003000000
-    - row: 02000000030000000200000003000000
+    - row: 01000000010000000100000001000000
+    - row: 01000000010000000100000001000000
+    - row: 02000000020000000200000002000000
+    - row: 02000000020000000200000002000000
+    - row: 02000000020000000200000002000000
+    - row: 02000000020000000200000002000000
     - row: 02000000020000000200000002000000
   randomCells:
   - CellType: 2
@@ -33,18 +33,18 @@ MonoBehaviour:
     Weight: 50
   - CellType: 2
     Weight: 50
-  totalWeight: 100
-  ActiveGoalCount: 2
+  - CellType: 4
+    Weight: 50
+  - CellType: 5
+    Weight: 50
+  totalWeight: 200
+  ActiveGoalCount: 4
   Goals:
   - GaolColor: 2
-    Count: 10
+    Count: 120
   - GaolColor: 3
-    Count: 10
-  - GaolColor: 3
-    Count: 10
-  - GaolColor: 2
-    Count: 10
-  - GaolColor: 3
-    Count: 10
-  - GaolColor: 2
-    Count: 10
+    Count: 100
+  - GaolColor: 4
+    Count: 100
+  - GaolColor: 5
+    Count: 100
