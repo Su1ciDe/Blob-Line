@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using Fiber.Managers;
-using Fiber.Utilities.Extensions;
-using Fiber.Utilities.UI;
 using GamePlay.Blobs;
 using GamePlay.Player;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -13,7 +12,7 @@ namespace UI
 	{
 		[SerializeField] private int maxCount = 10;
 		[Space]
-		[SerializeField] private SlicedFilledImage imgFill;
+		[SerializeField] private Image[] fillImages;
 		[SerializeField] private float fillDuration = .1f;
 
 		private void OnEnable()
@@ -30,9 +29,15 @@ namespace UI
 
 		private void OnBlobAddedToLine(List<Blob> blobs)
 		{
-			imgFill.color = GameManager.Instance.BlobMaterialsSO.BlobMaterials[blobs[0].CellType].color;
+			var color = GameManager.Instance.BlobMaterialsSO.BlobMaterials[blobs[0].CellType].color;
+			for (var i = 0; i < fillImages.Length; i++)
+			{
+				fillImages[i].color = color;
+			}
+
 			var count = Mathf.Clamp(blobs.Count, 0f, maxCount);
 			count /= maxCount;
+			count /= 2f;
 			ChangeProgressBar(count);
 		}
 
@@ -40,13 +45,17 @@ namespace UI
 		{
 			var count = Mathf.Clamp(blobs.Count, 0f, maxCount);
 			count /= maxCount;
+			count /= 2f;
 			ChangeProgressBar(count);
 		}
 
 		private void ChangeProgressBar(float percentage)
 		{
-			imgFill.DOKill();
-			imgFill.DOFillAmount(percentage, fillDuration).SetEase(Ease.InOutSine);
+			for (var i = 0; i < fillImages.Length; i++)
+			{
+				fillImages[i].DOKill();
+				fillImages[i].DOFillAmount(percentage, fillDuration).SetEase(Ease.InOutSine);
+			}
 		}
 	}
 }
