@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Fiber.Utilities.Extensions;
 using TriInspector;
@@ -41,6 +42,9 @@ namespace LevelEditor
 		[Range(1, 4)] public int ActiveGoalCount = 1;
 		[InlineProperty, TableList] public GoalOptions[] Goals;
 
+		[TableList(Draggable = false, AlwaysExpanded = true, HideAddButton = true, HideRemoveButton = true, ShowElementLabels = false)]
+		[SerializeField] private List<GoalCount> goalCounts;
+
 		[Serializable]
 		[DeclareHorizontalGroup("spawner")]
 		public class GridSpawnerOptions
@@ -49,6 +53,7 @@ namespace LevelEditor
 			[Group("spawner")] public CellType CellType = CellType.Blue;
 			[Range(1, 100)]
 			[Group("spawner")] public int Weight = 1;
+			[Group("spawner"), DisplayAsString, HideLabel] public string Chance;
 
 			private Color GetColor
 			{
@@ -131,11 +136,79 @@ namespace LevelEditor
 			}
 		}
 
+		[Serializable]
+		private class GoalCount
+		{
+			[GUIColor("$GetColor")]
+			[ReadOnly] public CellType GaolColor;
+			[ReadOnly] public int TotalCount;
+
+			public GoalCount(CellType gaolColor, int totalCount)
+			{
+				GaolColor = gaolColor;
+				TotalCount = totalCount;
+			}
+
+			private Color GetColor
+			{
+				get
+				{
+					var color = GaolColor switch
+					{
+						CellType.Blue => Color.blue,
+						CellType.Green => Color.green,
+						CellType.Orange => new Color(1f, 0.5f, 0),
+						CellType.Pink => Color.magenta,
+						CellType.X_Purple => new Color(.7f, .25f, 1f),
+						CellType.Red => Color.red,
+						CellType.Yellow => Color.yellow,
+						CellType.FilledGrid => Color.white,
+						CellType.Empty => Color.white,
+						CellType.StaticObstacle => Color.white,
+						CellType.C_BreakableObstacle => Color.white,
+						_ => throw new ArgumentOutOfRangeException()
+					};
+
+					return color;
+				}
+			}
+		}
+
 		private void OnValidate()
 		{
 			totalWeight = 0;
 			foreach (var gridSpawnerOptions in GridSpawner)
+			{
 				totalWeight += gridSpawnerOptions.Weight;
+			}
+
+			foreach (var gridSpawnerOption in GridSpawner)
+			{
+				gridSpawnerOption.Chance = ((float)gridSpawnerOption.Weight / totalWeight * 100).ToString("F2") + "%";
+			}
+
+			CalculateGoalCount();
+		}
+
+		private void CalculateGoalCount()
+		{
+			goalCounts.Clear();
+			foreach (var goalOption in Goals)
+			{
+				var found = false;
+
+				var goalCount = goalCounts.Where(x => x.GaolColor == goalOption.GaolColor);
+				foreach (var count in goalCount)
+				{
+					count.TotalCount += goalOption.Count;
+					found = true;
+				}
+
+				if (!found)
+				{
+					goalCounts.Add(new GoalCount(goalOption.GaolColor, goalOption.Count));
+				}
+			}
 		}
 	}
 }

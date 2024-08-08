@@ -25,13 +25,14 @@ namespace GamePlay.Blobs
 		[SerializeField] private Transform model;
 		[SerializeField] private GameObject bubble;
 		[SerializeField] private Renderer[] renderers;
+		[SerializeField] private Animator animator;
 
 		[Space]
 		[SerializeField] private Vector3 positionOffset = new Vector3(0, 0.5f, 0);
 		public Vector3 PositionOffset => positionOffset;
 
-		public static float JUMP_POWER = 3;
-		public static float JUMP_DURATION = .25F;
+		public static float JUMP_POWER = 4;
+		public static float JUMP_DURATION = .3F;
 		private const float ANIM_DURATION = .35F;
 
 		public void Setup(CellType cellType, GridCell cell = null)
@@ -71,6 +72,8 @@ namespace GamePlay.Blobs
 
 		public void PopBubble(int index)
 		{
+			animator.SetTrigger(armsLegs);
+
 			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(0.75f + index * 0.05f);
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
 			ParticlePooler.Instance.Spawn("Bubble", transform.position);
@@ -126,6 +129,7 @@ namespace GamePlay.Blobs
 		private const float FALL_SPEED = 20f;
 		private const float ACCELERATION = .5f;
 		private float velocity;
+		private static readonly int armsLegs = Animator.StringToHash("ArmsLegs");
 
 		public void Fall(Vector3 position, Vector3? secondPosition = null)
 		{
