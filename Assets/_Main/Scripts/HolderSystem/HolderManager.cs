@@ -74,6 +74,7 @@ namespace HolderSystem
 			var holder = GetFirstHolder(tempBlobs[0].CellType);
 			if (!holder)
 			{
+				yield return new WaitForSeconds(0.5f);
 				LevelManager.Instance.Lose();
 				yield break;
 			}

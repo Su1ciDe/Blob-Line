@@ -51,7 +51,7 @@ namespace GamePlay.Player
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.attachedRigidbody && other.attachedRigidbody.TryGetComponent(out Blob blob))
+			if (other.attachedRigidbody && other.attachedRigidbody.TryGetComponent(out Blob blob) && blob.IsInGrid)
 			{
 				if (!BlobsInLine.Contains(blob))
 				{
@@ -76,7 +76,7 @@ namespace GamePlay.Player
 		{
 			var color = GameManager.Instance.BlobMaterialsSO.BlobMaterials[blob.CellType].color;
 			lineRenderer.startColor = lineRenderer.endColor = fakeLineRenderer.startColor = fakeLineRenderer.endColor = color;
-			
+
 			BlobsInLine.Add(blob);
 			blob.OnAddedToLine();
 			CurrentSelectedBlob = blob;
@@ -134,7 +134,7 @@ namespace GamePlay.Player
 					OnLineToGoal?.Invoke(BlobsInLine, goal);
 				else
 					OnLineToHolder?.Invoke(BlobsInLine);
-				
+
 				Grid.Instance.BubbleFeedback(BlobsInLine);
 
 				Player.Instance.Inputs.CanInput = false;

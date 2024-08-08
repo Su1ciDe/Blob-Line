@@ -21,6 +21,7 @@ namespace GamePlay.Blobs
 
 		public bool IsMoving { get; private set; }
 		public bool IsFalling { get; private set; }
+		public bool IsInGrid { get; private set; }
 
 		[SerializeField] private Transform model;
 		[SerializeField] private GameObject bubble;
@@ -53,6 +54,7 @@ namespace GamePlay.Blobs
 
 			transform.SetParent(placedCell.transform);
 			transform.localPosition = positionOffset;
+			IsInGrid = true;
 		}
 
 		public Transform GetTransform() => transform;
@@ -83,6 +85,7 @@ namespace GamePlay.Blobs
 
 		public void OnJumpToGoal()
 		{
+			IsInGrid = false;
 			IsMoving = true;
 
 			if (CurrentGridCell)
@@ -94,6 +97,7 @@ namespace GamePlay.Blobs
 
 		public void OnJumpToHolder()
 		{
+			IsInGrid = false;
 			if (CurrentGridCell)
 			{
 				CheckBreakableObstacle();
