@@ -2,6 +2,7 @@ using Cinemachine;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using Fiber.Utilities.UI;
 using UnityEngine;
 
 namespace Fiber.Utilities.Extensions
@@ -204,5 +205,17 @@ namespace Fiber.Utilities.Extensions
 		}
 
 		#endregion
+
+		/// <summary>Tweens an Image's fillAmount to the given value.
+		/// Also stores the image as the tween's target so it can be used for filtered operations</summary>
+		/// <param name="endValue">The end value to reach (0 to 1)</param><param name="duration">The duration of the tween</param>
+		public static TweenerCore<float, float, FloatOptions> DOFillAmount(this SlicedFilledImage target, float endValue, float duration)
+		{
+			if (endValue > 1) endValue = 1;
+			else if (endValue < 0) endValue = 0;
+			var t = DOTween.To(() => target.FillAmount, x => target.FillAmount = x, endValue, duration);
+			t.SetTarget(target);
+			return t;
+		}
 	}
 }

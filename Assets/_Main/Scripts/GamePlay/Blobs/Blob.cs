@@ -39,6 +39,7 @@ namespace GamePlay.Blobs
 		public void Setup(CellType cellType, GridCell cell = null)
 		{
 			CellType = cellType;
+			IsInGrid = true;
 			if (cell)
 				Init(cell);
 
@@ -54,7 +55,6 @@ namespace GamePlay.Blobs
 
 			transform.SetParent(placedCell.transform);
 			transform.localPosition = positionOffset;
-			IsInGrid = true;
 		}
 
 		public Transform GetTransform() => transform;

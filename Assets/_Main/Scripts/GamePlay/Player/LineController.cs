@@ -26,6 +26,8 @@ namespace GamePlay.Player
 		public static event UnityAction<List<Blob>, Goal> OnLineToGoal;
 		public static event UnityAction<List<Blob>> OnLineToHolder;
 		public static event UnityAction<List<Blob>> OnLineComplete;
+		public static event UnityAction<List<Blob>> OnBlobAddedToLine;
+		public static event UnityAction<List<Blob>> OnBlobRemovedFromLine;
 
 		private void OnEnable()
 		{
@@ -87,6 +89,8 @@ namespace GamePlay.Player
 
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.SoftImpact);
 			AudioManager.Instance.PlayAudio(AudioName.Pop2).SetPitch(.75f + BlobsInLine.Count * .1f);
+
+			OnBlobAddedToLine?.Invoke(BlobsInLine);
 		}
 
 		private void OnBlobRemoved(Blob blob)
@@ -105,6 +109,8 @@ namespace GamePlay.Player
 
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.SoftImpact);
 			AudioManager.Instance.PlayAudio(AudioName.Pop2).SetPitch(.75f + BlobsInLine.Count * .1f);
+
+			OnBlobRemovedFromLine?.Invoke(BlobsInLine);
 		}
 
 		private void OnInputDown(Vector3 pos)
@@ -149,6 +155,8 @@ namespace GamePlay.Player
 			CurrentSelectedBlob = null;
 
 			col.enabled = false;
+
+			OnBlobRemovedFromLine?.Invoke(BlobsInLine);
 		}
 
 		private void OnLevelStarted()
