@@ -70,6 +70,9 @@ namespace GoalSystem
 
 		public void OnBlobEntered(Blob blob)
 		{
+			transform.DOComplete();
+			transform.DOPunchScale(.2f * Vector3.one, .15f, 1, 1);
+
 			txtCount.SetText((NeededAmount - CurrentAmount).ToString());
 			imgFill.fillAmount = (float)CurrentAmount / NeededAmount;
 
