@@ -24,7 +24,7 @@ namespace HolderSystem
 
 		private bool isBusy;
 
-		public const int MAX_STACK_COUNT = 5;
+		public const int MAX_STACK_COUNT = 10;
 
 		public static event UnityAction OnHolderSequenceComplete;
 
