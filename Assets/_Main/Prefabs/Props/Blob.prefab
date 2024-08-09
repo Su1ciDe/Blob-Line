@@ -366,13 +366,110 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1134760969590811388}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 556112741226846856, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7249957360747042647}
     - targetCorrespondingSourceObject: {fileID: 8266528667097165247, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
       insertIndex: -1
       addedObject: {fileID: 529104445239401698}
   m_SourcePrefab: {fileID: 100100000, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+--- !u!4 &31665390438393762 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 713594902932276527, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+  m_PrefabInstance: {fileID: 691106046739997325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &995385916570045163 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 308249725819840614, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+  m_PrefabInstance: {fileID: 691106046739997325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1018087151539779589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 556112741226846856, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+  m_PrefabInstance: {fileID: 691106046739997325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7249957360747042647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018087151539779589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ac8d30c6a0d9642a11e5be4c440740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Root: {fileID: 0}
+  m_Roots:
+  - {fileID: 2682302437727200582}
+  - {fileID: 31665390438393762}
+  - {fileID: 995385916570045163}
+  - {fileID: 4981948465446136241}
+  m_UpdateRate: 60
+  m_UpdateMode: 3
+  m_Damping: 0.1
+  m_DampingDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Elasticity: 0.1
+  m_ElasticityDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Stiffness: 0.1
+  m_StiffnessDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Inert: 0
+  m_InertDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Friction: 0
+  m_FrictionDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Radius: 0
+  m_RadiusDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_EndLength: 0
+  m_EndOffset: {x: 0, y: 0, z: 0}
+  m_Gravity: {x: 0, y: 0, z: 0}
+  m_Force: {x: 0, y: 0, z: 0}
+  m_BlendWeight: 1
+  m_Colliders: []
+  m_Exclusions: []
+  m_FreezeAxis: 0
+  m_DistantDisable: 0
+  m_ReferenceObject: {fileID: 0}
+  m_DistanceToObject: 20
+  m_Multithread: 1
 --- !u!95 &1185729882458010457 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1865548259543896532, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+  m_PrefabInstance: {fileID: 691106046739997325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2682302437727200582 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3219579583605704651, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
   m_PrefabInstance: {fileID: 691106046739997325}
   m_PrefabAsset: {fileID: 0}
 --- !u!137 &2882212583508112431 stripped
@@ -383,6 +480,11 @@ SkinnedMeshRenderer:
 --- !u!4 &3475292220268037351 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4156253549892642410, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
+  m_PrefabInstance: {fileID: 691106046739997325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4981948465446136241 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5527081067317021500, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
   m_PrefabInstance: {fileID: 691106046739997325}
   m_PrefabAsset: {fileID: 0}
 --- !u!1183024399 &5061879302423945065 stripped
