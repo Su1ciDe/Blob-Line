@@ -16,20 +16,20 @@ MonoBehaviour:
     gridSize: {x: 4, y: 7}
     cellSize: {x: 64, y: 16}
     cells:
-    - row: 05000000050000000300000003000000
-    - row: 05000000030000000500000003000000
-    - row: 01000000050000000300000001000000
-    - row: 01000000050000000700000001000000
-    - row: 01000000040000000700000001000000
-    - row: 04000000070000000400000007000000
-    - row: 04000000040000000700000007000000
+    - row: 06000000060000000300000003000000
+    - row: 06000000030000000600000003000000
+    - row: 01000000060000000300000001000000
+    - row: 01000000060000000800000001000000
+    - row: 01000000040000000800000001000000
+    - row: 04000000080000000400000008000000
+    - row: 04000000040000000800000008000000
   randomCells:
   - CellType: 2
     Weight: 50
   - CellType: 3
     Weight: 50
   GridSpawner:
-  - CellType: 5
+  - CellType: 6
     Weight: 40
     Chance: 25.00%
   - CellType: 4
@@ -38,40 +38,40 @@ MonoBehaviour:
   - CellType: 3
     Weight: 40
     Chance: 25.00%
-  - CellType: 7
+  - CellType: 8
     Weight: 40
     Chance: 25.00%
   totalWeight: 160
   ActiveGoalCount: 4
   Goals:
-  - GaolColor: 7
+  - GaolColor: 8
     Count: 10
-  - GaolColor: 5
-    Count: 10
-  - GaolColor: 3
-    Count: 10
-  - GaolColor: 4
-    Count: 10
-  - GaolColor: 5
+  - GaolColor: 6
     Count: 10
   - GaolColor: 3
     Count: 10
-  - GaolColor: 7
+  - GaolColor: 4
+    Count: 10
+  - GaolColor: 6
+    Count: 10
+  - GaolColor: 3
+    Count: 10
+  - GaolColor: 8
     Count: 10
   - GaolColor: 4
     Count: 10
-  - GaolColor: 5
+  - GaolColor: 6
     Count: 10
   - GaolColor: 4
     Count: 10
-  - GaolColor: 7
+  - GaolColor: 8
     Count: 10
   - GaolColor: 3
     Count: 10
   goalCounts:
-  - GaolColor: 7
+  - GaolColor: 8
     TotalCount: 30
-  - GaolColor: 5
+  - GaolColor: 6
     TotalCount: 30
   - GaolColor: 3
     TotalCount: 30
