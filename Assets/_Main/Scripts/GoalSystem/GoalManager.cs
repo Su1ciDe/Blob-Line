@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Fiber.Managers;
 using Fiber.Utilities;
@@ -91,6 +92,11 @@ namespace GoalSystem
 			if (!goalQueue.TryDequeue(out var nextGoal))
 			{
 				CurrentGoals[index] = null;
+				if (goalQueue.Count <= 0 && CurrentGoals.Count(x => x) <= 0)
+				{
+					LevelManager.Instance.Win();
+				}
+
 				return;
 			}
 

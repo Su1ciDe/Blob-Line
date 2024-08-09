@@ -1,8 +1,8 @@
 using System.Collections;
 using DG.Tweening;
-using Fiber.AudioSystem;
 using Fiber.Managers;
 using Fiber.Utilities;
+using Fiber.AudioSystem;
 using GamePlay.Obstacles;
 using GridSystem;
 using Interfaces;
@@ -32,8 +32,8 @@ namespace GamePlay.Blobs
 		[SerializeField] private Vector3 positionOffset = new Vector3(0, 0.5f, 0);
 		public Vector3 PositionOffset => positionOffset;
 
-		public static float JUMP_POWER = 4;
-		public static float JUMP_DURATION = .3F;
+		public static float JUMP_POWER = 10;
+		public static float JUMP_DURATION = .5F;
 		private const float ANIM_DURATION = .35F;
 
 		public void Setup(CellType cellType, GridCell cell = null)
@@ -74,8 +74,6 @@ namespace GamePlay.Blobs
 
 		public void PopBubble(int index)
 		{
-			animator.SetTrigger(armsLegs);
-
 			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(0.75f + index * 0.05f);
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
 			ParticlePooler.Instance.Spawn("Bubble", transform.position);
@@ -87,6 +85,9 @@ namespace GamePlay.Blobs
 		{
 			IsInGrid = false;
 			IsMoving = true;
+
+			transform.DOScale(0.75f, JUMP_DURATION);
+			animator.SetTrigger(armsLegs);
 
 			if (CurrentGridCell)
 			{
