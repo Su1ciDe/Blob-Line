@@ -6,6 +6,7 @@ using Fiber.Utilities;
 using Fiber.Utilities.Extensions;
 using GamePlay.Blobs;
 using GamePlay.Obstacles;
+using GamePlay.Player;
 using GoalSystem;
 using HolderSystem;
 using LevelEditor;
@@ -41,6 +42,7 @@ namespace GridSystem
 
 			GoalManager.OnGoalSequenceComplete += OnGoalSequenceCompleted;
 			HolderManager.OnHolderSequenceComplete += OnHolderSequenceCompleted;
+			LineController.OnLineComplete += BubbleFeedback;
 		}
 
 		private void OnDisable()
@@ -49,6 +51,7 @@ namespace GridSystem
 
 			GoalManager.OnGoalSequenceComplete -= OnGoalSequenceCompleted;
 			HolderManager.OnHolderSequenceComplete -= OnHolderSequenceCompleted;
+			LineController.OnLineComplete -= BubbleFeedback;
 		}
 
 		private void OnLevelLoaded()

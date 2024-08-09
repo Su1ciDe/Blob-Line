@@ -32,6 +32,9 @@ namespace GamePlay.Blobs
 		[SerializeField] private Vector3 positionOffset = new Vector3(0, 0.5f, 0);
 		public Vector3 PositionOffset => positionOffset;
 
+		[Space]
+		[SerializeField] private AnimationCurve jumpCurve;
+
 		public static float JUMP_POWER = 10;
 		public static float JUMP_DURATION = .5F;
 		private const float ANIM_DURATION = .35F;
@@ -63,12 +66,13 @@ namespace GamePlay.Blobs
 		{
 			model.DOKill();
 			model.transform.localScale = 0.5f * Vector3.one;
-			model.DOScale(Vector3.one, ANIM_DURATION).SetEase(Ease.OutElastic);
+			model.DOScale(1.1f, ANIM_DURATION).SetEase(Ease.OutElastic);
 		}
 
 		public void OnRemovedFromLine()
 		{
 			model.DOComplete();
+			model.transform.localScale = Vector3.one;
 			model.DOScale(0.8f * Vector3.one, ANIM_DURATION / 4f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
 		}
 
@@ -112,7 +116,7 @@ namespace GamePlay.Blobs
 
 		public Tween JumpTo(Vector3 position)
 		{
-			return transform.DOJump(position, JUMP_POWER, 1, JUMP_DURATION);
+			return transform.DOJump(position, JUMP_POWER, 1, JUMP_DURATION).SetEase(jumpCurve);
 		}
 
 		public void SwapCell(GridCell cell)

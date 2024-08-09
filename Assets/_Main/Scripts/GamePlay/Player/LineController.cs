@@ -141,8 +141,6 @@ namespace GamePlay.Player
 				else
 					OnLineToHolder?.Invoke(BlobsInLine);
 
-				Grid.Instance.BubbleFeedback(BlobsInLine);
-
 				Player.Instance.Inputs.CanInput = false;
 
 				OnLineComplete?.Invoke(BlobsInLine);
@@ -151,6 +149,9 @@ namespace GamePlay.Player
 			lineRenderer.Clear();
 			fakeLineRenderer.SetPosition(0, Vector3.zero);
 			fakeLineRenderer.SetPosition(1, Vector3.zero);
+			for (var i = 0; i < BlobsInLine.Count; i++)
+				BlobsInLine[i].OnRemovedFromLine();
+
 			BlobsInLine.Clear();
 			CurrentSelectedBlob = null;
 
