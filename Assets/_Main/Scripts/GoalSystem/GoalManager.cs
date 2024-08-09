@@ -137,7 +137,7 @@ namespace GoalSystem
 					StartCoroutine(OnBlobsToGoalCoroutine(tempList, nextGoal));
 					yield break;
 				}
-				else
+				else if (tempList[0].CurrentGridCell)
 				{
 					HolderManager.Instance.OnBlobsToHolder(tempList);
 					yield break;

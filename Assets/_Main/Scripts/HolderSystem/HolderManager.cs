@@ -90,7 +90,7 @@ namespace HolderSystem
 						blob.CurrentGridCell = null;
 					}
 
-					blob.OnJumpToHolder();
+					blob.OnJumpToHolder(holder);
 					holder.SetBlob(blob);
 					tempBlobs.RemoveAt(0);
 					blob.JumpTo(new Vector3(holder.transform.position.x, holder.transform.position.y + Holder.OFFSET * holder.Blobs.Count, holder.transform.position.z));
@@ -129,9 +129,10 @@ namespace HolderSystem
 				blobsReversed.Reverse();
 				GoalManager.Instance.OnBlobsToGoal(blobsReversed, newGoal);
 
-				yield return new WaitForSeconds(Blob.JUMP_DURATION * (blobsReversed.Count - 1));
-
-				holders[i].Blobs.Clear();
+				var goalCounter = newGoal.NeededAmount - newGoal.CurrentAmount;
+				var holderCounter = blobsReversed.Count;
+				var count = goalCounter < holderCounter ? goalCounter : holderCounter;
+				yield return new WaitForSeconds(0.1f * count + Blob.JUMP_DURATION);
 			}
 
 			isBusy = false;

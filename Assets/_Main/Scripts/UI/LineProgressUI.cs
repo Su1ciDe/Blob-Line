@@ -71,7 +71,7 @@ namespace UI
 		{
 			for (var i = progresses.Length - 1; i >= 0; i--)
 			{
-				if (blobs.Count > progresses[i].Count)
+				if (blobs.Count >= progresses[i].Count)
 				{
 					ShowProgressMessage(progresses[i].Text.RandomItem());
 					break;
@@ -82,7 +82,7 @@ namespace UI
 		private void ShowProgressMessage(string message)
 		{
 			txtProgress.DOComplete();
-			
+
 			txtProgress.SetText(message);
 			txtProgress.gameObject.SetActive(true);
 

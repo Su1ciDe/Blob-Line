@@ -7478,11 +7478,11 @@ MonoBehaviour:
   scaleDuration: 0.1
   txtProgress: {fileID: 310807444692553618}
   progresses:
-  - Count: 5
+  - Count: 3
     Text:
     - Okay
     - Hmm
-    - Meh
+    - Meh...
   - Count: 10
     Text:
     - Good
@@ -7949,11 +7949,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8167793124243138549, guid: 1c75a59a2569d4856a05ce72b277f63e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.61032104
+      value: -0.6103058
       objectReference: {fileID: 0}
     - target: {fileID: 8167793124243138549, guid: 1c75a59a2569d4856a05ce72b277f63e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.06518555
+      value: -0.065151215
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8074,7 +8074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8167793124243138549, guid: 1c75a59a2569d4856a05ce72b277f63e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.61032104
+      value: -0.6103058
       objectReference: {fileID: 0}
     - target: {fileID: 8167793124243138549, guid: 1c75a59a2569d4856a05ce72b277f63e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8199,11 +8199,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8167793124243138549, guid: 1c75a59a2569d4856a05ce72b277f63e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.61032104
+      value: -0.6103058
       objectReference: {fileID: 0}
     - target: {fileID: 8167793124243138549, guid: 1c75a59a2569d4856a05ce72b277f63e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.06518555
+      value: -0.06512451
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
