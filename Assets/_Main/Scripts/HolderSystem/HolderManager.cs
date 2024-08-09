@@ -84,11 +84,7 @@ namespace HolderSystem
 				if (holder.Blobs.Count < MAX_STACK_COUNT)
 				{
 					var blob = tempBlobs[0];
-					if (blob.CurrentGridCell)
-					{
-						blob.CurrentGridCell.CurrentNode = null;
-						blob.CurrentGridCell = null;
-					}
+					
 
 					blob.OnJumpToHolder(holder);
 					holder.SetBlob(blob);
