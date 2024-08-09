@@ -13,9 +13,6 @@ namespace GamePlay.Obstacles
 
 			Destroy(gameObject);
 			// breakableObject.Break();
-			//
-			// navMeshObstacle.enabled = false;
-			//
 			// ParticlePooler.Instance.Spawn("Breakable", transform.position);
 		}
 	}

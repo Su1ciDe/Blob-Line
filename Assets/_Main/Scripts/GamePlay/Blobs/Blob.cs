@@ -117,7 +117,11 @@ namespace GamePlay.Blobs
 			CurrentHolder = holder;
 
 			if (CurrentGridCell)
+			{
 				CheckBreakableObstacle();
+				CurrentGridCell.CurrentNode = null;
+				CurrentGridCell = null;
+			}
 		}
 
 		public void OnEnterToGoal()
