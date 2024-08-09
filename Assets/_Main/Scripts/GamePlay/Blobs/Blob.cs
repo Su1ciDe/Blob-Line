@@ -5,6 +5,7 @@ using Fiber.Utilities;
 using Fiber.AudioSystem;
 using GamePlay.Obstacles;
 using GridSystem;
+using HolderSystem;
 using Interfaces;
 using LevelEditor;
 using Lofelt.NiceVibrations;
@@ -17,6 +18,7 @@ namespace GamePlay.Blobs
 	public class Blob : MonoBehaviour, INode
 	{
 		public GridCell CurrentGridCell { get; set; }
+		public Holder CurrentHolder { get; set; }
 		public CellType CellType { get; private set; }
 
 		public bool IsMoving { get; private set; }
@@ -98,15 +100,24 @@ namespace GamePlay.Blobs
 				CheckBreakableObstacle();
 				CurrentGridCell.CurrentNode = null;
 			}
+
+			if (CurrentHolder)
+			{
+				CurrentHolder.Blobs.Remove(this);
+				CurrentHolder = null;
+			}
 		}
 
-		public void OnJumpToHolder()
+		public void OnJumpToHolder(Holder holder)
 		{
 			IsInGrid = false;
+
+			if (CurrentHolder)
+				CurrentHolder.Blobs.Remove(this);
+			CurrentHolder = holder;
+
 			if (CurrentGridCell)
-			{
 				CheckBreakableObstacle();
-			}
 		}
 
 		public void OnEnterToGoal()
