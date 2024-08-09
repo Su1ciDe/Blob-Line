@@ -7480,22 +7480,82 @@ MonoBehaviour:
   progresses:
   - Count: 3
     Text:
-    - Okay
-    - Hmm
-    - Meh...
-  - Count: 10
+    - Nice
+  - Count: 4
     Text:
     - Good
-    - Fine
+  - Count: 5
+    Text:
+    - Great
+  - Count: 6
+    Text:
+    - Awesome
+  - Count: 7
+    Text:
+    - Impressive
+  - Count: 8
+    Text:
+    - Fantastic
+  - Count: 9
+    Text:
+    - Superb
+  - Count: 10
+    Text:
+    - Brilliant
+  - Count: 11
+    Text:
+    - Outstanding
+  - Count: 12
+    Text:
+    - Remarkable
+  - Count: 13
+    Text:
+    - Amazing
+  - Count: 14
+    Text:
+    - Exceptional
   - Count: 15
     Text:
-    - Amazing!
-    - Fantastic!
-    - Super!
+    - Magnificent
+  - Count: 16
+    Text:
+    - Incredible
+  - Count: 17
+    Text:
+    - Phenomenal
+  - Count: 18
+    Text:
+    - Spectacular
+  - Count: 19
+    Text:
+    - Extraordinary
   - Count: 20
     Text:
-    - Brilliant!
-    - Impossiblle!
+    - Unbelievable
+  - Count: 21
+    Text:
+    - Astonishing
+  - Count: 22
+    Text:
+    - Perfect
+  - Count: 23
+    Text:
+    - Fabulous
+  - Count: 24
+    Text:
+    - Splendid
+  - Count: 25
+    Text:
+    - Terrific
+  - Count: 26
+    Text:
+    - Flawless
+  - Count: 27
+    Text:
+    - Immaculate
+  - Count: 28
+    Text:
+    - Legendary
 --- !u!1 &8788062977717841458
 GameObject:
   m_ObjectHideFlags: 0
