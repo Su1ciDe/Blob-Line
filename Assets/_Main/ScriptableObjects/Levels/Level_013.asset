@@ -10,55 +10,70 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 157ae077f4ce4085bf16976e898410d9, type: 3}
-  m_Name: Level_004
+  m_Name: Level_013
   m_EditorClassIdentifier: 
   Grid:
     gridSize: {x: 4, y: 7}
     cellSize: {x: 64, y: 16}
     cells:
-    - row: 01000000010000000100000001000000
-    - row: 07000000070000000700000003000000
-    - row: 07000000080000000700000003000000
-    - row: 07000000080000000700000003000000
-    - row: 07000000030000000800000003000000
-    - row: 07000000030000000800000003000000
-    - row: 07000000030000000300000003000000
+    - row: 05000000050000000300000003000000
+    - row: 05000000030000000500000003000000
+    - row: 01000000050000000300000001000000
+    - row: 01000000050000000700000001000000
+    - row: 01000000040000000700000001000000
+    - row: 04000000070000000400000007000000
+    - row: 04000000040000000700000007000000
   randomCells:
   - CellType: 2
     Weight: 50
   - CellType: 3
     Weight: 50
   GridSpawner:
+  - CellType: 5
+    Weight: 40
+    Chance: 25.00%
+  - CellType: 4
+    Weight: 40
+    Chance: 25.00%
   - CellType: 3
     Weight: 40
-    Chance: 28.57%
+    Chance: 25.00%
   - CellType: 7
     Weight: 40
-    Chance: 28.57%
-  - CellType: 8
-    Weight: 60
-    Chance: 42.86%
-  totalWeight: 140
-  ActiveGoalCount: 3
+    Chance: 25.00%
+  totalWeight: 160
+  ActiveGoalCount: 4
   Goals:
   - GaolColor: 7
     Count: 10
+  - GaolColor: 5
+    Count: 10
   - GaolColor: 3
     Count: 10
-  - GaolColor: 8
+  - GaolColor: 4
     Count: 10
-  - GaolColor: 8
+  - GaolColor: 5
+    Count: 10
+  - GaolColor: 3
+    Count: 10
+  - GaolColor: 7
+    Count: 10
+  - GaolColor: 4
+    Count: 10
+  - GaolColor: 5
+    Count: 10
+  - GaolColor: 4
     Count: 10
   - GaolColor: 7
     Count: 10
   - GaolColor: 3
-    Count: 10
-  - GaolColor: 8
     Count: 10
   goalCounts:
   - GaolColor: 7
-    TotalCount: 20
+    TotalCount: 30
+  - GaolColor: 5
+    TotalCount: 30
   - GaolColor: 3
-    TotalCount: 20
-  - GaolColor: 8
+    TotalCount: 30
+  - GaolColor: 4
     TotalCount: 30
