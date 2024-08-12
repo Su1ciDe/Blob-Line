@@ -1,14 +1,13 @@
-using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using Fiber.Managers;
 using Fiber.Utilities;
 using Fiber.Utilities.Extensions;
 using GamePlay.Blobs;
-using GamePlay.Obstacles;
 using GamePlay.Player;
+using GamePlay.Obstacles;
 using GoalSystem;
 using HolderSystem;
 using LevelEditor;
@@ -249,13 +248,6 @@ namespace GridSystem
 
 			IsShuffling = true;
 			Player.Instance.Inputs.CanInput = false;
-
-			// if (gridCells.Clone() is not GridCell[,] tempGrid)
-			// {
-			// 	Player.Instance.Inputs.CanInput = true;
-			// 	IsShuffling = false;
-			// 	return;
-			// }
 
 			var emptyCells = new List<GridCell>(gridCells.Cast<GridCell>().Select(x => x).Where(x => x.CurrentNode is Blob));
 			var blobs = GetBlobs().ToList();

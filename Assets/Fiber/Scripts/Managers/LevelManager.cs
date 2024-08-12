@@ -41,6 +41,7 @@ namespace Fiber.Managers
 		public static event UnityAction OnLevelLoad;
 		public static event UnityAction OnLevelUnload;
 		public static event UnityAction OnLevelStart;
+		public static event UnityAction OnLevelRestart;
 		public static event UnityAction OnLevelWin;
 		public static event UnityAction<int> OnLevelWinWithMoveCount;
 		public static event UnityAction OnLevelLose;
@@ -115,6 +116,12 @@ namespace Fiber.Managers
 			UnloadLevel();
 
 			LoadLevel(currentLevelIndex);
+		}
+
+		public void RestartLevel()
+		{
+			OnLevelRestart?.Invoke();
+			RetryLevel();
 		}
 
 		public void LoadNextLevel()
