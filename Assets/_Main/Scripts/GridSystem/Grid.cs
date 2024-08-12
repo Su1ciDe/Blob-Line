@@ -1,12 +1,13 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using DG.Tweening;
 using Fiber.Managers;
 using Fiber.Utilities;
 using Fiber.Utilities.Extensions;
 using GamePlay.Blobs;
-using GamePlay.Obstacles;
 using GamePlay.Player;
+using GamePlay.Obstacles;
 using GoalSystem;
 using HolderSystem;
 using LevelEditor;
@@ -20,6 +21,8 @@ namespace GridSystem
 	{
 		public GridCell[,] GridCells => gridCells;
 		private GridCell[,] gridCells;
+
+		public bool IsShuffling { get; set; }
 
 		[SerializeField] private Vector2 nodeSize;
 		[SerializeField] private float xSpacing = .1f;
@@ -239,6 +242,50 @@ namespace GridSystem
 			}
 		}
 
+		public void Shuffle()
+		{
+			if (!Player.Instance.Inputs.CanInput) return;
+
+			IsShuffling = true;
+			Player.Instance.Inputs.CanInput = false;
+
+			var emptyCells = new List<GridCell>(gridCells.Cast<GridCell>().Select(x => x).Where(x => x.CurrentNode is Blob));
+			var blobs = GetBlobs().ToList();
+			Tween jump = null;
+
+			for (int x = 0; x < gridCells.GetLength(0); x++)
+			{
+				for (int y = 0; y < gridCells.GetLength(1); y++)
+				{
+					var currentCell = gridCells[x, y];
+					if (currentCell.CellType == CellType.Empty) continue;
+					if (currentCell.CurrentNode is Blob)
+						currentCell.CurrentNode = null;
+				}
+			}
+
+			foreach (var blob in blobs)
+			{
+				var newCell = emptyCells.PickRandomItem();
+				blob.PlaceToCell(newCell);
+				jump = blob.JumpTo(newCell.transform.position + blob.PositionOffset);
+			}
+
+			if (jump is null)
+			{
+				Player.Instance.Inputs.CanInput = true;
+				IsShuffling = false;
+			}
+			else
+			{
+				jump.OnComplete(() =>
+				{
+					Player.Instance.Inputs.CanInput = true;
+					IsShuffling = false;
+				});
+			}
+		}
+
 		private bool IsAnyBlobFalling()
 		{
 			for (int x = 0; x < size.x; x++)
@@ -333,6 +380,19 @@ namespace GridSystem
 			}
 
 			return null;
+		}
+
+		public IEnumerable<Blob> GetBlobs()
+		{
+			for (int x = 0; x < gridCells.GetLength(0); x++)
+			{
+				for (int y = 0; y < gridCells.GetLength(1); y++)
+				{
+					if (gridCells[x, y].CellType == CellType.Empty) continue;
+					if (gridCells[x, y].CurrentNode is Blob blob)
+						yield return blob;
+				}
+			}
 		}
 	}
 }

@@ -33,6 +33,7 @@ namespace Fiber.Managers
 		{
 			LevelManager.OnLevelLoad += LevelLoading;
 			LevelManager.OnLevelStart += StartLevel;
+			LevelManager.OnLevelRestart += RestartLevel;
 			LevelManager.OnLevelLose += LoseLevel;
 			LevelManager.OnLevelWin += WinLevel;
 			LevelManager.OnLevelWinWithMoveCount += WinLevelWithMoveCount;
@@ -42,6 +43,7 @@ namespace Fiber.Managers
 		{
 			LevelManager.OnLevelLoad -= LevelLoading;
 			LevelManager.OnLevelStart -= StartLevel;
+			LevelManager.OnLevelRestart -= RestartLevel;
 			LevelManager.OnLevelLose -= LoseLevel;
 			LevelManager.OnLevelWin -= WinLevel;
 			LevelManager.OnLevelWinWithMoveCount -= WinLevelWithMoveCount;
@@ -61,6 +63,13 @@ namespace Fiber.Managers
 			CurrentState = GameState.OnStart;
 
 			levelCompleteTimeCoroutine = StartCoroutine(LevelCompleteTime());
+		}
+
+		private void RestartLevel()
+		{
+			Debug.Log("GAME RESTART");
+			
+			LoseLevel();
 		}
 
 		private void WinLevel()

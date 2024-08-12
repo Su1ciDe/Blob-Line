@@ -57,11 +57,11 @@ namespace Fiber.UI
 		{
 			if (askBeforeRestart)
 			{
-				MessageBox.Instance.Show("Are you sure you want to restart?", "Restart", MessageBox.MessageBoxButtons.YesNo, MessageBox.MessageBoxType.Question, LevelManager.Instance.RetryLevel);
+				MessageBox.Instance.Show("Are you sure you want to restart?", "Restart", MessageBox.MessageBoxButtons.YesNo, MessageBox.MessageBoxType.Question, LevelManager.Instance.RestartLevel);
 			}
 			else
 			{
-				LevelManager.Instance.RetryLevel();
+				LevelManager.Instance.RestartLevel();
 			}
 		}
 
