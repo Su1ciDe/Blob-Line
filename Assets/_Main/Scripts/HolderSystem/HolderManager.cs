@@ -68,6 +68,8 @@ namespace HolderSystem
 			StartCoroutine(OnBlobsToHolderCoroutine(blobs));
 		}
 
+		private List<Blob> excessBlobs = new List<Blob>();
+
 		private IEnumerator OnBlobsToHolderCoroutine(List<Blob> blobs)
 		{
 			var tempBlobs = new List<Blob>(blobs);
@@ -75,8 +77,10 @@ namespace HolderSystem
 			var holder = GetFirstHolder(tempBlobs[0].CellType);
 			if (!holder)
 			{
-				yield return new WaitForSeconds(0.5f);
-				LevelManager.Instance.Lose();
+				StopCheckFail();
+				checkFailCoroutine = StartCoroutine(CheckFail());
+				excessBlobs = new List<Blob>(blobs);
+
 				yield break;
 			}
 
@@ -106,6 +110,25 @@ namespace HolderSystem
 			}
 		}
 
+		private Coroutine checkFailCoroutine;
+
+		private IEnumerator CheckFail()
+		{
+			yield return new WaitForSeconds(2);
+			LevelManager.Instance.Lose();
+
+			checkFailCoroutine = null;
+		}
+
+		public void StopCheckFail()
+		{
+			if (checkFailCoroutine is not null)
+			{
+				StopCoroutine(checkFailCoroutine);
+				checkFailCoroutine = null;
+			}
+		}
+
 		private void OnNewGoal(Goal newGoal)
 		{
 			StartCoroutine(CheckForCompletedStacks(newGoal));
@@ -123,6 +146,8 @@ namespace HolderSystem
 				if (holders[i].Blobs.Count.Equals(0)) continue;
 				if (holders[i].Blobs[0].CellType != newGoal.CellType) continue;
 
+				StopCheckFail();
+
 				var blobsReversed = new List<Blob>(holders[i].Blobs);
 				blobsReversed.Reverse();
 				GoalManager.Instance.OnBlobsToGoal(blobsReversed, newGoal);
@@ -131,6 +156,20 @@ namespace HolderSystem
 				var holderCounter = blobsReversed.Count;
 				var count = goalCounter < holderCounter ? goalCounter : holderCounter;
 				yield return new WaitForSeconds(0.1f * count + Blob.JUMP_DURATION);
+			}
+
+			if (excessBlobs.Count > 0)
+			{
+				if (excessBlobs[0].CellType == newGoal.CellType)
+				{
+					GoalManager.Instance.OnBlobsToGoal(excessBlobs, newGoal);
+				}
+				else
+				{
+					OnBlobsToHolder(excessBlobs);
+				}
+
+				excessBlobs.Clear();
 			}
 
 			IsBusy = false;

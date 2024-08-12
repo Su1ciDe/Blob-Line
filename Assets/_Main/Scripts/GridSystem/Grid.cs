@@ -45,7 +45,8 @@ namespace GridSystem
 
 			GoalManager.OnGoalSequenceComplete += OnGoalSequenceCompleted;
 			HolderManager.OnHolderSequenceComplete += OnHolderSequenceCompleted;
-			LineController.OnLineComplete += BubbleFeedback;
+			LineController.OnLineToGoal += BubbleFeedbackToGoal;
+			LineController.OnLineToHolder += BubbleFeedbackToHolder;
 		}
 
 		private void OnDisable()
@@ -54,7 +55,8 @@ namespace GridSystem
 
 			GoalManager.OnGoalSequenceComplete -= OnGoalSequenceCompleted;
 			HolderManager.OnHolderSequenceComplete -= OnHolderSequenceCompleted;
-			LineController.OnLineComplete -= BubbleFeedback;
+			LineController.OnLineToGoal -= BubbleFeedbackToGoal;
+			LineController.OnLineToHolder -= BubbleFeedbackToHolder;
 		}
 
 		private void OnLevelLoaded()
@@ -225,7 +227,13 @@ namespace GridSystem
 			OnFallFillFinish?.Invoke();
 		}
 
-		public void BubbleFeedback(List<Blob> blobs)
+		public void BubbleFeedbackToGoal(List<Blob> blobs, Goal goal)
+		{
+			var tempBlobs = new List<Blob>(blobs);
+			StartCoroutine(BubbleFeedbackCoroutine(tempBlobs, true));
+		}
+
+		public void BubbleFeedbackToHolder(List<Blob> blobs)
 		{
 			var tempBlobs = new List<Blob>(blobs);
 			StartCoroutine(BubbleFeedbackCoroutine(tempBlobs));
@@ -233,11 +241,11 @@ namespace GridSystem
 
 		private readonly WaitForSeconds waitFeedback = new WaitForSeconds(0.05f);
 
-		private IEnumerator BubbleFeedbackCoroutine(List<Blob> blobs)
+		private IEnumerator BubbleFeedbackCoroutine(List<Blob> blobs, bool toGoal = false)
 		{
 			for (int i = 0; i < blobs.Count; i++)
 			{
-				blobs[i].PopBubble(i);
+				blobs[i].PopBubble(i, toGoal);
 				yield return waitFeedback;
 			}
 		}

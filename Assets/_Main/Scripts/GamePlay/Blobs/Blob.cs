@@ -78,11 +78,16 @@ namespace GamePlay.Blobs
 			model.DOScale(0.8f * Vector3.one, ANIM_DURATION / 4f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
 		}
 
-		public void PopBubble(int index)
+		public void PopBubble(int index, bool toGoal = false)
 		{
 			AudioManager.Instance.PlayAudio(AudioName.Pop1).SetPitch(0.75f + index * 0.05f);
 			HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
 			ParticlePooler.Instance.Spawn("Bubble", transform.position);
+
+			if (toGoal)
+			{
+				animator.SetBool(armsLegs, true);
+			}
 
 			bubble.SetActive(false);
 		}
@@ -93,7 +98,7 @@ namespace GamePlay.Blobs
 			IsMoving = true;
 
 			transform.DOScale(0.75f, JUMP_DURATION);
-			animator.SetTrigger(armsLegs);
+			animator.SetBool(armsLegs, true);
 
 			if (CurrentGridCell)
 			{
@@ -111,6 +116,7 @@ namespace GamePlay.Blobs
 		public void OnJumpToHolder(Holder holder)
 		{
 			IsInGrid = false;
+			animator.SetBool(armsLegs, false);
 
 			if (CurrentHolder)
 				CurrentHolder.Blobs.Remove(this);
