@@ -49,5 +49,25 @@ MonoBehaviour:
   Levels:
   - {fileID: 11400000, guid: 2734d14f11b7b42bbabe30f38a95ed4d, type: 2}
   - {fileID: 11400000, guid: ef0918735e429514e8c0b3aac0d868c8, type: 2}
-  TutorialLevels:
-  - {fileID: 11400000, guid: 86373c08e3aeb48439b5effd5aeee1af, type: 2}
+  - {fileID: 11400000, guid: b36be2edb3b03e646a7ebb7fc7c67a2a, type: 2}
+  - {fileID: 11400000, guid: 8a61b87d86a24e448a92bada310bcdb9, type: 2}
+  - {fileID: 11400000, guid: bd0f2d8e765657247be56e5bcc139031, type: 2}
+  - {fileID: 11400000, guid: 244097441784f394c9f4b201f34ff455, type: 2}
+  - {fileID: 11400000, guid: be124e545048be84c9d365cd363016b1, type: 2}
+  - {fileID: 11400000, guid: 4a4b11130bbc3164e8af4990a527b929, type: 2}
+  - {fileID: 11400000, guid: c420f6053ea8a3d44b62d50b783d4860, type: 2}
+  - {fileID: 11400000, guid: 6e1d2d8e60a0d3544959f8c22547395b, type: 2}
+  - {fileID: 11400000, guid: bd3ec123d91fe1e429524580a3d5e958, type: 2}
+  - {fileID: 11400000, guid: 453ee9d9f43905442984b854d109931e, type: 2}
+  - {fileID: 11400000, guid: be69d656655f507498d2deff1c66ba25, type: 2}
+  - {fileID: 11400000, guid: cdf4d514ae1933a4b9ec759e01948f48, type: 2}
+  - {fileID: 11400000, guid: 3c8e0b885e4d46d4caa2b889a51e0afb, type: 2}
+  - {fileID: 11400000, guid: 27bd985993ac5ff48baf96f108559087, type: 2}
+  - {fileID: 11400000, guid: f29851b8029e3884ebcbaf90678587e0, type: 2}
+  - {fileID: 11400000, guid: 017abd89370c8a94c89156f0a669e918, type: 2}
+  - {fileID: 11400000, guid: a77da9092a55dde47a061036541e662b, type: 2}
+  - {fileID: 11400000, guid: 2b7b123cb8f59264eaed840a523a624c, type: 2}
+  - {fileID: 11400000, guid: 307104b25f2195447878ab623fcf0dba, type: 2}
+  - {fileID: 11400000, guid: 3e4b45e8be6db894799678569a8934c9, type: 2}
+  - {fileID: 11400000, guid: b6b3f1cf90cbb6348bc1cdfaf604ee38, type: 2}
+  TutorialLevels: []

@@ -62,20 +62,12 @@ MonoBehaviour:
     Count: 10
   - GaolColor: 7
     Count: 10
-  - GaolColor: 5
-    Count: 10
-  - GaolColor: 7
-    Count: 10
-  - GaolColor: 3
-    Count: 10
-  - GaolColor: 2
-    Count: 10
   goalCounts:
   - GaolColor: 2
-    TotalCount: 40
+    TotalCount: 30
   - GaolColor: 3
-    TotalCount: 30
+    TotalCount: 20
   - GaolColor: 7
-    TotalCount: 40
-  - GaolColor: 5
     TotalCount: 30
+  - GaolColor: 5
+    TotalCount: 20

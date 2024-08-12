@@ -31,12 +31,16 @@ MonoBehaviour:
   GridSpawner:
   - CellType: 3
     Weight: 50
+    Chance: 25.00%
   - CellType: 2
     Weight: 50
+    Chance: 25.00%
   - CellType: 4
     Weight: 50
+    Chance: 25.00%
   - CellType: 5
     Weight: 50
+    Chance: 25.00%
   totalWeight: 200
   ActiveGoalCount: 4
   Goals:
@@ -48,3 +52,12 @@ MonoBehaviour:
     Count: 100
   - GaolColor: 5
     Count: 100
+  goalCounts:
+  - GaolColor: 2
+    TotalCount: 120
+  - GaolColor: 3
+    TotalCount: 100
+  - GaolColor: 4
+    TotalCount: 100
+  - GaolColor: 5
+    TotalCount: 100

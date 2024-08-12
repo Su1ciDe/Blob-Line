@@ -16,75 +16,53 @@ MonoBehaviour:
     gridSize: {x: 4, y: 7}
     cellSize: {x: 64, y: 16}
     cells:
-    - row: 06000000060000000600000006000000
-    - row: 06000000090000000600000007000000
-    - row: 06000000060000000700000007000000
-    - row: 07000000070000000900000007000000
-    - row: 05000000050000000700000007000000
-    - row: 05000000090000000500000007000000
-    - row: 05000000050000000500000005000000
+    - row: 03000000020000000200000008000000
+    - row: 03000000090000000a00000008000000
+    - row: 030000000a0000000900000008000000
+    - row: 02000000030000000800000002000000
+    - row: 030000000a0000000900000008000000
+    - row: 03000000090000000a00000008000000
+    - row: 03000000020000000200000008000000
   randomCells:
   - CellType: 2
     Weight: 50
   - CellType: 3
     Weight: 50
   GridSpawner:
-  - CellType: 6
-    Weight: 40
-    Chance: 20.00%
-  - CellType: 7
-    Weight: 40
-    Chance: 20.00%
-  - CellType: 5
-    Weight: 40
-    Chance: 20.00%
   - CellType: 8
-    Weight: 40
-    Chance: 20.00%
+    Weight: 50
+    Chance: 33.33%
+  - CellType: 3
+    Weight: 50
+    Chance: 33.33%
   - CellType: 2
-    Weight: 40
-    Chance: 20.00%
-  totalWeight: 200
-  ActiveGoalCount: 4
+    Weight: 50
+    Chance: 33.33%
+  totalWeight: 150
+  ActiveGoalCount: 3
   Goals:
-  - GaolColor: 5
+  - GaolColor: 8
     Count: 10
-  - GaolColor: 6
+  - GaolColor: 3
     Count: 10
-  - GaolColor: 7
+  - GaolColor: 2
+    Count: 10
+  - GaolColor: 3
     Count: 10
   - GaolColor: 8
     Count: 10
   - GaolColor: 2
     Count: 10
-  - GaolColor: 7
-    Count: 10
   - GaolColor: 8
     Count: 10
-  - GaolColor: 2
-    Count: 10
-  - GaolColor: 6
-    Count: 10
-  - GaolColor: 5
-    Count: 10
-  - GaolColor: 7
-    Count: 10
-  - GaolColor: 6
+  - GaolColor: 3
     Count: 10
   - GaolColor: 2
-    Count: 10
-  - GaolColor: 8
-    Count: 10
-  - GaolColor: 5
     Count: 10
   goalCounts:
-  - GaolColor: 5
-    TotalCount: 30
-  - GaolColor: 6
-    TotalCount: 30
-  - GaolColor: 7
-    TotalCount: 30
   - GaolColor: 8
+    TotalCount: 30
+  - GaolColor: 3
     TotalCount: 30
   - GaolColor: 2
     TotalCount: 30
