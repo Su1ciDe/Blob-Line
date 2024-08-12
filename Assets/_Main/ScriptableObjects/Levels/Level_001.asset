@@ -22,7 +22,7 @@ MonoBehaviour:
     - row: 03000000020000000200000003000000
     - row: 03000000020000000200000003000000
     - row: 03000000020000000200000003000000
-    - row: 03000000030000000300000003000000
+    - row: 03000000020000000200000003000000
   randomCells:
   - CellType: 2
     Weight: 50
@@ -31,16 +31,23 @@ MonoBehaviour:
   GridSpawner:
   - CellType: 3
     Weight: 50
+    Chance: 50.00%
   - CellType: 2
     Weight: 50
+    Chance: 50.00%
   totalWeight: 100
-  ActiveGoalCount: 2
+  ActiveGoalCount: 1
   Goals:
-  - GaolColor: 2
-    Count: 10
   - GaolColor: 3
     Count: 10
   - GaolColor: 2
     Count: 10
   - GaolColor: 3
     Count: 10
+  - GaolColor: 2
+    Count: 10
+  goalCounts:
+  - GaolColor: 3
+    TotalCount: 20
+  - GaolColor: 2
+    TotalCount: 20

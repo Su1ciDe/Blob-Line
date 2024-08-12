@@ -171,10 +171,10 @@ namespace Fiber.Managers
 
 			foreach (var level in levels)
 			{
-				if (level.name.Contains("TEST")) continue;
-				if (level.name.Contains("_Base")) continue;
+				if (level.name.ToLower().Contains("test")) continue;
+				if (level.name.ToLower().Contains("_base")) continue;
 
-				if (level.name.Contains("Tutorial"))
+				if (level.name.ToLower().Contains("tutorial"))
 					tutorialLevels.Add(level);
 				else
 					normalLevels.Add(level);

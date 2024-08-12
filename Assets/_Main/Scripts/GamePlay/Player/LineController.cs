@@ -4,10 +4,11 @@ using Fiber.AudioSystem;
 using Fiber.Utilities.Extensions;
 using GamePlay.Blobs;
 using GoalSystem;
+using LevelEditor;
 using Lofelt.NiceVibrations;
+using Managers;
 using UnityEngine;
 using UnityEngine.Events;
-using Grid = GridSystem.Grid;
 
 namespace GamePlay.Player
 {
@@ -55,6 +56,9 @@ namespace GamePlay.Player
 		{
 			if (other.attachedRigidbody && other.attachedRigidbody.TryGetComponent(out Blob blob) && blob.IsInGrid)
 			{
+				if (TutorialManager.Instance && TutorialManager.Instance.TutorialColorPredicate != CellType.Empty && blob.CellType == TutorialManager.Instance.TutorialColorPredicate)
+					return;
+
 				if (!BlobsInLine.Contains(blob))
 				{
 					if (!CurrentSelectedBlob)
@@ -133,17 +137,20 @@ namespace GamePlay.Player
 
 		private void OnInputUp(Vector3 pos)
 		{
-			if (BlobsInLine.Count > 2)
+			if (TutorialManager.Instance && (TutorialManager.Instance.TutorialCountPredicate.Equals(0) || TutorialManager.Instance.TutorialCountPredicate.Equals(BlobsInLine.Count)))
 			{
-				var goal = GoalManager.Instance.GetCurrentGoalByType(CurrentSelectedBlob.CellType);
-				if (goal)
-					OnLineToGoal?.Invoke(BlobsInLine, goal);
-				else
-					OnLineToHolder?.Invoke(BlobsInLine);
+				if (BlobsInLine.Count > 2)
+				{
+					var goal = GoalManager.Instance.GetCurrentGoalByType(CurrentSelectedBlob.CellType);
+					if (goal)
+						OnLineToGoal?.Invoke(BlobsInLine, goal);
+					else
+						OnLineToHolder?.Invoke(BlobsInLine);
 
-				Player.Instance.Inputs.CanInput = false;
+					Player.Instance.Inputs.CanInput = false;
 
-				OnLineComplete?.Invoke(BlobsInLine);
+					OnLineComplete?.Invoke(BlobsInLine);
+				}
 			}
 
 			lineRenderer.Clear();
@@ -171,12 +178,16 @@ namespace GamePlay.Player
 		{
 			CurrentSelectedBlob = null;
 			BlobsInLine.Clear();
+
+			OnInputUp(default);
 		}
 
 		private void OnLevelLost()
 		{
 			CurrentSelectedBlob = null;
 			BlobsInLine.Clear();
+
+			OnInputUp(default);
 		}
 	}
 }
