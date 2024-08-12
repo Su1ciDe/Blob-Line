@@ -34,8 +34,7 @@ namespace HolderSystem
 			LevelManager.OnLevelLoad += Setup;
 
 			LineController.OnLineToHolder += OnBlobsToHolder;
-
-			GoalManager.OnNewGoal += OnNewGoal;
+			GoalManager.OnBeforeNewGoal += OnNewGoal;
 		}
 
 		private void OnDisable()
@@ -43,6 +42,7 @@ namespace HolderSystem
 			LevelManager.OnLevelLoad -= Setup;
 
 			LineController.OnLineToHolder -= OnBlobsToHolder;
+			GoalManager.OnBeforeNewGoal -= OnNewGoal;
 		}
 
 		private void OnDestroy()
@@ -116,6 +116,8 @@ namespace HolderSystem
 			yield return new WaitUntil(() => !IsBusy);
 			IsBusy = true;
 
+			yield return new WaitForSeconds(0.5f);
+
 			for (int i = holderCount - 1; i >= 0; i--)
 			{
 				if (holders[i].Blobs.Count.Equals(0)) continue;
@@ -152,26 +154,5 @@ namespace HolderSystem
 
 			return null;
 		}
-
-		// public IEnumerable<Blob> GetBlobsByType(CellType cellType)
-		// {
-		// 	for (var i = 0; i < holders.Count; i++)
-		// 	{
-		// 		if (holders[i].Blob && holders[i].Blob.CellType == cellType)
-		// 			yield return holders[i].Blob;
-		// 	}
-		// }
-		//
-		// public int GetEmptyHolderCount()
-		// {
-		// 	int count = 0;
-		// 	for (var i = 0; i < holders.Count; i++)
-		// 	{
-		// 		if (!holders[i].Blob)
-		// 			count++;
-		// 	}
-		//
-		// 	return count;
-		// }
 	}
 }

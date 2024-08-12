@@ -28,6 +28,7 @@ namespace GoalSystem
 		private float offset;
 
 		public static event UnityAction OnGoal;
+		public static event UnityAction<Goal> OnBeforeNewGoal;
 		public static event UnityAction<Goal> OnNewGoal;
 		public static event UnityAction OnGoalSequenceComplete;
 
@@ -103,6 +104,7 @@ namespace GoalSystem
 			CurrentGoals[index] = nextGoal;
 			nextGoal.transform.position = goal.transform.position;
 			nextGoal.OnCurrentGoal(index);
+			OnBeforeNewGoal?.Invoke(nextGoal);
 			nextGoal.Spawn().SetDelay(0.35f).OnComplete(() => { OnNewGoal?.Invoke(nextGoal); });
 		}
 

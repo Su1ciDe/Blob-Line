@@ -9,7 +9,6 @@ using Lofelt.NiceVibrations;
 using Managers;
 using UnityEngine;
 using UnityEngine.Events;
-using Grid = GridSystem.Grid;
 
 namespace GamePlay.Player
 {
