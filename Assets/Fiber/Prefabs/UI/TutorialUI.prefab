@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -44.658577, y: 68.08819}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.20227633, y: 0.9539214}
 --- !u!222 &3613232191960792661
 CanvasRenderer:
@@ -184,8 +184,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 369.56204}
-  m_SizeDelta: {x: 823.0472, y: 494.4373}
+  m_AnchoredPosition: {x: 0, y: 652.3303}
+  m_SizeDelta: {x: 857.5718, y: 484.4223}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3613232192032525354
 CanvasRenderer:
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Tutorial Message Tutorial Message Tutorial Message '
+  m_text: 'Tutorial Message '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 47ea98304d3d015499190b83eeeaf197, type: 2}
   m_sharedMaterial: {fileID: 3747962371219854942, guid: 47ea98304d3d015499190b83eeeaf197, type: 2}
@@ -242,12 +242,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 90
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 90
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -316,8 +316,8 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3613232191960792663}
-  - {fileID: 3613232192032525356}
   - {fileID: 3613232190709140360}
+  - {fileID: 3613232192032525356}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

@@ -1,5 +1,6 @@
 using Fiber.Managers;
 using Fiber.Utilities;
+using HolderSystem;
 using Interfaces;
 using Lean.Touch;
 using UnityEngine;
@@ -52,6 +53,7 @@ namespace GamePlay.Player
 		private void OnFingerDown(LeanFinger finger)
 		{
 			if (!CanInput) return;
+			if (HolderManager.Instance.IsBusy) return;
 			if (finger.IsOverGui) return;
 
 			var ray = finger.GetRay(Helper.MainCamera);
@@ -64,6 +66,7 @@ namespace GamePlay.Player
 		private void OnFingerUpdate(LeanFinger finger)
 		{
 			if (!CanInput) return;
+			if (HolderManager.Instance.IsBusy) return;
 			if (finger.IsOverGui) return;
 
 			var ray = finger.GetRay(Helper.MainCamera);
@@ -76,6 +79,7 @@ namespace GamePlay.Player
 		private void OnFingerUp(LeanFinger finger)
 		{
 			if (!CanInput) return;
+			if (HolderManager.Instance.IsBusy) return;
 			if (finger.IsOverGui) return;
 
 			var ray = finger.GetRay(Helper.MainCamera);

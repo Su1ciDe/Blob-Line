@@ -17,7 +17,7 @@ namespace Fiber.UI
 		private Vector3 messagePosition;
 
 		private const float HAND_MOVE_TIME = .7f;
-		private const float HAND_TAP_TIME = .25f;
+		private const float HAND_TAP_TIME = .2f;
 
 		private const float FOCUSING_TIME = .5f;
 
@@ -73,6 +73,40 @@ namespace Fiber.UI
 			var _to = toCamera.WorldToScreenPoint(to);
 
 			ShowSwipe(_from, _to);
+		}
+
+		public void ShowSwipe(Camera cam, params Vector3[] positions)
+		{
+			var from = cam.WorldToScreenPoint(positions[0]);
+			var to = cam.WorldToScreenPoint(positions[^1]);
+
+			var seq = DOTween.Sequence();
+			seq.AppendCallback(() =>
+			{
+				hand.rectTransform.position = from;
+				hand.gameObject.SetActive(true);
+			});
+			seq.AppendInterval(.5f);
+			seq.Append(hand.rectTransform.DOScale(.75f, HAND_TAP_TIME).SetEase(Ease.OutExpo));
+			for (int i = 1; i < positions.Length; i++)
+			{
+				seq.Append(hand.rectTransform.DOMove(cam.WorldToScreenPoint(positions[i]), HAND_MOVE_TIME).SetEase(Ease.InSine));
+				seq.AppendInterval(0.25f);
+			}
+
+			seq.AppendInterval(.5f);
+			seq.Append(hand.rectTransform.DOScale(1, HAND_TAP_TIME).SetEase(Ease.OutExpo));
+			seq.AppendInterval(.5f);
+			seq.AppendCallback(() => hand.gameObject.SetActive(false));
+			seq.AppendInterval(.5f);
+			seq.SetUpdate(true);
+			seq.SetTarget(hand);
+			seq.SetLoops(-1, LoopType.Restart);
+			seq.OnKill(() =>
+			{
+				hand.rectTransform.localScale = Vector3.one;
+				hand.gameObject.SetActive(false);
+			});
 		}
 
 		public void ShowTap(Vector3 position, Camera cam = null)

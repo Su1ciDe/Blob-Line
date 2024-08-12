@@ -15,14 +15,15 @@ namespace HolderSystem
 {
 	public class HolderManager : Singleton<HolderManager>
 	{
+		public bool IsBusy { get; private set; }
+
 		[SerializeField] private int holderCount = 5;
 
 		[Title("References")]
 		[SerializeField] private Holder holderPrefab;
 
 		private List<Holder> holders = new List<Holder>();
-
-		private bool isBusy;
+		public List<Holder> Holders => holders;
 
 		public const int MAX_STACK_COUNT = 10;
 
@@ -84,7 +85,6 @@ namespace HolderSystem
 				if (holder.Blobs.Count < MAX_STACK_COUNT)
 				{
 					var blob = tempBlobs[0];
-					
 
 					blob.OnJumpToHolder(holder);
 					holder.SetBlob(blob);
@@ -113,8 +113,8 @@ namespace HolderSystem
 
 		private IEnumerator CheckForCompletedStacks(Goal newGoal)
 		{
-			yield return new WaitUntil(() => !isBusy);
-			isBusy = true;
+			yield return new WaitUntil(() => !IsBusy);
+			IsBusy = true;
 
 			for (int i = holderCount - 1; i >= 0; i--)
 			{
@@ -131,7 +131,7 @@ namespace HolderSystem
 				yield return new WaitForSeconds(0.1f * count + Blob.JUMP_DURATION);
 			}
 
-			isBusy = false;
+			IsBusy = false;
 		}
 
 		public Holder GetFirstHolder(CellType cellType)

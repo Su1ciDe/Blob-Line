@@ -1,4 +1,5 @@
 using System.Collections;
+using Fiber.Managers;
 using GamePlay.Player;
 using TriInspector;
 using UnityEngine;
@@ -40,12 +41,18 @@ namespace GamePlay.Blobs
 		{
 			PlayerInputs.OnDown += OnFingerDown;
 			PlayerInputs.OnUp += OnFingerUp;
+
+			LevelManager.OnLevelWin += OnLevelWon;
+			LevelManager.OnLevelLose += OnLevelLost;
 		}
 
 		private void OnDisable()
 		{
 			PlayerInputs.OnDown -= OnFingerDown;
 			PlayerInputs.OnUp -= OnFingerUp;
+
+			LevelManager.OnLevelWin -= OnLevelWon;
+			LevelManager.OnLevelLose -= OnLevelLost;
 		}
 
 		private void OnFingerDown(Vector3 pos)
@@ -107,6 +114,16 @@ namespace GamePlay.Blobs
 
 			eyesAnimator.SetFloat(eyeX, x);
 			eyesAnimator.SetFloat(eyeY, y);
+		}
+
+		private void OnLevelWon()
+		{
+			OnFingerUp(default);
+		}
+
+		private void OnLevelLost()
+		{
+			OnFingerUp(default);
 		}
 	}
 }
