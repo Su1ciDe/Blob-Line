@@ -43,10 +43,10 @@ namespace GoalSystem
 			CurrentAmount = 0;
 
 			var mat = GameManager.Instance.BlobMaterialsSO.BlobMaterials[cellType];
-			mr.material.color = mat.color;
+			// mr.material.color = mat.color;
 			txtCount.SetText(NeededAmount.ToString());
 			imgFill.color = mat.color;
-			imgFill.fillAmount = 0;
+			// imgFill.fillAmount = 0;
 		}
 
 		private bool CheckIfCompleted()
@@ -74,7 +74,7 @@ namespace GoalSystem
 			transform.DOPunchScale(.2f * Vector3.one, .15f, 1, 1);
 
 			txtCount.SetText((NeededAmount - CurrentAmount).ToString());
-			imgFill.fillAmount = (float)CurrentAmount / NeededAmount;
+			// imgFill.fillAmount = (float)CurrentAmount / NeededAmount;
 
 			if (!IsCompleted) return;
 
