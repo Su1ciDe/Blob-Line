@@ -22,7 +22,9 @@ namespace Fiber.UI
 		private async void Win()
 		{
 			CurrencyManager.Money.AddCurrency(LevelManager.Instance.CurrentLevel.Money, txtMoneyAmount.rectTransform.position, false);
+
 			txtMoneyAmount.transform.parent.gameObject.SetActive(false);
+			btnContinue.gameObject.SetActive(false);
 
 			await UniTask.Delay(2000);
 
@@ -42,6 +44,7 @@ namespace Fiber.UI
 
 		public override void Open()
 		{
+			btnContinue.gameObject.SetActive(true);
 			txtMoneyAmount.transform.parent.gameObject.SetActive(true);
 			SetLevelNo();
 			SetMoneyAmount();

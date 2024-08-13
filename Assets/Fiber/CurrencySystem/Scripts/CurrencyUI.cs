@@ -94,6 +94,8 @@ namespace Fiber.CurrencySystem
 
 							ObjectPooler.Instance.Release(icon, currencyPoolName);
 							HapticManager.Instance.PlayHaptic(.6f, 0);
+							
+							AfterCurrencyAdded();
 						});
 					});
 				}
@@ -137,6 +139,11 @@ namespace Fiber.CurrencySystem
 			txt_Currency.transform.DOComplete();
 			txt_Currency.transform.DOScale(1.5f, .1f).SetLoops(2, LoopType.Yoyo);
 			txt_Currency.DOColor(Color.red, .1f).SetLoops(2, LoopType.Yoyo);
+		}
+
+		protected virtual void AfterCurrencyAdded()
+		{
+			
 		}
 	}
 }

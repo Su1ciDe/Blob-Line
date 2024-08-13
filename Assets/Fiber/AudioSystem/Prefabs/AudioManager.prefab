@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e392744b0eb445eb621164baaa87e0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPlayingAudioAtATime: 10
+  minPlayingAudioAtATime: 20
   maxPlayingAudioAtATime: 50
   tracks:
   - AudioSourcePrefab: {fileID: 152900401002307180, guid: 865d8dcca00124b79918d00446dc074a, type: 3}
