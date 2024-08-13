@@ -38,7 +38,7 @@ namespace GamePlay.Blobs
 		[SerializeField] private AnimationCurve jumpCurve;
 
 		public static float JUMP_POWER = 10;
-		public static float JUMP_DURATION = .5F;
+		public static float JUMP_DURATION = .75F;
 		private const float ANIM_DURATION = .35F;
 
 		public void Setup(CellType cellType, GridCell cell = null)
@@ -116,6 +116,8 @@ namespace GamePlay.Blobs
 		public void OnJumpToHolder(Holder holder)
 		{
 			IsInGrid = false;
+			IsMoving = true;
+
 			animator.SetBool(armsLegs, false);
 
 			if (CurrentHolder)
@@ -135,8 +137,14 @@ namespace GamePlay.Blobs
 			IsMoving = false;
 		}
 
+		public void OnEnterToHolder()
+		{
+			IsMoving = false;
+		}
+
 		public Tween JumpTo(Vector3 position)
 		{
+			transform.DOComplete();
 			return transform.DOJump(position, JUMP_POWER, 1, JUMP_DURATION).SetEase(jumpCurve);
 		}
 

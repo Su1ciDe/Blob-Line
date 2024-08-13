@@ -239,7 +239,7 @@ namespace GridSystem
 			StartCoroutine(BubbleFeedbackCoroutine(tempBlobs));
 		}
 
-		private readonly WaitForSeconds waitFeedback = new WaitForSeconds(0.05f);
+		private readonly WaitForSeconds waitFeedback = new WaitForSeconds(0.075f);
 
 		private IEnumerator BubbleFeedbackCoroutine(List<Blob> blobs, bool toGoal = false)
 		{

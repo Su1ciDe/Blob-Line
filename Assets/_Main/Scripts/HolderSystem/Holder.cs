@@ -1,4 +1,7 @@
+using System.Linq;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using GamePlay.Blobs;
 using Interfaces;
 using UnityEngine;
@@ -7,8 +10,8 @@ namespace HolderSystem
 {
 	public class Holder : MonoBehaviour, ISlot
 	{
-		public List<Blob> Blobs { get;  set; } = new List<Blob>();
-		public int Index { get;  set; }
+		public List<Blob> Blobs { get; set; } = new List<Blob>();
+		public int Index { get; set; }
 
 		[SerializeField] private float size;
 		public float Size => size;
@@ -18,8 +21,31 @@ namespace HolderSystem
 		public void SetBlob(Blob blob)
 		{
 			Blobs.Add(blob);
+			if (Blobs.Count.Equals(HolderManager.MAX_STACK_COUNT))
+			{
+				Complete();
+			}
 		}
 
 		public Transform GetTransform() => transform;
+
+		private void Complete()
+		{
+			CompleteAsync();
+		}
+
+		private async void CompleteAsync()
+		{
+			await UniTask.WaitUntil(() => !Blobs.Any(x => x.IsMoving));
+			for (var i = Blobs.Count - 1; i >= 0; i--)
+			{
+				Blobs[i].transform.DOLocalMoveY(-i * .1f, .1f).SetRelative(true).SetLoops(2, LoopType.Yoyo);
+			}
+
+			for (var i = 0; i < Blobs.Count; i++)
+			{
+				Blobs[i].transform.DOScale(1.25f, .1f).SetDelay(0.2f + i * 0.05f).SetLoops(2, LoopType.Yoyo);
+			}
+		}
 	}
 }

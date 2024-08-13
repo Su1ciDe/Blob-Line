@@ -22,8 +22,7 @@ namespace HolderSystem
 		[Title("References")]
 		[SerializeField] private Holder holderPrefab;
 
-		private List<Holder> holders = new List<Holder>();
-		public List<Holder> Holders => holders;
+		public List<Holder> Holders { get; } = new List<Holder>();
 
 		public const int MAX_STACK_COUNT = 10;
 
@@ -57,7 +56,7 @@ namespace HolderSystem
 			{
 				var holder = Instantiate(holderPrefab, transform);
 				holder.transform.localPosition = new Vector3(i * holderPrefab.Size - offset, 0, 0);
-				holders.Add(holder);
+				Holders.Add(holder);
 			}
 		}
 
@@ -93,12 +92,14 @@ namespace HolderSystem
 					blob.OnJumpToHolder(holder);
 					holder.SetBlob(blob);
 					tempBlobs.RemoveAt(0);
-					blob.JumpTo(new Vector3(holder.transform.position.x, holder.transform.position.y + Holder.OFFSET * holder.Blobs.Count, holder.transform.position.z));
+					blob.JumpTo(new Vector3(holder.transform.position.x, holder.transform.position.y + Holder.OFFSET * holder.Blobs.Count, holder.transform.position.z))
+						.OnComplete(() => blob.OnEnterToHolder());
 
 					yield return holderDelay;
 				}
 				else
 				{
+					// holder.Complete();
 					StartCoroutine(OnBlobsToHolderCoroutine(tempBlobs));
 					yield break;
 				}
@@ -143,12 +144,12 @@ namespace HolderSystem
 
 			for (int i = holderCount - 1; i >= 0; i--)
 			{
-				if (holders[i].Blobs.Count.Equals(0)) continue;
-				if (holders[i].Blobs[0].CellType != newGoal.CellType) continue;
+				if (Holders[i].Blobs.Count.Equals(0)) continue;
+				if (Holders[i].Blobs[0].CellType != newGoal.CellType) continue;
 
 				StopCheckFail();
 
-				var blobsReversed = new List<Blob>(holders[i].Blobs);
+				var blobsReversed = new List<Blob>(Holders[i].Blobs);
 				blobsReversed.Reverse();
 				GoalManager.Instance.OnBlobsToGoal(blobsReversed, newGoal);
 
@@ -177,17 +178,17 @@ namespace HolderSystem
 
 		public Holder GetFirstHolder(CellType cellType)
 		{
-			for (var i = 0; i < holders.Count; i++)
+			for (var i = 0; i < Holders.Count; i++)
 			{
-				var holder = holders[i];
+				var holder = Holders[i];
 				if (holder.Blobs.Count.Equals(MAX_STACK_COUNT)) continue;
 				if (holder.Blobs.Count.Equals(0))
 				{
-					return holders[i];
+					return Holders[i];
 				}
 				else if (holder.Blobs[0].CellType == cellType)
 				{
-					return holders[i];
+					return Holders[i];
 				}
 			}
 

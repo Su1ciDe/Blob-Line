@@ -1012,65 +1012,13 @@ PrefabInstance:
       value: LevelManager
       objectReference: {fileID: 0}
     - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.size
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[2]
+      propertyPath: Levels.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: b36be2edb3b03e646a7ebb7fc7c67a2a, type: 2}
+      objectReference: {fileID: 11400000, guid: ef0918735e429514e8c0b3aac0d868c8, type: 2}
     - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[3]
+      propertyPath: Levels.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 8a61b87d86a24e448a92bada310bcdb9, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: bd0f2d8e765657247be56e5bcc139031, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: 244097441784f394c9f4b201f34ff455, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[6]
-      value: 
-      objectReference: {fileID: 11400000, guid: be124e545048be84c9d365cd363016b1, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[7]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4a4b11130bbc3164e8af4990a527b929, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[8]
-      value: 
-      objectReference: {fileID: 11400000, guid: c420f6053ea8a3d44b62d50b783d4860, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[9]
-      value: 
-      objectReference: {fileID: 11400000, guid: 6e1d2d8e60a0d3544959f8c22547395b, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[10]
-      value: 
-      objectReference: {fileID: 11400000, guid: bd3ec123d91fe1e429524580a3d5e958, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[11]
-      value: 
-      objectReference: {fileID: 11400000, guid: be69d656655f507498d2deff1c66ba25, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[12]
-      value: 
-      objectReference: {fileID: 11400000, guid: 86373c08e3aeb48439b5effd5aeee1af, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[13]
-      value: 
-      objectReference: {fileID: 11400000, guid: 5142b217016e3b5469075864600beabe, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: Levels.Array.data[14]
-      value: 
-      objectReference: {fileID: 11400000, guid: fb32922de1590f4449c2da4b6e2c76b8, type: 2}
-    - target: {fileID: 2171944396568542195, guid: 57581fc643bb5469a94e5ed25d7eeedd, type: 3}
-      propertyPath: TutorialLevels.Array.size
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d764e263f2c664b439d6489339b6c468, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
