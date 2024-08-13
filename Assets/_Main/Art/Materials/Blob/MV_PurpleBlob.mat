@@ -29,7 +29,9 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _RampSmoothing: 0.253
+    - _RampThreshold: 0.688
     m_Colors:
     - _BaseColor: {r: 0.43354583, g: 0.16313633, b: 0.735849, a: 1}
     - _SColor: {r: 0.28779078, g: 0.072267726, b: 0.5283019, a: 1}
