@@ -1,5 +1,7 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GamePlay.Blobs;
@@ -34,9 +36,23 @@ namespace HolderSystem
 			CompleteAsync();
 		}
 
+		private readonly CancellationTokenSource completeCancellationToken = new CancellationTokenSource();
+
+		public void StopComplete()
+		{
+			completeCancellationToken.Cancel();
+		}
+
 		private async void CompleteAsync()
 		{
-			await UniTask.WaitUntil(() => !Blobs.Any(x => x.IsMoving));
+			try
+			{
+				await UniTask.WaitUntil(() => !Blobs.Any(x => x.IsMoving), PlayerLoopTiming.Update, completeCancellationToken.Token, true);
+			}
+			catch (OperationCanceledException e)
+			{
+			}
+
 			for (var i = Blobs.Count - 1; i >= 0; i--)
 			{
 				Blobs[i].transform.DOLocalMoveY(-i * .1f, .1f).SetRelative(true).SetLoops(2, LoopType.Yoyo);

@@ -148,6 +148,7 @@ namespace HolderSystem
 				if (Holders[i].Blobs[0].CellType != newGoal.CellType) continue;
 
 				StopCheckFail();
+				Holders[i].StopComplete();
 
 				var blobsReversed = new List<Blob>(Holders[i].Blobs);
 				blobsReversed.Reverse();
