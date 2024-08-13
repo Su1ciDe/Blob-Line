@@ -1,5 +1,5 @@
+using Fiber.Utilities;
 using GamePlay.Blobs;
-using UnityEngine;
 
 namespace GamePlay.Obstacles
 {
@@ -12,8 +12,7 @@ namespace GamePlay.Obstacles
 			CurrentGridCell.CurrentNode = null;
 
 			Destroy(gameObject);
-			// breakableObject.Break();
-			// ParticlePooler.Instance.Spawn("Breakable", transform.position);
+			ParticlePooler.Instance.Spawn("BreakableObstacle", transform.position);
 		}
 	}
 }

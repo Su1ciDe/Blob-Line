@@ -49,3 +49,7 @@ MonoBehaviour:
     Prefab: {fileID: 1817797803601600, guid: 46e56f62e4ff899488d1b27766d1eb6d, type: 3}
     Size: 30
     AutoDeactivate: 1
+  - Tag: BreakableObstacle
+    Prefab: {fileID: 123268, guid: 56b1f77dab9f1e344b5c71738c2bb3bb, type: 3}
+    Size: 10
+    AutoDeactivate: 1

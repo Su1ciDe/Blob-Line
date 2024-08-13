@@ -39,7 +39,7 @@ MonoBehaviour:
   ActiveGoalCount: 1
   Goals:
   - GaolColor: 8
-    Count: 10
+    Count: 20
   - GaolColor: 3
     Count: 10
   - GaolColor: 3
@@ -52,6 +52,6 @@ MonoBehaviour:
     Count: 10
   goalCounts:
   - GaolColor: 8
-    TotalCount: 30
+    TotalCount: 40
   - GaolColor: 3
     TotalCount: 30

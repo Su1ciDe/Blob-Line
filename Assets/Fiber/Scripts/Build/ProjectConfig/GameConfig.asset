@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   companyName: Fiber Games
-  productName: Project-Template
-  productIcon: {fileID: 2800000, guid: 0049bd813b4544af79cb4fe539f26a73, type: 3}
+  productName: Blob Line
+  productIcon: {fileID: 2800000, guid: 439e22b6034bc51418dd2f7eb6426800, type: 3}
   version: 0.1
   iOSBundleId: com.fibergames.game
   teamId: 9JRFGT2VDU
@@ -25,6 +25,6 @@ MonoBehaviour:
   facebookClientToken: 
   gameId: 
   gameSecret: 
-  background: {fileID: 0}
-  loadingScreenLogo: {fileID: 0}
-  loadingScreenTitle: {fileID: 0}
+  background: {fileID: 21300000, guid: e20bae3a418047f498f3649976aff20c, type: 3}
+  loadingScreenLogo: {fileID: 21300000, guid: 4489abd7048d41f44a862720ceebd1fb, type: 3}
+  loadingScreenTitle: {fileID: 21300000, guid: d869babcf2bbd094dbadf9d8c2dfa54f, type: 3}

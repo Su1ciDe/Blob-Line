@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Fiber.Utilities;
 using Fiber.AudioSystem;
+using Fiber.CurrencySystem;
 using Fiber.LevelSystem;
 using LevelEditor;
 using Lofelt.NiceVibrations;
@@ -63,6 +64,18 @@ namespace Fiber.Managers
 #endif
 			LoadCurrentLevel();
 		}
+
+#if UNITY_EDITOR
+		
+
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.W))
+			{
+				Win();
+			}
+		}
+#endif
 
 		public void LoadCurrentLevel()
 		{
