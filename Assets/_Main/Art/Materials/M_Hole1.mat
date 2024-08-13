@@ -135,12 +135,12 @@ Material:
     - _DstBlendAlpha: 0
     - _EmissionChannel: 4
     - _EnvironmentReflections: 1
-    - _FresnelMax: 1.15
-    - _FresnelMin: 0.4
+    - _FresnelMax: 1.5
+    - _FresnelMin: 0.75
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _IndirectIntensity: 0.008
+    - _IndirectIntensity: 0.291
     - _IndirectIntensityOutline: 0
     - _MatCapMaskChannel: 0
     - _MatCapType: 0
@@ -160,17 +160,17 @@ Material:
     - _OutlineWidth: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _RampBands: 13
-    - _RampBandsSmoothing: 0.16
+    - _RampBands: 12
+    - _RampBandsSmoothing: 0.231
     - _RampOffset: 0
     - _RampScale: 1
-    - _RampSmoothing: 0.02
+    - _RampSmoothing: 0.044
     - _RampThreshold: 0.4
     - _RampType: 2
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 1
     - _ReflectionMapType: 0
-    - _ReflectionSmoothness: 0
+    - _ReflectionSmoothness: 0.111
     - _RenderingMode: 0
     - _RimMax: 1.54
     - _RimMin: 0.48
@@ -205,7 +205,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
+    - _BaseColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
     - _Color: {r: 0.09845857, g: 0.09845857, b: 0.09845857, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HColor: {r: 0, g: 0, b: 0, a: 1}
