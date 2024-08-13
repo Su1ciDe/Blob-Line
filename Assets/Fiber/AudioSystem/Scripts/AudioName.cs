@@ -15,6 +15,7 @@ namespace Fiber.AudioSystem
 		Plop3,
 		Pop1,
 		Pop2,
-		Pop3
+		Pop3,
+		Money,
 	}
 }
