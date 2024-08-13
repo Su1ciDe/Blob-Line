@@ -93,13 +93,12 @@ namespace HolderSystem
 					holder.SetBlob(blob);
 					tempBlobs.RemoveAt(0);
 					blob.JumpTo(new Vector3(holder.transform.position.x, holder.transform.position.y + Holder.OFFSET * holder.Blobs.Count, holder.transform.position.z))
-						.OnComplete(() => blob.OnEnterToHolder());
+						.OnComplete(() => blob.OnEnterToHolder(holder));
 
 					yield return holderDelay;
 				}
 				else
 				{
-					// holder.Complete();
 					StartCoroutine(OnBlobsToHolderCoroutine(tempBlobs));
 					yield break;
 				}

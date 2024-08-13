@@ -37,9 +37,9 @@ namespace GamePlay.Blobs
 		[Space]
 		[SerializeField] private AnimationCurve jumpCurve;
 
-		public static float JUMP_POWER = 10;
+		public static float JUMP_POWER = 8;
 		public static float JUMP_DURATION = .75F;
-		private const float ANIM_DURATION = .35F;
+		private const float SELECT_ANIM_DURATION = .35F;
 
 		public void Setup(CellType cellType, GridCell cell = null)
 		{
@@ -68,14 +68,14 @@ namespace GamePlay.Blobs
 		{
 			model.DOKill();
 			model.transform.localScale = 0.5f * Vector3.one;
-			model.DOScale(1.1f, ANIM_DURATION).SetEase(Ease.OutElastic);
+			model.DOScale(1.1f, SELECT_ANIM_DURATION).SetEase(Ease.OutElastic);
 		}
 
 		public void OnRemovedFromLine()
 		{
 			model.DOComplete();
 			model.transform.localScale = Vector3.one;
-			model.DOScale(0.8f * Vector3.one, ANIM_DURATION / 4f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
+			model.DOScale(0.8f * Vector3.one, SELECT_ANIM_DURATION / 4f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
 		}
 
 		public void PopBubble(int index, bool toGoal = false)
@@ -137,9 +137,11 @@ namespace GamePlay.Blobs
 			IsMoving = false;
 		}
 
-		public void OnEnterToHolder()
+		public void OnEnterToHolder(Holder holder)
 		{
 			IsMoving = false;
+
+			transform.DOScale(new Vector3(1.5f, 0.5f, 1.5f), .1f).SetLoops(2, LoopType.Yoyo);
 		}
 
 		public Tween JumpTo(Vector3 position)
