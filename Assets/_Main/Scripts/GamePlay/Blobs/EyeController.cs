@@ -39,8 +39,8 @@ namespace GamePlay.Blobs
 
 		private void OnEnable()
 		{
-			PlayerInputs.OnDown += OnFingerDown;
-			PlayerInputs.OnUp += OnFingerUp;
+			// PlayerInputs.OnDown += OnFingerDown;
+			// PlayerInputs.OnUp += OnFingerUp;
 
 			LevelManager.OnLevelWin += OnLevelWon;
 			LevelManager.OnLevelLose += OnLevelLost;
@@ -48,14 +48,14 @@ namespace GamePlay.Blobs
 
 		private void OnDisable()
 		{
-			PlayerInputs.OnDown -= OnFingerDown;
-			PlayerInputs.OnUp -= OnFingerUp;
+			// PlayerInputs.OnDown -= OnFingerDown;
+			// PlayerInputs.OnUp -= OnFingerUp;
 
 			LevelManager.OnLevelWin -= OnLevelWon;
 			LevelManager.OnLevelLose -= OnLevelLost;
 		}
 
-		private void OnFingerDown(Vector3 pos)
+		public void OnFingerDown()
 		{
 			for (var i = 0; i < lookAtConstraints.Length; i++)
 			{
@@ -69,7 +69,7 @@ namespace GamePlay.Blobs
 			}
 		}
 
-		private void OnFingerUp(Vector3 pos)
+		public void OnFingerUp()
 		{
 			for (var i = 0; i < lookAtConstraints.Length; i++)
 			{
@@ -118,12 +118,12 @@ namespace GamePlay.Blobs
 
 		private void OnLevelWon()
 		{
-			OnFingerUp(default);
+			OnFingerUp();
 		}
 
 		private void OnLevelLost()
 		{
-			OnFingerUp(default);
+			OnFingerUp();
 		}
 	}
 }

@@ -29,6 +29,7 @@ namespace GamePlay.Blobs
 		[SerializeField] private GameObject bubble;
 		[SerializeField] private Renderer[] renderers;
 		[SerializeField] private Animator animator;
+		[SerializeField] private EyeController eyeController;
 
 		[Space]
 		[SerializeField] private Vector3 positionOffset = new Vector3(0, 0.5f, 0);
@@ -69,6 +70,8 @@ namespace GamePlay.Blobs
 			model.DOKill();
 			model.transform.localScale = 0.5f * Vector3.one;
 			model.DOScale(1.1f, SELECT_ANIM_DURATION).SetEase(Ease.OutElastic);
+
+			eyeController.OnFingerDown();
 		}
 
 		public void OnRemovedFromLine()
@@ -76,6 +79,8 @@ namespace GamePlay.Blobs
 			model.DOComplete();
 			model.transform.localScale = Vector3.one;
 			model.DOScale(0.8f * Vector3.one, SELECT_ANIM_DURATION / 4f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
+
+			eyeController.OnFingerUp();
 		}
 
 		public void PopBubble(int index, bool toGoal = false)

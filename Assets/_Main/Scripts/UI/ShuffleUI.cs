@@ -15,6 +15,7 @@ namespace UI
 		private void Awake()
 		{
 			btnShuffle.onClick.AddListener(ShuffleButtonClicked);
+			IsEnough();
 		}
 
 		private void OnEnable()
