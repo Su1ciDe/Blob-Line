@@ -146,7 +146,8 @@ namespace GamePlay.Blobs
 		{
 			IsMoving = false;
 
-			transform.DOScale(new Vector3(1.5f, 0.5f, 1.5f), .1f).SetLoops(2, LoopType.Yoyo);
+			model.DOComplete();
+			model.DOScale(new Vector3(1.5f, 0.5f, 1.5f), .1f).SetLoops(2, LoopType.Yoyo);
 		}
 
 		public Tween JumpTo(Vector3 position)
