@@ -30,8 +30,10 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _RampSmoothing: 0.184
+    - _RampThreshold: 0.683
     - _UseSpecular: 1
     m_Colors:
-    - _BaseColor: {r: 0.7924528, g: 0.4061651, b: 0.10840159, a: 1}
+    - _BaseColor: {r: 0.7921569, g: 0.4043399, b: 0.10980394, a: 1}
     - _SColor: {r: 0.8867924, g: 0.09218295, b: 0, a: 1}
   m_BuildTextureStacks: []
