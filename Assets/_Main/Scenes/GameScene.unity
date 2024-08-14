@@ -687,11 +687,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4525601570793958294, guid: 8c5b5dccb5a0b49d88a0a560ce89ed8d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5248531559318381439, guid: 8c5b5dccb5a0b49d88a0a560ce89ed8d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7252027990271648411, guid: 8c5b5dccb5a0b49d88a0a560ce89ed8d, type: 3}
       propertyPath: m_AnchoredPosition.y
