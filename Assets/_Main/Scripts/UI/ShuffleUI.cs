@@ -1,5 +1,6 @@
 using System.Collections;
 using Fiber.CurrencySystem;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Grid = GridSystem.Grid;
@@ -11,10 +12,12 @@ namespace UI
 		[SerializeField] private int cost = 30;
 		[Space]
 		[SerializeField] private Button btnShuffle;
+		[SerializeField] private TMP_Text txtCost;
 
 		private void Awake()
 		{
 			btnShuffle.onClick.AddListener(ShuffleButtonClicked);
+			txtCost.SetText(cost.ToString());
 			IsEnough();
 		}
 
