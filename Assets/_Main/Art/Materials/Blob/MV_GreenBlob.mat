@@ -31,13 +31,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _IndirectIntensity: 0.77
-    - _RampSmoothing: 0.387
-    - _RampThreshold: 0.663
+    - _RampSmoothing: 0.245
+    - _RampThreshold: 0.656
     - _SpecularRoughness: 0.77
     - _UseOcclusion: 0
     - _UseOutline: 0
     - _UseSpecular: 1
     m_Colors:
-    - _BaseColor: {r: 0.1549929, g: 0.764151, b: 0.16693713, a: 1}
-    - _SColor: {r: 0.07976852, g: 0.33962262, b: 0, a: 1}
+    - _BaseColor: {r: 0.13363299, g: 0.7264151, b: 0.14510617, a: 1}
+    - _SColor: {r: 0.011014986, g: 0.047169805, b: 0.00022249961, a: 1}
   m_BuildTextureStacks: []
