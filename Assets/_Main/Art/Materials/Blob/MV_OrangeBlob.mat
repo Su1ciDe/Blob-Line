@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - TCP2_REFLECTIONS_FRESNEL
+  - TCP2_RIM_LIGHTING
   - TCP2_RIM_LIGHTING_LIGHTMASK
   - TCP2_SHADOW_LIGHT_COLOR
   - TCP2_SPECULAR
@@ -30,8 +31,8 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _RampSmoothing: 0.184
-    - _RampThreshold: 0.683
+    - _RampSmoothing: 0.193
+    - _RampThreshold: 0.703
     - _UseSpecular: 1
     m_Colors:
     - _BaseColor: {r: 0.7921569, g: 0.4043399, b: 0.10980394, a: 1}
