@@ -527,7 +527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4355458482465271913, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4822410447152990715, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
       propertyPath: m_Name
@@ -698,9 +698,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1134760969590811388}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4961361967801514627, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8304373084091707668}
     - targetCorrespondingSourceObject: {fileID: 8266528667097165247, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
       insertIndex: -1
       addedObject: {fileID: 529104445239401698}
@@ -827,32 +824,6 @@ LookAtConstraint:
   m_CorrespondingSourceObject: {fileID: 4879561750525395689, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
   m_PrefabInstance: {fileID: 691106046739997325}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5570109576562268174 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4961361967801514627, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
-  m_PrefabInstance: {fileID: 691106046739997325}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8304373084091707668
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5570109576562268174}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 22533914f6b104c539ba663ea8de8d96, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!23 &6218905205611788763 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6907026614616234838, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
