@@ -32,8 +32,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _IndirectIntensity: 0.77
-    - _RampSmoothing: 0.148
-    - _RampThreshold: 0.743
+    - _RampSmoothing: 0.218
+    - _RampThreshold: 0.704
     - _RimMax: 0.77
     - _RimMin: 0.34
     - _SpecularRoughness: 0.77
