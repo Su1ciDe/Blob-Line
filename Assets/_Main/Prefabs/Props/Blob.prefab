@@ -184,6 +184,7 @@ MonoBehaviour:
   - {fileID: 2882212583508112431}
   - {fileID: 6741738694529608479}
   animator: {fileID: 7493807523552799281}
+  eyeController: {fileID: 529104445239401698}
   positionOffset: {x: 0, y: 0.5, z: 0}
   jumpCurve:
     serializedVersion: 2
@@ -404,19 +405,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8105045825958785229, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.7072289
       objectReference: {fileID: 0}
     - target: {fileID: 8105045825958785229, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: -0.7069847
       objectReference: {fileID: 0}
     - target: {fileID: 8963679013524541376, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.7072289
       objectReference: {fileID: 0}
     - target: {fileID: 8963679013524541376, guid: afda5fe6b8d4aad43ac9a679a5774258, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: -0.7069847
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
