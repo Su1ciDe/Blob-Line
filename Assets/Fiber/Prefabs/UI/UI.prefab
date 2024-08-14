@@ -1756,7 +1756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 30
   btnShuffle: {fileID: 3768859333819240068}
-  txtCost: {fileID: 0}
+  txtCost: {fileID: 7898974079227807492}
 --- !u!1 &1830784678072748665
 GameObject:
   m_ObjectHideFlags: 0
