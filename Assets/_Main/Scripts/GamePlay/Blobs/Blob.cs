@@ -38,6 +38,12 @@ namespace GamePlay.Blobs
 		[Space]
 		[SerializeField] private AnimationCurve jumpCurve;
 
+		private static readonly int armsLegs = Animator.StringToHash("ArmsLegs");
+
+		private float velocity;
+
+		private const float FALL_SPEED = 20f;
+		private const float ACCELERATION = .5f;
 		public static float JUMP_POWER = 10;
 		public static float JUMP_DURATION = .75F;
 		private const float SELECT_ANIM_DURATION = .35F;
@@ -103,7 +109,7 @@ namespace GamePlay.Blobs
 			IsMoving = true;
 
 			// transform.DOScale(0.75f, JUMP_DURATION);
-			animator.SetBool(armsLegs, true);
+			SetArmAnimation(true);
 
 			if (CurrentGridCell)
 			{
@@ -123,7 +129,7 @@ namespace GamePlay.Blobs
 			IsInGrid = false;
 			IsMoving = true;
 
-			animator.SetBool(armsLegs, false);
+			SetArmAnimation(false);
 
 			if (CurrentHolder)
 				CurrentHolder.Blobs.Remove(this);
@@ -171,11 +177,6 @@ namespace GamePlay.Blobs
 
 			transform.SetParent(cell.transform);
 		}
-
-		private const float FALL_SPEED = 20f;
-		private const float ACCELERATION = .5f;
-		private float velocity;
-		private static readonly int armsLegs = Animator.StringToHash("ArmsLegs");
 
 		public void Fall(Vector3 position, Vector3? secondPosition = null)
 		{
@@ -239,6 +240,11 @@ namespace GamePlay.Blobs
 			{
 				downObstacle.OnBlastNear(this);
 			}
+		}
+
+		public void SetArmAnimation(bool isOpen)
+		{
+			animator.SetBool(armsLegs, isOpen);
 		}
 	}
 }

@@ -139,10 +139,14 @@ namespace GoalSystem
 					StartCoroutine(OnBlobsToGoalCoroutine(tempList, nextGoal));
 					yield break;
 				}
-				else if (tempList[0].CurrentGridCell)
+				else if (tempList[0].CurrentGridCell) // If they're in the grid
 				{
 					HolderManager.Instance.OnBlobsToHolder(tempList);
 					yield break;
+				}
+				else
+				{
+					blob.SetArmAnimation(false);
 				}
 
 				yield return goalDelay;

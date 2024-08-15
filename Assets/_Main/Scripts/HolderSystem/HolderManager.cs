@@ -80,6 +80,8 @@ namespace HolderSystem
 				StopCheckFail();
 				checkFailCoroutine = StartCoroutine(CheckFail());
 				excessBlobs = new List<Blob>(blobs);
+				for (var i = 0; i < excessBlobs.Count; i++)
+					excessBlobs[i].SetArmAnimation(false);
 
 				yield break;
 			}
