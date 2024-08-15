@@ -22,6 +22,7 @@ namespace Managers
 		private void OnEnable()
 		{
 			LevelManager.OnLevelStart += OnLevelStarted;
+			LevelManager.OnLevelUnload += OnLevelUnloaded;
 		}
 
 		private void OnDisable()
@@ -31,9 +32,26 @@ namespace Managers
 
 		private void OnDestroy()
 		{
+			Unsub();
+		}
+
+		private void OnLevelUnloaded()
+		{
+			Unsub();
+		}
+
+		private void Unsub()
+		{
 			StopAllCoroutines();
 
 			LineController.OnLineComplete -= Level1OnLineCompleteBlue;
+
+			if (TutorialUI.Instance)
+			{
+				tutorialUI.HideFocus();
+				tutorialUI.HideHand();
+				tutorialUI.HideText();
+			}
 		}
 
 		private void OnLevelStarted()

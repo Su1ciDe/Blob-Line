@@ -20,17 +20,14 @@ namespace UI
 			btnShuffle.onClick.AddListener(ShuffleButtonClicked);
 			txtCost.SetText(cost.ToString());
 			IsEnough();
-		}
 
-		private void OnEnable()
-		{
 			LevelManager.OnLevelStart += OnLevelStarted;
 
 			CurrencyManager.Money.OnAmountAdded += OnMoneyAdded;
 			CurrencyManager.Money.OnAmountSpent += OnMoneySpent;
 		}
 
-		private void OnDisable()
+		private void OnDestroy()
 		{
 			LevelManager.OnLevelStart -= OnLevelStarted;
 

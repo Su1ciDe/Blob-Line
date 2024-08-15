@@ -26,7 +26,7 @@ namespace Fiber.UI
 			txtMoneyAmount.transform.parent.gameObject.SetActive(false);
 			btnContinue.gameObject.SetActive(false);
 
-			await UniTask.Delay(2000);
+			await UniTask.Delay(2250);
 
 			LevelManager.Instance.LoadNextLevel();
 			Close();
