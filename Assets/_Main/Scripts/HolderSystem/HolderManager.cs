@@ -10,6 +10,7 @@ using LevelEditor;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using Grid = GridSystem.Grid;
 
 namespace HolderSystem
 {
@@ -152,6 +153,7 @@ namespace HolderSystem
 				var blobsReversed = new List<Blob>(Holders[i].Blobs);
 				blobsReversed.Reverse();
 				GoalManager.Instance.OnBlobsToGoal(blobsReversed, newGoal);
+				Grid.Instance.BubbleFeedbackToGoal(blobsReversed, newGoal);
 
 				var goalCounter = newGoal.NeededAmount - newGoal.CurrentAmount;
 				var holderCounter = blobsReversed.Count;

@@ -102,7 +102,7 @@ namespace GamePlay.Blobs
 			IsInGrid = false;
 			IsMoving = true;
 
-			transform.DOScale(0.75f, JUMP_DURATION);
+			// transform.DOScale(0.75f, JUMP_DURATION);
 			animator.SetBool(armsLegs, true);
 
 			if (CurrentGridCell)

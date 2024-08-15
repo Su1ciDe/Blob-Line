@@ -28,3 +28,19 @@ MonoBehaviour:
       Value: {fileID: 2100000, guid: ff36611ac35a3465b84925c68061b28a, type: 2}
     - Key: 8
       Value: {fileID: 2100000, guid: 08c4800933b2b4b358edba7b30e43d3e, type: 2}
+  BlobColors:
+    _serializedList:
+    - Key: 2
+      Value: {r: 0, g: 0, b: 0, a: 0}
+    - Key: 3
+      Value: {r: 0, g: 0, b: 0, a: 0}
+    - Key: 4
+      Value: {r: 0, g: 0, b: 0, a: 0}
+    - Key: 5
+      Value: {r: 0, g: 0, b: 0, a: 0}
+    - Key: 6
+      Value: {r: 0, g: 0, b: 0, a: 0}
+    - Key: 7
+      Value: {r: 0, g: 0, b: 0, a: 0}
+    - Key: 8
+      Value: {r: 0, g: 0, b: 0, a: 0}

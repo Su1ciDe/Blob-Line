@@ -8,5 +8,6 @@ namespace ScriptableObjects
 	public class BlobMaterialsSO : ScriptableObject
 	{
 		public SerializedDictionary<CellType, Material> BlobMaterials = new SerializedDictionary<CellType, Material>();
+		public SerializedDictionary<CellType, Color> BlobColors = new SerializedDictionary<CellType, Color>();
 	}
 }
