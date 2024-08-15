@@ -1,4 +1,5 @@
 using System.Collections;
+using Fiber.Managers;
 using Fiber.CurrencySystem;
 using TMPro;
 using UnityEngine;
@@ -23,14 +24,23 @@ namespace UI
 
 		private void OnEnable()
 		{
+			LevelManager.OnLevelStart += OnLevelStarted;
+
 			CurrencyManager.Money.OnAmountAdded += OnMoneyAdded;
 			CurrencyManager.Money.OnAmountSpent += OnMoneySpent;
 		}
 
 		private void OnDisable()
 		{
+			LevelManager.OnLevelStart -= OnLevelStarted;
+
 			CurrencyManager.Money.OnAmountAdded -= OnMoneyAdded;
 			CurrencyManager.Money.OnAmountSpent -= OnMoneySpent;
+		}
+
+		private void OnLevelStarted()
+		{
+			IsEnough();
 		}
 
 		private void ShuffleButtonClicked()
