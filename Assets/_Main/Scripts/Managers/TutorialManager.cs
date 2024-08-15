@@ -73,7 +73,7 @@ namespace Managers
 
 			var width = Grid.Instance.GridCells.GetLength(0) - 1;
 			var height = Grid.Instance.GridCells.GetLength(1) - 1;
-			tutorialUI.ShowText("Make a line");
+			tutorialUI.ShowText("Make 3 or more links");
 			tutorialUI.ShowSwipe(Helper.MainCamera, Grid.Instance.GridCells[0, height].transform.position, Grid.Instance.GridCells[0, 0].transform.position,
 				Grid.Instance.GridCells[width, 0].transform.position, Grid.Instance.GridCells[width, height].transform.position);
 

@@ -556,8 +556,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19.6, y: -39}
-  m_SizeDelta: {x: 89.2874, y: 38.0809}
+  m_AnchoredPosition: {x: 19.4025, y: -40.384087}
+  m_SizeDelta: {x: 88.8925, y: 40.8491}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5761093566606761318
 CanvasRenderer:
@@ -616,8 +616,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.4
-  m_fontSizeBase: 30.4
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 10
@@ -2507,7 +2507,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 5806135991497344214}
   m_OnClick:
     m_PersistentCalls:
