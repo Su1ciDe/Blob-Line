@@ -42,10 +42,10 @@ namespace GoalSystem
 			NeededAmount = neededAmount;
 			CurrentAmount = 0;
 
-			var mat = GameManager.Instance.BlobMaterialsSO.BlobMaterials[cellType];
+			var color = GameManager.Instance.BlobMaterialsSO.BlobColors[cellType];
 			// mr.material.color = mat.color;
 			txtCount.SetText(NeededAmount.ToString());
-			imgFill.color = mat.color;
+			imgFill.color = color;
 			// imgFill.fillAmount = 0;
 		}
 
