@@ -38,7 +38,7 @@ namespace GamePlay.Blobs
 		[Space]
 		[SerializeField] private AnimationCurve jumpCurve;
 
-		public static float JUMP_POWER = 8;
+		public static float JUMP_POWER = 10;
 		public static float JUMP_DURATION = .75F;
 		private const float SELECT_ANIM_DURATION = .35F;
 
