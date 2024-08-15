@@ -34,7 +34,7 @@ MonoBehaviour:
     Weight: 40
     Chance: 40.00%
   totalWeight: 100
-  ActiveGoalCount: 4
+  ActiveGoalCount: 3
   Goals:
   - GaolColor: 6
     Count: 10
