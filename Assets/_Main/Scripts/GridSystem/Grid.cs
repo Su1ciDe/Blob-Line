@@ -342,7 +342,7 @@ namespace GridSystem
 					yy = i;
 				}
 
-				if (gridCells[x, i].CurrentNode is not null & gridCells[x, i].CurrentNode is BaseObstacle)
+				if (gridCells[x, i].CurrentNode is not null && gridCells[x, i].CurrentNode is BaseObstacle)
 				{
 					foundFirst = false;
 					yy = -1;
